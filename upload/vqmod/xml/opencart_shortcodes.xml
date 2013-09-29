@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modification>
+	<id>OpenCart Shortcodes</id>
+	<version>1.0</version>
+	<vqmver>2.3.0</vqmver>
+	<author>qahar [echothemes.com]</author>
+   <file name="system/startup.php">
+      <operation>
+         <search position="after"><![CDATA[DIR_SYSTEM . 'library/template.php']]></search>
+         <add><![CDATA[
+         require_once(DIR_SYSTEM . 'library/shortcodes_wp.php');
+         ]]></add>
+      </operation>		
+   </file>
+   <file name="catalog/controller/common/maintenance.php">
+      <operation>
+         <search position="after"><![CDATA[function index()]]></search>
+         <add><![CDATA[
+         //=========== OpenCart Shortcodes
+         
+         //=== Default shortcode
+         $this->load->library('shortcodes');
+         
+         $class      = new Shortcodes($this->registry);
+         $shortcodes = get_class_methods('shortcodes');
+         $shortcodes = array_slice($shortcodes, 3);
+         foreach ($shortcodes as $shortcode) {
+            add_shortcode($shortcode, $shortcode, $class);
+         }
+         
+         //=== Theme extending shortcode
+         $file = DIR_TEMPLATE . $this->config->get('config_template') . '/shortcodes.php';
+         if (file_exists($file)) {
+            include_once($file);
+            
+            $class      = new themeShortcodes($this->registry);
+            $shortcodes = get_class_methods('shortcodes');
+            foreach ($shortcodes as $shortcode) {
+               add_shortcode($shortcode, $shortcode, $class);
+            }
+         }
+         
+         //=========== END :: OpenCart Shortcodes
+         ]]></add>
+      </operation>		
+   </file>
+	<file name="system/engine/controller.php">
+		<operation>
+         <search position="before"><![CDATA[return $this->output;]]></search>
+         <add><![CDATA[
+         $this->output = do_shortcode($this->output);
+         ]]></add>
+         </operation>		
+	</file>
+   <file name="catalog/controller/common/header.php">
+		<operation error="log">
+			<search position="after"><![CDATA[protected function index()]]></search>
+			<add><![CDATA[
+			//=========== OpenCart Shortcodes
+         if (isset($this->session->data['shortcodes'])) {
+            $shortcodes = $this->session->data['shortcodes'];
+            
+            isset($shortcodes['setTitle']) ? $this->document->setTitle($shortcodes['setTitle']) : '' ;
+            isset($shortcodes['setDescription']) ? $this->document->setDescription($shortcodes['setDescription']) : '' ;
+            isset($shortcodes['setKeywords']) ? $this->document->setKeywords($shortcodes['setKeywords']) : '' ;
+            
+            if (isset($shortcodes['addStyle']) && is_array($shortcodes['addStyle'])) {
+               foreach ($shortcodes['addStyle'] as $style) {
+                  $this->document->addStyle($style);
+               }
+            }
+            //$this->document->addScript( $script )
+            
+            unset($this->session->data['shortcodes']);
+         }
+         //=========== END :: OpenCart Shortcodes
+			]]></add>
+		</operation>
+	</file>
+</modification>
