@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <modification>
 	<id>OpenCart Shortcodes</id>
-	<version>1.0</version>
-	<vqmver>2.3.0</vqmver>
+	<version>v.1.0-Beta</version>
+	<vqmver>2.3.2</vqmver>
 	<author>qahar [echothemes.com]</author>
    <file name="system/startup.php">
-      <operation>
-         <search position="after"><![CDATA[DIR_SYSTEM . 'library/template.php']]></search>
+      <operation error="abort" info="Load shortcodes library">
+         <search position="after"><![CDATA[DIR_SYSTEM . 'engine/action.php']]></search>
          <add><![CDATA[
+         define('SHORTCODES_VERSION', '1.0-Beta');
          require_once(DIR_SYSTEM . 'library/shortcodes_wp.php');
          ]]></add>
-      </operation>		
+      </operation>
    </file>
    <file name="catalog/controller/common/maintenance.php">
-      <operation>
+      <operation error="log" info="Load default and extend shortcodes ">
          <search position="after"><![CDATA[function index()]]></search>
          <add><![CDATA[
          //=========== OpenCart Shortcodes
@@ -28,7 +29,7 @@
             add_shortcode($shortcode, $shortcode, $class);
          }
          
-         //=== Theme extending shortcode
+         //=== Themes extending shortcode
          $file = DIR_TEMPLATE . $this->config->get('config_template') . '/shortcodes.php';
          if (file_exists($file)) {
             include_once($file);
@@ -45,36 +46,11 @@
       </operation>		
    </file>
 	<file name="system/engine/controller.php">
-		<operation>
+		<operation error="log" info="Execute shortcode tags">
          <search position="before"><![CDATA[return $this->output;]]></search>
          <add><![CDATA[
          $this->output = do_shortcode($this->output);
          ]]></add>
-         </operation>		
-	</file>
-   <file name="catalog/controller/common/header.php">
-		<operation error="log">
-			<search position="after"><![CDATA[protected function index()]]></search>
-			<add><![CDATA[
-			//=========== OpenCart Shortcodes
-         if (isset($this->session->data['shortcodes'])) {
-            $shortcodes = $this->session->data['shortcodes'];
-            
-            isset($shortcodes['setTitle']) ? $this->document->setTitle($shortcodes['setTitle']) : '' ;
-            isset($shortcodes['setDescription']) ? $this->document->setDescription($shortcodes['setDescription']) : '' ;
-            isset($shortcodes['setKeywords']) ? $this->document->setKeywords($shortcodes['setKeywords']) : '' ;
-            
-            if (isset($shortcodes['addStyle']) && is_array($shortcodes['addStyle'])) {
-               foreach ($shortcodes['addStyle'] as $style) {
-                  $this->document->addStyle($style);
-               }
-            }
-            //$this->document->addScript( $script )
-            
-            unset($this->session->data['shortcodes']);
-         }
-         //=========== END :: OpenCart Shortcodes
-			]]></add>
-		</operation>
+      </operation>
 	</file>
 </modification>

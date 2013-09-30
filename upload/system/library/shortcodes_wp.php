@@ -18,6 +18,11 @@
  * http://www.wordpress.org/
  * All rights reserved
  *
+ *
+ * A few examples are below:
+ * [shortcode /]
+ * [shortcode foo="bar" baz="bing" /]
+ * [shortcode foo="bar"]content[/shortcode]
  */
 
 $shortcode_tags = array();
