@@ -1,8 +1,12 @@
 # OpenCart Shortcodes #
 
-Library to enhance OpenCart with shortcodes.
+**Status:** v.1.0-RC
 
-**Status:** v.1.0-Beta
+OpenCart Shortcodes is a library and set of modification to enhance OpenCart with shortcodes based on Wordpress API.
+
+This is rc (release candidate) version to publicly test. We do our homework to test it but more tester mean more possibility to find bugs. We are expecting report or feedback before release it as -stable version- ready for production.
+
+For download and installation please refer to [installation](https://github.com/qahar/opencart-shortcodes/wiki/Install) page.
 
 ### License ###
 
