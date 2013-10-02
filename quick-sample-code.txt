@@ -1,0 +1,117 @@
+<h2>Links</h2>
+
+<h3># Product Link</h3>
+<div style="margin-left:40px;">
+   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
+      [[link_product id="42" /]]
+   </div>
+   <p><strong>Result:</strong> [link_product id="42" /]</p>
+
+   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
+   [[link_product id="42" path="25_28" ssl="1" title="Very good products!" /]]
+   </div>
+   <p><strong>Result:</strong> [link_product id="42" path="25_28" ssl="1" title="Very good products!" /]</p>
+
+   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
+   A link to [[link_product id="42" brand="8"]product[/link_product]] with brand.
+   </div>
+   <p><strong>Result:</strong> A link to [link_product id="42" brand="8"]product[/link_product] with brand.</p>
+</div>
+
+<h3># Category Link</h3>
+<div style="margin-left:40px;">
+   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
+      [[link_category path="20" ssl="0" /]]
+   </div>
+   <p><strong>Result:</strong> [link_category path="20" ssl="0" /]</p>
+
+   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
+      Upcoming amazing [[link_category path="20_27" ssl="0"]macbook[/link_category]] for geek!
+   </div>
+   <p><strong>Result:</strong> Upcoming amazing [link_category path="20_27" ssl="0"]macbook[/link_category] for geek!</p>
+</div>
+
+<h3># Manufacturer Link</h3>
+<div style="margin-left:40px;">
+   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
+      [[link_brand /]]
+   </div>
+   <p><strong>Result:</strong> [link_brand/]</p>
+   
+   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
+      [[link_brand title="brand custom text"]custom text[/link_brand]]
+   </div>
+   <p><strong>Result:</strong> [link_brand title="brand custom text"]custom text[/link_brand]</p>
+
+   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
+      View all [[link_brand brand="8"]Apple[/link_brand]] product at the store.
+   </div>
+   <p><strong>Result:</strong> View all [link_brand brand="8" /] available at the store.</p>
+   <p><strong>Result:</strong> View all [link_brand brand="8" ssl="0"]apple[/link_brand] available at the store.</p>
+</div>
+
+<h3># Information Link</h3>
+<div style="margin-left:40px;">
+   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
+      [[link_info id="6" ssl="0" /]]
+   </div>
+   <p><strong>Result:</strong> [link_info id="6" /]</p>
+
+   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
+      Check world wide free [[link_info id="6" ssl="0"]shipping[/link_info]].
+   </div>
+   <p><strong>Result:</strong> Check world wide free [link_info id="6" ssl="1"]shipping[/link_info].</p>
+</div>
+
+<h3># Custom Link</h3>
+<div style="margin-left:40px;">
+   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
+      [[link_custom route="common/home"]homepage[/link_custom]]
+   </div>
+   <p><strong>Result:</strong> [link_custom route="common_home"]homepage[/link_custom]</p>
+   
+   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
+      Read our [[link_custom route="information/information" args="information_id=3"]privacy[/link_custom]] policy
+   </div>
+   <p><strong>Result:</strong> Read our [link_custom route="information/information" args="information_id=3"]privacy[/link_custom] policy</p>
+</div>
+
+<h2>Links</h2>
+
+<h3># Products Module</h3>
+<div>
+   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
+      [[module_product type="featured" /]]
+   </div>
+   [module_product type="featured" /]
+   
+   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
+      [[module_product type="latest" limit="5" img_w="110" img_h="110" /]]
+   </div>
+   [module_product type="latest" limit="6" img_w="110" img_h="110" /]
+   
+   <div style="overflow:hidden;">
+      <div style="width:49%; float:left;">
+         <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
+            [[module_product type="special"  limit="3" /]]
+         </div>
+         [module_product type="special" limit="3" /]
+      </div>
+      <div style="width:49%; margin-left:2%; float:left;">
+         <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
+            [[module_product type="bestseller"  limit="3" /]]
+         </div>
+         [module_product type="bestseller" limit="3" /]
+      </div>
+   </div>
+</div>
+
+
+<h2>Debug</h2>
+
+<div style="margin-left:40px;">
+   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
+      [[debug]]
+   </div>
+   <p>[debug]</p>
+</div>
