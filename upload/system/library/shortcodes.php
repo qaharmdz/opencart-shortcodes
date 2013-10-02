@@ -95,7 +95,7 @@ class Shortcodes {
     */
    function link_brand($atts, $content = '') {
       extract(shortcode_atts(array(
-         'brand'   => 0,
+         'brand'  => 0,
          'ssl'    => 0,
          'title'  => ''
       ), $atts));
@@ -104,17 +104,18 @@ class Shortcodes {
       $title   = ($title) ? 'Title="' . $title . '"' : "";
       
       if (!$content) {
+         $this->load->language('product/manufacturer');
          $this->load->model('catalog/manufacturer');
          $manufacturer = $this->model_catalog_manufacturer->getManufacturer($brand);
          
          if (!$brand) {
-            return '<a href="' . $this->url->link('product/manufacturer', '', $ssl) . '" ' . $title . '>' . $manufacturer['name'] . '</a>';
+            return '<a href="' . $this->url->link('product/manufacturer', '', $ssl) . '" ' . $title . '>' . $this->language->get('text_brand') . '</a>';
          } else {
             return '<a href="' . $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $brand, $ssl) . '" ' . $title . '>' . $manufacturer['name'] . '</a>';
          }
       } elseif ($content) {
          if (!$brand) {
-            return '<a href="' . $this->url->link('product/manufacturer', '', $ssl) . '" ' . $title . '>' . $content . '</a>';
+            return '<a href="' . $this->url->link('product/manufacturer', 'manufacturer_id=' . $brand, $ssl) . '" ' . $title . '>' . $content . '</a>';
          } else {
             return '<a href="' . $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $brand, $ssl) . '" ' . $title . '>' . $content . '</a>';
          }
@@ -142,7 +143,7 @@ class Shortcodes {
             $this->load->model('catalog/category');
             $information = $this->model_catalog_information->getInformation($id);
             
-            return '<a href="' . $this->url->link('information/information', 'information_id=' . $id, $ssl) . '" ' . $title . '>' . $information['name'] . '</a>';
+            return '<a href="' . $this->url->link('information/information', 'information_id=' . $id, $ssl) . '" ' . $title . '>' . $information['title'] . '</a>';
          } elseif ($content) {
             return '<a href="' . $this->url->link('information/information', 'information_id=' . $id, $ssl) . '" ' . $title . '>' . $content . '</a>';
          }
@@ -162,8 +163,34 @@ class Shortcodes {
          'title'  => ''
       ), $atts));
       
-      if($route) {
+      if($route && $content) {
          return '<a href="' . $this->url->link($route, $args, $ssl) . '" ' . $title . '>' . $content . '</a>';
+      }
+   }
+   
+   /**
+    * Load module type product (featured, latest, bestseller, special) everywhere!
+    *
+    * [module_product type="featured" limit="5" img_w="100" img_h="100" /]
+    */
+   function module_product($atts) {
+      extract(shortcode_atts(array(
+         'type'   => '',
+         'limit'  => 5,
+         'img_w'  => 80,
+         'img_h'  => 80
+      ), $atts));
+
+      if ($type) {
+         $action = new sController($this->registry); 
+
+         $module = $action->get_child('module/' . $type, array(
+                     'limit' => $limit,
+                     'image_width' => $img_w,
+                     'image_height' => $img_h
+                  ));
+         
+         return $module;
       }
    }
    
@@ -210,14 +237,20 @@ class Shortcodes {
       $style  .= '.sc-good { color:#1da00c; font-weight:bold; }';
       $style  .= '</style>';
       
-      return $data . $style;
+      // Show debug only for admin user
+      $this->load->library('user');
+      $this->user = new User($this->registry);
+
+      if ($this->user->isLogged()) {
+         return $data . $style;
+      }
    }
 }
 
 class sController extends Controller {
    function __construct($registry) {
-		$this->registry = $registry;
-	}
+      $this->registry = $registry;
+   }
 
    function get_child($child, $args = array()) {
       return $this->getChild($child, $args);

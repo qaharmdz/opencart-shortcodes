@@ -11,7 +11,6 @@
  * http://www.rempongsoft.com
  * All rights reserved
  *
- *
  * Based on WordPress Shortcode
  * Copyright (c) 2003-2013 Wordpress
  * Licensed under the GPLv2 (or later)
@@ -19,7 +18,7 @@
  * All rights reserved
  *
  *
- * A few examples are below:
+ * Shortcodes format example:
  * [shortcode /]
  * [shortcode foo="bar" baz="bing" /]
  * [shortcode foo="bar"]content[/shortcode]
