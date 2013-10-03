@@ -16,6 +16,11 @@
    A link to [[link_product id="42" brand="8"]product[/link_product]] with brand.
    </div>
    <p><strong>Result:</strong> A link to [link_product id="42" brand="8"]product[/link_product] with brand.</p>
+   
+   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
+   A link to [[link_product id="101" path="25_28"]product[/link_product]] with brand.
+   </div>
+   <p><strong>Result:</strong> A link to [link_product id="101" path="25_28"]product[/link_product] with category. <em>(return plain text if product is not available)</em></p>
 </div>
 
 <h3># Category Link</h3>
@@ -44,9 +49,8 @@
    <p><strong>Result:</strong> [link_brand title="brand custom text"]custom text[/link_brand]</p>
 
    <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
-      View all [[link_brand brand="8"]Apple[/link_brand]] product at the store.
+      View all [[link_brand brand="8"]apple[/link_brand]] product at the store.
    </div>
-   <p><strong>Result:</strong> View all [link_brand brand="8" /] available at the store.</p>
    <p><strong>Result:</strong> View all [link_brand brand="8" ssl="0"]apple[/link_brand] available at the store.</p>
 </div>
 
@@ -76,7 +80,26 @@
    <p><strong>Result:</strong> Read our [link_custom route="information/information" args="information_id=3"]privacy[/link_custom] policy</p>
 </div>
 
-<h2>Links</h2>
+<h3># Store Link</h3>
+<p>Similiar to custom link shortcode with specific purpose to generate link to multistore.</p>
+<div style="margin-left:40px;">
+   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
+      [[link_store store="1" route="common/home"]homepage[/link_store]]
+   </div>
+   <p><strong>Result:</strong> [link_store store="1" route="common/home"]homepage[/link_store]</p>
+   
+   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
+      Read our [[link_store store="1" route="information/information" args="information_id=3"]privacy[/link_store]] policy
+   </div>
+   <p><strong>Result:</strong> Read our [link_store store="1" route="information/information" args="information_id=3"]privacy[/link_store] policy</p>
+   
+   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
+      [[link_store store="2" route="common/home"]homepage[/link_store]]
+   </div>
+   <p><strong>Result:</strong> [link_store store="2" route="common/home"]homepage[/link_store] <em>(return plain text if store is not available)</em></p>
+</div>
+
+<h2>Modules</h2>
 
 <h3># Products Module</h3>
 <div>
@@ -102,6 +125,34 @@
             [[module_product type="bestseller"  limit="3" /]]
          </div>
          [module_product type="bestseller" limit="3" /]
+      </div>
+   </div>
+</div>
+
+<h3># Slideshow Module</h3>
+<div style="margin-left:40px;">
+   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
+      [[module_slideshow id="7" img_w="800" img_h="230" /]]
+   </div>
+   [module_slideshow id="7" img_w="800" img_h="230" /]
+</div>
+
+<h2>Extra Shortcodes</h2>
+
+<h3># Video</h3>
+<div style="margin-left:40px;">
+   <div style="overflow:hidden;">
+      <div style="width:49%; float:left;">
+         <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
+            [[video type="vimeo" id="23754691" img_w="450" img_h="280" /]]
+         </div>
+         [video type="vimeo" id="23754691" img_w="450" img_h="280" /]
+      </div>
+      <div style="width:49%; margin-left:2%; float:left;">
+         <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
+            [[video type="youtube" id="kPBzTxZQG5Q" autoplay="0" img_w="450" img_h="280" /]]
+         </div>
+         [video type="youtube" id="kPBzTxZQG5Q" autoplay="0" img_w="450" img_h="280" /]
       </div>
    </div>
 </div>

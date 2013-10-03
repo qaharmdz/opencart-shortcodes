@@ -1,6 +1,6 @@
 # OpenCart Shortcodes #
 
-**Status:** v.1.0-RC
+**Status:** v.1.0-RC.2
 
 OpenCart Shortcodes is a library and set of modification to enhance OpenCart with shortcodes based on Wordpress API.
 
