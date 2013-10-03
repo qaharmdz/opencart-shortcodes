@@ -33,25 +33,29 @@ class Shortcodes {
          $ssl     = ($ssl) ? "'SSL'" : "";
          $title   = ($title) ? 'Title="' . $title . '"' : "";
 
-         if (!$content) {
-            $this->load->model('catalog/product');
-            $product = $this->model_catalog_product->getProduct($id);
+         $this->load->model('catalog/product');
+         $product = $this->model_catalog_product->getProduct($id);
          
-            if(!$path && !$brand) {
-               return '<a href="' . $this->url->link('product/product', 'product_id=' . $id, $ssl) . '" ' . $title . '>' . $product['name'] . '</a>';
-            } elseif ($path && (!$brand || $brand)) {
-               return '<a href="' . $this->url->link('product/product', 'path=' . $path . '&product_id=' . $id, $ssl) . '" ' . $title . '>' . $product['name'] . '</a>';
-            } elseif (!$path && $brand) {
-               return '<a href="' . $this->url->link('product/product', 'manufacturer_id=' . $brand . '&product_id=' . $id, $ssl) . '" ' . $title . '>' . $product['name'] . '</a>';
+         if ($product) {
+            if (!$content) {
+               if(!$path && !$brand) {
+                  return '<a href="' . $this->url->link('product/product', 'product_id=' . $id, $ssl) . '" ' . $title . '>' . $product['name'] . '</a>';
+               } elseif ($path && (!$brand || $brand)) {
+                  return '<a href="' . $this->url->link('product/product', 'path=' . $path . '&product_id=' . $id, $ssl) . '" ' . $title . '>' . $product['name'] . '</a>';
+               } elseif (!$path && $brand) {
+                  return '<a href="' . $this->url->link('product/product', 'manufacturer_id=' . $brand . '&product_id=' . $id, $ssl) . '" ' . $title . '>' . $product['name'] . '</a>';
+               }
+            } elseif ($content) {
+               if(!$path && !$brand) {
+                  return '<a href="' . $this->url->link('product/product', 'product_id=' . $id, $ssl) . '" ' . $title . '>' . $content . '</a>';
+               } elseif ($path && (!$brand || $brand)) {
+                  return '<a href="' . $this->url->link('product/product', 'path=' . $path . '&product_id=' . $id, $ssl) . '" ' . $title . '>' . $content . '</a>';
+               } elseif (!$path && $brand) {
+                  return '<a href="' . $this->url->link('product/product', 'manufacturer_id=' . $brand . '&product_id=' . $id, $ssl) . '" ' . $title . '>' . $content . '</a>';
+               }
             }
-         } elseif ($content) {
-            if(!$path && !$brand) {
-               return '<a href="' . $this->url->link('product/product', 'product_id=' . $id, $ssl) . '" ' . $title . '>' . $content . '</a>';
-            } elseif ($path && (!$brand || $brand)) {
-               return '<a href="' . $this->url->link('product/product', 'path=' . $path . '&product_id=' . $id, $ssl) . '" ' . $title . '>' . $content . '</a>';
-            } elseif (!$path && $brand) {
-               return '<a href="' . $this->url->link('product/product', 'manufacturer_id=' . $brand . '&product_id=' . $id, $ssl) . '" ' . $title . '>' . $content . '</a>';
-            }
+         } elseif (!$product && $content) {
+            return $content;
          }
       }
    }
@@ -73,13 +77,17 @@ class Shortcodes {
          $ssl     = ($ssl) ? "'SSL'" : "";
          $title   = ($title) ? 'Title="' . $title . '"' : "";
          
-         if (!$content) {
-            $this->load->model('catalog/category');
-            $category = $this->model_catalog_category->getCategory($path);
-            
-            return '<a href="' . $this->url->link('product/category', 'path=' . $path, $ssl) . '" ' . $title . '>' . $category['name'] . '</a>';
-         } elseif ($content) {
-            return '<a href="' . $this->url->link('product/category', 'path=' . $path, $ssl) . '" ' . $title . '>' . $content . '</a>';
+         $this->load->model('catalog/category');
+         $category = $this->model_catalog_category->getCategory($path);
+         
+         if ($category) {
+            if (!$content) {
+               return '<a href="' . $this->url->link('product/category', 'path=' . $path, $ssl) . '" ' . $title . '>' . $category['name'] . '</a>';
+            } elseif ($content) {
+               return '<a href="' . $this->url->link('product/category', 'path=' . $path, $ssl) . '" ' . $title . '>' . $content . '</a>';
+            }
+         } elseif (!$category && $content) {
+            return $content;
          }
       }
    }
@@ -103,22 +111,27 @@ class Shortcodes {
       $ssl     = ($ssl) ? "'SSL'" : "";
       $title   = ($title) ? 'Title="' . $title . '"' : "";
       
-      if (!$content) {
-         $this->load->language('product/manufacturer');
-         $this->load->model('catalog/manufacturer');
-         $manufacturer = $this->model_catalog_manufacturer->getManufacturer($brand);
-         
-         if (!$brand) {
-            return '<a href="' . $this->url->link('product/manufacturer', '', $ssl) . '" ' . $title . '>' . $this->language->get('text_brand') . '</a>';
-         } else {
-            return '<a href="' . $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $brand, $ssl) . '" ' . $title . '>' . $manufacturer['name'] . '</a>';
+      $this->load->model('catalog/manufacturer');
+      $manufacturer = $this->model_catalog_manufacturer->getManufacturer($brand);
+      
+      if ($manufacturer) {
+         if (!$content) {
+            $this->load->language('product/manufacturer');
+            
+            if (!$brand) {
+               return '<a href="' . $this->url->link('product/manufacturer', '', $ssl) . '" ' . $title . '>' . $this->language->get('text_brand') . '</a>';
+            } else {
+               return '<a href="' . $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $brand, $ssl) . '" ' . $title . '>' . $manufacturer['name'] . '</a>';
+            }
+         } elseif ($content) {
+            if (!$brand) {
+               return '<a href="' . $this->url->link('product/manufacturer', 'manufacturer_id=' . $brand, $ssl) . '" ' . $title . '>' . $content . '</a>';
+            } else {
+               return '<a href="' . $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $brand, $ssl) . '" ' . $title . '>' . $content . '</a>';
+            }
          }
-      } elseif ($content) {
-         if (!$brand) {
-            return '<a href="' . $this->url->link('product/manufacturer', 'manufacturer_id=' . $brand, $ssl) . '" ' . $title . '>' . $content . '</a>';
-         } else {
-            return '<a href="' . $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $brand, $ssl) . '" ' . $title . '>' . $content . '</a>';
-         }
+      } elseif (!$manufacturer && $content) {
+         return $content;
       }
    }
    
@@ -139,13 +152,17 @@ class Shortcodes {
          $ssl     = ($ssl) ? "'SSL'" : "";
          $title   = ($title) ? 'Title="' . $title . '"' : "";
          
-         if (!$content) {
-            $this->load->model('catalog/category');
-            $information = $this->model_catalog_information->getInformation($id);
-            
-            return '<a href="' . $this->url->link('information/information', 'information_id=' . $id, $ssl) . '" ' . $title . '>' . $information['title'] . '</a>';
-         } elseif ($content) {
-            return '<a href="' . $this->url->link('information/information', 'information_id=' . $id, $ssl) . '" ' . $title . '>' . $content . '</a>';
+         $this->load->model('catalog/category');
+         $information = $this->model_catalog_information->getInformation($id);
+         
+         if ($information) {
+            if (!$content) {
+               return '<a href="' . $this->url->link('information/information', 'information_id=' . $id, $ssl) . '" ' . $title . '>' . $information['title'] . '</a>';
+            } elseif ($content) {
+               return '<a href="' . $this->url->link('information/information', 'information_id=' . $id, $ssl) . '" ' . $title . '>' . $content . '</a>';
+            }
+         } elseif ($information && $content) {
+            return $content;
          }
       }
    }
@@ -169,7 +186,50 @@ class Shortcodes {
    }
    
    /**
-    * Load module type product (featured, latest, bestseller, special) everywhere!
+    * Generate custom link for multi-store site
+    *
+    * [link_store store="x" route="foo" args="bar" ssl="0" title="xyz"]custom text[/link_custom]
+    */
+   function link_store($atts, $content = '') {
+      extract(shortcode_atts(array(
+         'store'  => 0,
+         'route'  => '',
+         'args'   => '',
+         'ssl'    => 0,
+         'title'  => ''
+      ), $atts));
+      
+      if ($route && $content) {
+         $current_store    = $this->config->get('config_url');
+         
+         if ($store) {
+            $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "setting WHERE store_id = '" . (int)$store . "'" );
+            
+            if ($query->num_rows) {
+               foreach ($query->rows as $setting) {
+                  if ($setting['key'] == 'config_url') {
+                     $store_url  = $setting['value'];
+                  }
+               }
+
+               $url = str_replace($current_store, $store_url, $this->url->link($route, $args, $ssl));
+               
+               return '<a href="' . $url . '" ' . $title . '>' . $content . '</a>';
+            } else {
+               return $content;
+            }
+         } else {
+            $store_url  = HTTP_SERVER;
+            
+            $url = str_replace($current_store, $store_url, $this->url->link($route, $args, $ssl));
+               
+            return '<a href="' . $url . '" ' . $title . '>' . $content . '</a>';
+         }
+      }
+   }
+   
+   /**
+    * Load module type product (featured, latest, bestseller, special) anywhere!
     *
     * [module_product type="featured" limit="5" img_w="100" img_h="100" /]
     */
@@ -182,15 +242,88 @@ class Shortcodes {
       ), $atts));
 
       if ($type) {
-         $action = new sController($this->registry); 
+         $action  = new sController($this->registry); 
 
          $module = $action->get_child('module/' . $type, array(
-                     'limit' => $limit,
-                     'image_width' => $img_w,
+                     'limit'        => $limit,
+                     'image_width'  => $img_w,
                      'image_height' => $img_h
                   ));
          
-         return $module;
+         $html = '<div class="shortcode-module scm-' . $type . '">' . $module . '</div>';
+         
+         return $html;
+      }
+   }
+   
+   /**
+    * Load module slideshow
+    *
+    * [module_slideshow id="x" limit="5" img_w="100" img_h="100" /]
+    */
+   function module_slideshow($atts) {
+      extract(shortcode_atts(array(
+         'id'     => 0,
+         'img_w'  => 80,
+         'img_h'  => 80
+      ), $atts));
+
+      if ($id) {
+         $script  = '<script type="text/javascript" src="catalog/view/javascript/jquery/nivo-slider/jquery.nivo.slider.pack.js"></script>';
+         $style   = '<link href="catalog/view/theme/default/stylesheet/slideshow.css" type="text/css" rel="stylesheet" />';
+
+         $action  = new sController($this->registry); 
+
+         $module = $action->get_child('module/slideshow', array(
+                     'banner_id' => $id,
+                     'width'     => $img_w,
+                     'height'    => $img_h
+                  ));
+         
+         $html = '<div class="shortcode-module scm-slideshow">' . $script . $style . $module . '</div>';
+         
+         return $html;
+      }
+   }
+   
+   /**
+    * Load module type product (featured, latest, bestseller, special) anywhere!
+    *
+    * [module_product type="featured" limit="5" img_w="100" img_h="100" /]
+    */
+   function video($atts) {
+      extract(shortcode_atts(array(
+         'type'      => '',
+         'id'        => 0,
+         'img_w'     => 80,
+         'img_h'     => 80,
+         'autoplay'  => 0
+      ), $atts));
+
+      if ($id) {
+         if ($type == 'youtube') {
+            if ($img_w && $img_h) {
+               $video   = '<iframe width="' . $img_w . '" height="' . $img_h . '" src="http://youtube.com/embed/' . $id . '?rel=0&autoplay=' . $autoplay . '" frameborder="0" allowfullscreen></iframe>';
+            } else {
+               $video   = '<iframe src="http://youtube.com/embed/' . $id . '?rel=0&autoplay=' . $autoplay . '" frameborder="0" allowfullscreen></iframe>';
+            }
+            
+            $html    = '<div class="shortcode-video scm-' . $type . '">' . $video . '</div>';
+            
+            return $html;
+            
+         } elseif ($type == 'vimeo') {
+            if ($img_w && $img_h) {
+               $video   = '<iframe src="//player.vimeo.com/video/' . $id . '?autoplay=' . $autoplay . '" width="' . $img_w . '" height="' . $img_h . '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+            } else {
+               $video   = '<iframe src="//player.vimeo.com/video/' . $id . '?autoplay=' . $autoplay . '" width="' . $img_w . '" height="' . $img_h . '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+            }
+            
+            $html    = '<div class="shortcode-video scm-' . $type . '">' . $video . '</div>';
+            
+            return $html;
+         }
+
       }
    }
    
@@ -242,7 +375,9 @@ class Shortcodes {
       $this->user = new User($this->registry);
 
       if ($this->user->isLogged()) {
-         return $data . $style;
+         $html = '<div class="shortcode-debug">' . $style . $data . '</div>';
+         
+         return $html;
       }
    }
 }
