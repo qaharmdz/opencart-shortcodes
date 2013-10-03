@@ -58,7 +58,13 @@
    <file name="catalog/controller/product/product.php">
 		<operation error="log" info="Strip shortcodes">
          <search position="replace"><![CDATA[$result['text']]]></search>
-         <add><![CDATA[(method_exists($this->shortcodes, 'strip_shortcodes')) ? $this->shortcodes->strip_shortcodes($result['text']) : $result['text']]]></add>
+         <add><![CDATA[(method_exists($this->shortcodes, 'stripShortcodes')) ? $this->shortcodes->stripShortcodes($result['text']) : $result['text']]]></add>
+      </operation>
+	</file>
+   <file name="catalog/controller/account/order.php">
+		<operation error="log" info="Strip shortcodes">
+         <search position="replace"><![CDATA[nl2br($order_info['comment'])]]></search>
+         <add><![CDATA[(method_exists($this->shortcodes, 'stripShortcodes')) ? $this->shortcodes->stripShortcodes(nl2br($order_info['comment'])) : nl2br($order_info['comment'])]]></add>
       </operation>
 	</file>
 </modification>

@@ -14,7 +14,7 @@ class Shortcodes {
 		$this->registry->set($key, $value);
 	}
    
-   function strip_shortcodes($data) {
+   function stripShortcodes($data) {
       return strip_shortcodes($data);
    }
    
