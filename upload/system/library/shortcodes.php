@@ -287,9 +287,9 @@ class Shortcodes {
    }
    
    /**
-    * Load module type product (featured, latest, bestseller, special) anywhere!
+    * Embed Video
     *
-    * [module_product type="featured" limit="5" img_w="100" img_h="100" /]
+    * [video type="vimeo" id="23754691" img_w="450" img_h="280" /]
     */
    function video($atts) {
       extract(shortcode_atts(array(
