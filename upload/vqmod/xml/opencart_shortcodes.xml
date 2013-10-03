@@ -35,7 +35,7 @@
             include_once($file);
             
             $class      = new themeShortcodes($this->registry);
-            $shortcodes = get_class_methods('shortcodes');
+            $shortcodes = get_class_methods('themeShortcodes');
             foreach ($shortcodes as $shortcode) {
                add_shortcode($shortcode, $shortcode, $class);
             }
