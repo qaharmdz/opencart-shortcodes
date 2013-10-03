@@ -23,6 +23,8 @@
          $this->load->library('shortcodes');
          
          $class      = new Shortcodes($this->registry);
+         $this->registry->set('shortcodes', $class);
+         
          $shortcodes = get_class_methods('shortcodes');
          $shortcodes = array_slice($shortcodes, 3);
          foreach ($shortcodes as $shortcode) {
@@ -51,6 +53,12 @@
          <add><![CDATA[
          $this->output = do_shortcode($this->output);
          ]]></add>
+      </operation>
+	</file>
+   <file name="catalog/controller/product/product.php">
+		<operation error="log" info="Strip shortcodes">
+         <search position="replace"><![CDATA[$result['text']]]></search>
+         <add><![CDATA[(method_exists($this->shortcodes, 'strip_shortcodes')) ? $this->shortcodes->strip_shortcodes($result['text']) : $result['text']]]></add>
       </operation>
 	</file>
 </modification>

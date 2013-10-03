@@ -14,6 +14,12 @@ class Shortcodes {
 		$this->registry->set($key, $value);
 	}
    
+   function strip_shortcodes($data) {
+      return strip_shortcodes($data);
+   }
+   
+   //======================================
+   
    /**
     * Generate product link with it variant of category and manufacture link.
     *
@@ -287,7 +293,7 @@ class Shortcodes {
    }
    
    /**
-    * Embed Video
+    * Embed video: youtube and vimeo
     *
     * [video type="vimeo" id="23754691" img_w="450" img_h="280" /]
     */
