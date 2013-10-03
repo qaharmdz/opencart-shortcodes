@@ -45,12 +45,18 @@
          ]]></add>
       </operation>		
    </file>
-	<file name="system/engine/controller.php">
-		<operation error="log" info="Execute shortcode tags">
-         <search position="before"><![CDATA[return $this->output;]]></search>
-         <add><![CDATA[
-         $this->output = do_shortcode($this->output);
-         ]]></add>
-      </operation>
-	</file>
+   <file name="system/engine/controller.php">
+      <operation error="log" info="Execute shortcode tags">
+      <search position="before"><![CDATA[return $this->output;]]></search>
+      <add><![CDATA[
+	//exclude route         
+	$arr_exclude = array('product/product/review');
+	
+	$route = (isset($this->request->get['route'])) ? $this->request->get['route'] : ''; 
+	if (! in_array($route,$arr_exclude)) {
+	$this->output = do_shortcode($this->output);
+	}
+	]]></add>
+	</operation>
+   </file>
 </modification>
