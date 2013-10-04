@@ -15,6 +15,12 @@ class Shortcodes {
 	}
    
    function stripShortcodes($data) {
+      if (is_array($data)) {
+         foreach ($data as $key => $value) {
+            $data[$this->shortcode[$key]] = $this->shortcode[$value];
+         }
+      }
+      
       return strip_shortcodes($data);
    }
    
