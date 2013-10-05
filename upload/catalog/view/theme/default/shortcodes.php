@@ -1,10 +1,9 @@
 <?php
-class ShortcodesThemes extends Shortcodes {
+class ShortcodesThemes extends Controller {
    /* Quick Docs:
     *  - Function name would be the shortcode tag.
     *  - Use the same function name as in default shortcode to overwrite it.
     */
-
 
    /**
     * Get theme info

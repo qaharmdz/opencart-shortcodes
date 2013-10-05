@@ -1,5 +1,5 @@
 <?php
-class ShortcodesDefault extends Shortcodes {
+class ShortcodesDefault extends Controller {
 
    /**
     * Generate product link with it variant of category and manufacture link.
@@ -97,28 +97,28 @@ class ShortcodesDefault extends Shortcodes {
       
       $ssl     = ($ssl) ? "'SSL'" : "";
       $title   = ($title) ? 'Title="' . $title . '"' : "";
-      
-      $this->load->model('catalog/manufacturer');
-      $manufacturer = $this->model_catalog_manufacturer->getManufacturer($brand);
-      
-      if ($manufacturer) {
-         if (!$content) {
-            $this->load->language('product/manufacturer');
-            
-            if (!$brand) {
-               return '<a href="' . $this->url->link('product/manufacturer', '', $ssl) . '" ' . $title . '>' . $this->language->get('text_brand') . '</a>';
-            } else {
+
+      if ($brand) {
+         $this->load->model('catalog/manufacturer');
+         $manufacturer = $this->model_catalog_manufacturer->getManufacturer($brand);
+         
+         if ($manufacturer) {
+            if (!$content) {
                return '<a href="' . $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $brand, $ssl) . '" ' . $title . '>' . $manufacturer['name'] . '</a>';
-            }
-         } elseif ($content) {
-            if (!$brand) {
-               return '<a href="' . $this->url->link('product/manufacturer', 'manufacturer_id=' . $brand, $ssl) . '" ' . $title . '>' . $content . '</a>';
             } else {
                return '<a href="' . $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $brand, $ssl) . '" ' . $title . '>' . $content . '</a>';
             }
+         } elseif (!$manufacturer && $content) {
+            return $content;
          }
-      } elseif (!$manufacturer && $content) {
-         return $content;
+      } else {
+         if (!$content) {
+            $this->load->language('product/manufacturer');
+
+            return '<a href="' . $this->url->link('product/manufacturer', '', $ssl) . '" ' . $title . '>' . $this->language->get('text_brand') . '</a>';
+         } else {
+            return '<a href="' . $this->url->link('product/manufacturer', '', $ssl) . '" ' . $title . '>' . $content . '</a>';
+         }
       }
    }
    
@@ -229,9 +229,8 @@ class ShortcodesDefault extends Shortcodes {
       ), $atts));
 
       if ($type) {
-         $action  = new sController($this->registry); 
-
-         $module = $action->get_child('module/' . $type, array(
+         
+         $module = $this->getChild('module/' . $type, array(
                      'limit'        => $limit,
                      'image_width'  => $img_w,
                      'image_height' => $img_h
@@ -259,9 +258,7 @@ class ShortcodesDefault extends Shortcodes {
          $script  = '<script type="text/javascript" src="catalog/view/javascript/jquery/nivo-slider/jquery.nivo.slider.pack.js"></script>';
          $style   = '<link href="catalog/view/theme/default/stylesheet/slideshow.css" type="text/css" rel="stylesheet" />';
 
-         $action  = new sController($this->registry); 
-
-         $module = $action->get_child('module/slideshow', array(
+         $module = $this->getChild('module/slideshow', array(
                      'banner_id' => $id,
                      'width'     => $img_w,
                      'height'    => $img_h
@@ -282,8 +279,8 @@ class ShortcodesDefault extends Shortcodes {
       extract($this->shortcodes->shortcode_atts(array(
          'type'      => '',
          'id'        => 0,
-         'img_w'     => 80,
-         'img_h'     => 80,
+         'img_w'     => 450,
+         'img_h'     => 280,
          'autoplay'  => 0
       ), $atts));
 
@@ -310,7 +307,6 @@ class ShortcodesDefault extends Shortcodes {
             
             return $html;
          }
-
       }
    }
    
