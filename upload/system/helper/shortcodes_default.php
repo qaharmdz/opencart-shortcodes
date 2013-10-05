@@ -102,11 +102,17 @@ class ShortcodesDefault extends Controller {
          $this->load->model('catalog/manufacturer');
          $manufacturer = $this->model_catalog_manufacturer->getManufacturer($brand);
          
+         if (version_compare(VERSION, '1.5.3.1', '<=') == true) {
+            $brand_route   = 'product/manufacturer/product';
+         } else {
+            $brand_route   = 'product/manufacturer/info';
+         }
+         
          if ($manufacturer) {
             if (!$content) {
-               return '<a href="' . $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $brand, $ssl) . '" ' . $title . '>' . $manufacturer['name'] . '</a>';
+               return '<a href="' . $this->url->link($brand_route, 'manufacturer_id=' . $brand, $ssl) . '" ' . $title . '>' . $manufacturer['name'] . '</a>';
             } else {
-               return '<a href="' . $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $brand, $ssl) . '" ' . $title . '>' . $content . '</a>';
+               return '<a href="' . $this->url->link($brand_route, 'manufacturer_id=' . $brand, $ssl) . '" ' . $title . '>' . $content . '</a>';
             }
          } elseif (!$manufacturer && $content) {
             return $content;
@@ -236,7 +242,7 @@ class ShortcodesDefault extends Controller {
                      'image_height' => $img_h
                   ));
          
-         $html = '<div class="shortcode-module scm-' . $type . '">' . $module . '</div>';
+         $html = '<div class="shortcode-module sc-' . $type . '">' . $module . '</div>';
          
          return $html;
       }
@@ -264,7 +270,7 @@ class ShortcodesDefault extends Controller {
                      'height'    => $img_h
                   ));
          
-         $html = '<div class="shortcode-module scm-slideshow">' . $script . $style . $module . '</div>';
+         $html = '<div class="shortcode-module sc-slideshow">' . $script . $style . $module . '</div>';
          
          return $html;
       }
@@ -292,7 +298,7 @@ class ShortcodesDefault extends Controller {
                $video   = '<iframe src="http://youtube.com/embed/' . $id . '?rel=0&autoplay=' . $autoplay . '" frameborder="0" allowfullscreen></iframe>';
             }
             
-            $html    = '<div class="shortcode-video scm-' . $type . '">' . $video . '</div>';
+            $html    = '<div class="shortcode-video sc-' . $type . '">' . $video . '</div>';
             
             return $html;
             
@@ -303,10 +309,40 @@ class ShortcodesDefault extends Controller {
                $video   = '<iframe src="//player.vimeo.com/video/' . $id . '?autoplay=' . $autoplay . '" width="' . $img_w . '" height="' . $img_h . '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
             }
             
-            $html    = '<div class="shortcode-video scm-' . $type . '">' . $video . '</div>';
+            $html    = '<div class="shortcode-video sc-' . $type . '">' . $video . '</div>';
             
             return $html;
          }
+      }
+   }
+   
+   /**
+    * Embed image
+    *
+    * [image src="" img_w="450" img_h="280" title="" alt="" align="" /]
+    */
+   function image($atts, $content = '') {
+      extract($this->shortcodes->shortcode_atts(array(
+         'src'       => '',
+         'img_w'     => 200,
+         'img_h'     => 200,
+         'title'     => '',
+         'alt'       => '',
+         'align'     => ''    // left, right, center
+      ), $atts));
+      
+      if (!$src && $content) { $src = $content; }
+      if (!$alt & $title) { $alt = $title; }
+      if ($align == 'right') {
+         $align_style = 'float:right;margin:0 0 10px 10px;';
+      } elseif ($align == 'center') {
+         $align_style = 'display:block;margin:0 auto 15px;';
+      } else {
+         $align_style = 'float:left;margin:0 10px 0 10px;';
+      }
+
+      if ($src) {
+         return '<img class="shortcode-video sc-image" src="' . $src . '" width="' . $img_w.'px' . '" height="' . $img_h.'px' . '" alt="' . $alt . '" title="' . $title . '" style="' . $align_style . '">';
       }
    }
    
