@@ -20,27 +20,45 @@
          //=========== OpenCart Shortcodes
          
          // Shortcodes
-         $shortcodes = new ShortcodesAPI();
+         $shortcodes = new ShortcodesAPI($this->registry);
          $this->registry->set('shortcodes', $shortcodes);
          
-         //=== Default shortcode
          $this->load->library('shortcodes');
+
+         //=== Default shortcodes
+         $this->load->helper('shortcodes_default');
          
-         $class      = new Shortcodes($this->registry);
-         $shortcodes = get_class_methods('Shortcodes');
-         $shortcodes = array_slice($shortcodes, 3);
-         foreach ($shortcodes as $shortcode) {
+         $class         = new ShortcodesDefault($this->registry);
+         $scDefaults    = get_class_methods($class);
+         foreach ($scDefaults as $shortcode) {
             $this->shortcodes->add_shortcode($shortcode, $shortcode, $class);
          }
+
+         //=== Extensions shortcodes
+         $files = glob(DIR_APPLICATION . '/view/shortcodes/*.php');
+         if ($files) {
+            foreach ($files as $file) {
+               require_once(VQMod::modCheck($file));
+               
+               $file       = basename($file, ".php");
+               $extClass   = 'Shortcodes' . preg_replace('/[^a-zA-Z0-9]/', '', $file);
+               
+               $class      = new $extClass($this->registry);
+               $scExtensions = get_class_methods($class);
+               foreach ($scExtensions as $shortcode) {
+                  $this->shortcodes->add_shortcode($shortcode, $shortcode, $class);
+               }
+            }
+         }
          
-         //=== Themes extending shortcode
+         //=== Themes shortcodes
          $file = DIR_TEMPLATE . $this->config->get('config_template') . '/shortcodes.php';
          if (file_exists($file)) {
-            include_once(VQMod::modCheck($file));
+            require_once(VQMod::modCheck($file));
             
-            $class      = new themeShortcodes($this->registry);
-            $shortcodes = get_class_methods('themeShortcodes');
-            foreach ($shortcodes as $shortcode) {
+            $class         = new ShortcodesThemes($this->registry);
+            $scThemes      = get_class_methods($class);
+            foreach ($scThemes as $shortcode) {
                $this->shortcodes->add_shortcode($shortcode, $shortcode, $class);
             }
          }

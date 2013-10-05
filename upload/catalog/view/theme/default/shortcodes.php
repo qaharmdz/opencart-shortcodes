@@ -1,5 +1,5 @@
 <?php
-class themeShortcodes extends Shortcodes {
+class ShortcodesThemes extends Shortcodes {
    /* Quick Docs:
     *  - Function name would be the shortcode tag.
     *  - Use the same function name as in default shortcode to overwrite it.
