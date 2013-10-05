@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <modification>
 	<id>OpenCart Shortcodes</id>
-	<version>v.1.0-Beta</version>
+	<version>1.0-RC.2</version>
 	<vqmver>2.3.2</vqmver>
 	<author>qahar [echothemes.com]</author>
    <file name="system/startup.php">
       <operation error="abort" info="Load shortcodes library">
          <search position="after"><![CDATA[DIR_SYSTEM . 'engine/action.php']]></search>
          <add><![CDATA[
-         define('SHORTCODES_VERSION', '1.0-Beta');
-         require_once(DIR_SYSTEM . 'library/shortcodes_wp.php');
+         define('SHORTCODES_VERSION', '1.0-RC.2');
+         require_once(DIR_SYSTEM . 'library/shortcodes_api.php');
          ]]></add>
       </operation>
    </file>
@@ -19,27 +19,29 @@
          <add><![CDATA[
          //=========== OpenCart Shortcodes
          
+         // Shortcodes
+         $shortcodes = new ShortcodesAPI();
+         $this->registry->set('shortcodes', $shortcodes);
+         
          //=== Default shortcode
          $this->load->library('shortcodes');
          
          $class      = new Shortcodes($this->registry);
-         $this->registry->set('shortcodes', $class);
-         
-         $shortcodes = get_class_methods('shortcodes');
+         $shortcodes = get_class_methods('Shortcodes');
          $shortcodes = array_slice($shortcodes, 3);
          foreach ($shortcodes as $shortcode) {
-            add_shortcode($shortcode, $shortcode, $class);
+            $this->shortcodes->add_shortcode($shortcode, $shortcode, $class);
          }
          
          //=== Themes extending shortcode
          $file = DIR_TEMPLATE . $this->config->get('config_template') . '/shortcodes.php';
          if (file_exists($file)) {
-            include_once($file);
+            include_once(VQMod::modCheck($file));
             
             $class      = new themeShortcodes($this->registry);
             $shortcodes = get_class_methods('themeShortcodes');
             foreach ($shortcodes as $shortcode) {
-               add_shortcode($shortcode, $shortcode, $class);
+               $this->shortcodes->add_shortcode($shortcode, $shortcode, $class);
             }
          }
          
@@ -51,7 +53,9 @@
 		<operation error="log" info="Execute shortcode tags">
          <search position="before"><![CDATA[return $this->output;]]></search>
          <add><![CDATA[
-         $this->output = do_shortcode($this->output);
+         if (!defined('HTTPS_CATALOG')) { // front
+            $this->output = $this->shortcodes->do_shortcode($this->output);
+         }
          ]]></add>
       </operation>
 	</file>
@@ -60,25 +64,25 @@
    <file name="catalog/controller/product/product.php">
 		<operation error="log" info="Strip shortcodes on user input">
          <search position="after"><![CDATA[$this->request->server['REQUEST_METHOD']]]></search>
-         <add><![CDATA[$this->request->post = $this->shortcodes->stripShortcodes($this->request->post);]]></add>
+         <add><![CDATA[$this->request->post = $this->shortcodes->strip_shortcodes($this->request->post);]]></add>
       </operation>
 	</file>
    <file name="catalog/controller/checkout/payment_method.php">
 		<operation error="log" info="Strip shortcodes on user input">
          <search position="before"><![CDATA[$this->request->post['comment']]]></search>
-         <add><![CDATA[$this->request->post['comment'] = $this->shortcodes->stripShortcodes($this->request->post['comment']);]]></add>
+         <add><![CDATA[$this->request->post['comment'] = $this->shortcodes->strip_shortcodes($this->request->post['comment']);]]></add>
       </operation>
 	</file>
    <file name="catalog/controller/checkout/shipping_method.php">
 		<operation error="log" info="Strip shortcodes on user input">
          <search position="before"><![CDATA[$this->request->post['comment']]]></search>
-         <add><![CDATA[$this->request->post['comment'] = $this->shortcodes->stripShortcodes($this->request->post['comment']);]]></add>
+         <add><![CDATA[$this->request->post['comment'] = $this->shortcodes->strip_shortcodes($this->request->post['comment']);]]></add>
       </operation>
 	</file>
    <file name="catalog/controller/account/return.php">
 		<operation error="log" info="Strip shortcodes on user input">
          <search position="before"><![CDATA[$this->model_account_return->addReturn($this->request->post)]]></search>
-         <add><![CDATA[$this->request->post = $this->shortcodes->stripShortcodes($this->request->post);]]></add>
+         <add><![CDATA[$this->request->post = $this->shortcodes->strip_shortcodes($this->request->post);]]></add>
       </operation>
 	</file>
 </modification>

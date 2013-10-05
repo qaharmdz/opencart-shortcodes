@@ -14,16 +14,6 @@ class Shortcodes {
 		$this->registry->set($key, $value);
 	}
    
-   function stripShortcodes($data) {
-      if (is_array($data)) {
-         foreach ($data as $key => $value) {
-            $data[$this->shortcode[$key]] = $this->shortcode[$value];
-         }
-      }
-      
-      return strip_shortcodes($data);
-   }
-   
    //======================================
    
    /**
@@ -33,7 +23,7 @@ class Shortcodes {
     * [link_product id="x" path="x_x" brand="x" ssl="0" title="xyz"]custom text[/link_product]
     */
    function link_product($atts, $content = '') {
-      extract(shortcode_atts(array(
+      extract($this->shortcodes->shortcode_atts(array(
          'id'     => 0,
          'path'   => 0,
          'brand'  => 0,
@@ -79,7 +69,7 @@ class Shortcodes {
     * [link_category path="x_y" ssl="1" title="xyz"]custom text[/link_category]
     */
    function link_category($atts, $content = '') {
-      extract(shortcode_atts(array(
+      extract($this->shortcodes->shortcode_atts(array(
          'path'   => 0,
          'ssl'    => 0,
          'title'  => ''
@@ -114,7 +104,7 @@ class Shortcodes {
     * [link_brand brand="x" ssl="1" title="xyz"]custom text[/link_brand]
     */
    function link_brand($atts, $content = '') {
-      extract(shortcode_atts(array(
+      extract($this->shortcodes->shortcode_atts(array(
          'brand'  => 0,
          'ssl'    => 0,
          'title'  => ''
@@ -154,7 +144,7 @@ class Shortcodes {
     * [link_info id="x" ssl="0" title="xyz"]custom text[/link_info]
     */
    function link_info($atts, $content = '') {
-      extract(shortcode_atts(array(
+      extract($this->shortcodes->shortcode_atts(array(
          'id'     => 0,
          'ssl'    => 0,
          'title'  => ''
@@ -185,7 +175,7 @@ class Shortcodes {
     * [link_custom route="foo" args="bar" ssl="0" title="xyz"]custom text[/link_custom]
     */
    function link_custom($atts, $content = '') {
-      extract(shortcode_atts(array(
+      extract($this->shortcodes->shortcode_atts(array(
          'route'  => '',
          'args'   => '',
          'ssl'    => 0,
@@ -203,7 +193,7 @@ class Shortcodes {
     * [link_store store="x" route="foo" args="bar" ssl="0" title="xyz"]custom text[/link_custom]
     */
    function link_store($atts, $content = '') {
-      extract(shortcode_atts(array(
+      extract($this->shortcodes->shortcode_atts(array(
          'store'  => 0,
          'route'  => '',
          'args'   => '',
@@ -246,7 +236,7 @@ class Shortcodes {
     * [module_product type="featured" limit="5" img_w="100" img_h="100" /]
     */
    function module_product($atts) {
-      extract(shortcode_atts(array(
+      extract($this->shortcodes->shortcode_atts(array(
          'type'   => '',
          'limit'  => 5,
          'img_w'  => 80,
@@ -274,7 +264,7 @@ class Shortcodes {
     * [module_slideshow id="x" limit="5" img_w="100" img_h="100" /]
     */
    function module_slideshow($atts) {
-      extract(shortcode_atts(array(
+      extract($this->shortcodes->shortcode_atts(array(
          'id'     => 0,
          'img_w'  => 80,
          'img_h'  => 80
@@ -304,7 +294,7 @@ class Shortcodes {
     * [video type="vimeo" id="23754691" img_w="450" img_h="280" /]
     */
    function video($atts) {
-      extract(shortcode_atts(array(
+      extract($this->shortcodes->shortcode_atts(array(
          'type'      => '',
          'id'        => 0,
          'img_w'     => 80,
