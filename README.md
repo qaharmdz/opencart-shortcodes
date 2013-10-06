@@ -6,7 +6,7 @@ OpenCart Shortcodes is a library and set of modification to enhance OpenCart wit
 
 This is rc (release candidate) version to publicly test. We do our homework to test it but more tester mean more possibility to find bugs. We are expecting report or feedback before release it as -stable version- ready for production.
 
-For download and installation please refer to [installation](https://github.com/qahar/opencart-shortcodes/wiki/Install) page.
+For download and installation please refer to [installation](http://qahar.github.io/opencart-shortcodes/install.html) page.
 
 ### License ###
 
