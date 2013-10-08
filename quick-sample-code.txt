@@ -139,6 +139,36 @@
 
 <h2>Extra Shortcodes</h2>
 
+<h3># Login</h3>
+<div style="margin-left:40px;">
+   <div style="overflow:hidden;">
+      <div style="width:49%; float:left;">
+         <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
+            &lt;p>Lorem ipsum dolor sit amet, dona abstulit meis audi anim igitur cui Tharsia. Euro in deinde cepit roseo commendavit auri in lucem concitaverunt in lucem exempli paupers coniunx efficerer nuptiarum cui.&lt;/p><br/><br/>
+            [[login]<br/>
+            &lt;p>Archistratem solatium persequendum loco sed esse deprecor cum autem nobiscum ei sed haec vidit tam ubicumque generum dixit. Cyrenaeam plus damna nautis unum eam ad quia illum in rei finibus veteres hoc contra me in.&lt;/p><br/>
+            [/login]]
+         </div>
+         <p>Lorem ipsum dolor sit amet, dona abstulit meis audi anim igitur cui Tharsia. Euro in deinde cepit roseo commendavit auri in lucem concitaverunt in lucem exempli paupers coniunx efficerer nuptiarum cui.</p>
+         [login]
+         <p>Archistratem solatium persequendum loco sed esse deprecor cum autem nobiscum ei sed haec vidit tam ubicumque generum dixit. Cyrenaeam plus damna nautis unum eam ad quia illum in rei finibus veteres hoc contra me in.</p>
+         [/login]
+      </div>
+      <div style="width:49%; margin-left:2%; float:left;">
+         <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
+            &lt;p>Lorem ipsum dolor sit amet, dona abstulit meis audi anim igitur cui Tharsia. Euro in deinde cepit roseo commendavit auri in lucem concitaverunt in lucem exempli paupers coniunx efficerer nuptiarum cui.&lt;/p><br/><br/>
+            [[login message='Silahkan &lt;a href="%s">login&lt;/a> untuk melihat halaman ini.' suffix="warning"]<br/>
+            &lt;p>Archistratem solatium persequendum loco sed esse deprecor cum autem nobiscum ei sed haec vidit tam ubicumque generum dixit. Cyrenaeam plus damna nautis unum eam ad quia illum in rei finibus veteres hoc contra me in.&lt;/p><br/>
+            [/login]]
+         </div>
+         <p>Lorem ipsum dolor sit amet, dona abstulit meis audi anim igitur cui Tharsia. Euro in deinde cepit roseo commendavit auri in lucem concitaverunt in lucem exempli paupers coniunx efficerer nuptiarum cui.</p>
+         [login message='Silahkan <a href="%s">login</a> untuk melihat halaman ini.' suffix="warning"]
+         <p>Archistratem solatium persequendum loco sed esse deprecor cum autem nobiscum ei sed haec vidit tam ubicumque generum dixit. Cyrenaeam plus damna nautis unum eam ad quia illum in rei finibus veteres hoc contra me in.</p>
+         [/login]
+      </div>
+   </div>
+</div>
+
 <h3># Video</h3>
 <div style="margin-left:40px;">
    <div style="overflow:hidden;">
@@ -153,6 +183,28 @@
             [[video type="youtube" id="kPBzTxZQG5Q" autoplay="0" img_w="450" img_h="280" /]]
          </div>
          [video type="youtube" id="kPBzTxZQG5Q" autoplay="0" img_w="450" img_h="280" /]
+      </div>
+   </div>
+</div>
+
+<h3># Image</h3>
+<div style="margin-left:40px;">
+   <div style="overflow:hidden;">
+      <div style="width:49%; float:left;">
+         <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
+            &lt;p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.&lt;/p><br/><br/>
+            &lt;p>[[image src="image/data/demo/compaq_presario.jpg" img_w="300" img_h="184" alt="compaq-presario-2014" /]]It has survived not only five centuries.. ...&lt;/p>
+         </div>
+         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+         <p>[image src="image/data/demo/compaq_presario.jpg" img_w="300" img_h="184" alt="compaq-presario-2014" align="center" /] It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+      </div>
+      <div style="width:49%; margin-left:2%; float:left;">
+         <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
+            &lt;p>[[image img_w="300" img_h="184" alt="compaq-presario-2014" align="right"]image/data/demo/compaq_presario.jpg[/image]]Lorem Ipsum is simply dummy text of the printing.. ...&lt;/p><br/><br/>
+            &lt;p>It has survived not only five centuries, but also the leap into electronic typesetting, ...&lt;/p>
+         </div>
+         <p>[image img_w="300" img_h="184" alt="compaq-presario-2014" align="right"]image/data/demo/compaq_presario.jpg[/image]Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+         <p>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
       </div>
    </div>
 </div>
