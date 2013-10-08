@@ -50,11 +50,11 @@
          }
          
          //=== Themes shortcodes
-         $file = DIR_TEMPLATE . $this->config->get('config_template') . '/shortcodes.php';
+         $file = DIR_TEMPLATE . $this->config->get('config_template') . '/shortcodes_theme.php';
          if (file_exists($file)) {
             require_once(VQMod::modCheck($file));
             
-            $class         = new ShortcodesThemes($this->registry);
+            $class         = new ShortcodesTheme($this->registry);
             $scThemes      = get_class_methods($class);
             foreach ($scThemes as $shortcode) {
                $this->shortcodes->add_shortcode($shortcode, $shortcode, $class);

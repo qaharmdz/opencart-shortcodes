@@ -1,8 +1,8 @@
 <?php
-class ShortcodesThemes extends Controller {
+class ShortcodesTheme extends Controller {
    /* Quick Docs:
     *  - Function name would be the shortcode tag.
-    *  - Use the same function name as in default shortcode to overwrite it.
+    *  - Same function name with available shortcode will overwrite the previous shortcode.
     */
 
    /**
