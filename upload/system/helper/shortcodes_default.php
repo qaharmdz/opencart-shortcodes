@@ -235,7 +235,6 @@ class ShortcodesDefault extends Controller {
       ), $atts));
 
       if ($type) {
-         
          $module = $this->getChild('module/' . $type, array(
                      'limit'        => $limit,
                      'image_width'  => $img_w,
@@ -273,6 +272,24 @@ class ShortcodesDefault extends Controller {
          $html = '<div class="shortcode-module sc-slideshow">' . $script . $style . $module . '</div>';
          
          return $html;
+      }
+   }
+   
+   /**
+    * User required to login to read the rest of the content.
+    *
+    * [login message='Silahkan <a href="%s">login</a> untuk melihat halaman ini.']content[/login]
+    */
+   function login($atts, $content = '') {
+      extract($this->shortcodes->shortcode_atts(array(
+         'message'   => 'Please <a href="%s">login</a> to read the rest of the post.',
+         'suffix'    => 'attention'
+      ), $atts));
+      
+      if ($content && $this->customer->isLogged()) {
+         return $this->shortcodes->do_shortcode($content);
+      } else {
+         return '<div class="' . $suffix . '">' . sprintf($message, $this->url->link('account/login')) . '</div>';
       }
    }
    
