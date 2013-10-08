@@ -40,11 +40,13 @@ class Shortcodes {
    // Removes shortcode tag
    public function remove_shortcode($tag) {
       unset($this->shortcode_tags[$tag]);
+      unset($this->shortcode_class[$tag]);
    }
 
    // Clear all shortcodes
    public function remove_all_shortcodes() {
       $this->shortcode_tags = array();
+      $this->shortcode_class = array();
    }
 
    // Check shortcode exists named $tag
