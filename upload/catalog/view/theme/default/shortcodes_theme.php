@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('DIR_APPLICATION')) exit('No direct script access allowed');
 class ShortcodesTheme extends Controller {
    /* Quick Docs:
     *  - Function name would be the shortcode tag.
