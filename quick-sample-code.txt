@@ -174,15 +174,15 @@
    <div style="overflow:hidden;">
       <div style="width:49%; float:left;">
          <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
-            [[video type="vimeo" id="23754691" img_w="450" img_h="280" /]]
+            [[video type="vimeo" id="23754691" vid_w="450" vid_h="280" /]]
          </div>
-         [video type="vimeo" id="23754691" img_w="450" img_h="280" /]
+         [video type="vimeo" id="23754691" vid_w="450" vid_h="280" /]
       </div>
       <div style="width:49%; margin-left:2%; float:left;">
          <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
-            [[video type="youtube" id="kPBzTxZQG5Q" autoplay="0" img_w="450" img_h="280" /]]
+            [[video type="youtube" id="kPBzTxZQG5Q" autoplay="0" vid_w="450" vid_h="280" /]]
          </div>
-         [video type="youtube" id="kPBzTxZQG5Q" autoplay="0" img_w="450" img_h="280" /]
+         [video type="youtube" id="kPBzTxZQG5Q" autoplay="0" vid_w="450" vid_h="280" /]
       </div>
    </div>
 </div>
@@ -214,7 +214,7 @@
 
 <div style="margin-left:40px;">
    <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
-      [[debug]]
+      [[debug /]]
    </div>
-   <p>[debug]</p>
+   <p>[debug /]</p>
 </div>

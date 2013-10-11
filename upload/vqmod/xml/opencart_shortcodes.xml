@@ -2,7 +2,7 @@
 <modification>
 	<id>OpenCart Shortcodes</id>
 	<version>1.0-RC.3</version>
-	<vqmver>2.3.2</vqmver>
+	<vqmver>2.4.0</vqmver>
 	<author>qahar [echothemes.com]</author>
    <file name="system/startup.php">
       <operation error="abort" info="Load shortcodes library">
@@ -32,7 +32,7 @@
             $this->shortcodes->add_shortcode($shortcode, $shortcode, $class);
          }
 
-         //=== Extensions shortcodes
+         //=== Extensions shortcodes : for extensions developer
          $files = glob(DIR_APPLICATION . '/view/shortcodes/*.php');
          if ($files) {
             foreach ($files as $file) {
@@ -49,7 +49,7 @@
             }
          }
          
-         //=== Themes shortcodes
+         //=== Themes shortcodes : for theme developer
          $file = DIR_TEMPLATE . $this->config->get('config_template') . '/shortcodes_theme.php';
          if (file_exists($file)) {
             require_once(VQMod::modCheck($file));
@@ -57,6 +57,18 @@
             $class         = new ShortcodesTheme($this->registry);
             $scThemes      = get_class_methods($class);
             foreach ($scThemes as $shortcode) {
+               $this->shortcodes->add_shortcode($shortcode, $shortcode, $class);
+            }
+         }
+         
+         //=== Custom shortcodes : user power!
+         $file = DIR_TEMPLATE . $this->config->get('config_template') . '/shortcodes_custom.php';
+         if (file_exists($file)) {
+            require_once(VQMod::modCheck($file));
+            
+            $class         = new ShortcodesCustom($this->registry);
+            $scCustom      = get_class_methods($class);
+            foreach ($scCustom as $shortcode) {
                $this->shortcodes->add_shortcode($shortcode, $shortcode, $class);
             }
          }
