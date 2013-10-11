@@ -296,35 +296,27 @@ class ShortcodesDefault extends Controller {
    /**
     * Embed video: youtube and vimeo
     *
-    * [video type="vimeo" id="23754691" img_w="450" img_h="280" /]
+    * [video type="vimeo" id="xxx" vid_w="450" vid_h="280" /]
     */
    function video($atts) {
       extract($this->shortcodes->shortcode_atts(array(
-         'type'      => '',
+         'type'      => 'youtube',
          'id'        => 0,
-         'img_w'     => 450,
-         'img_h'     => 280,
+         'vid_w'     => 450,
+         'vid_h'     => 280,
          'autoplay'  => 0
       ), $atts));
 
       if ($id) {
          if ($type == 'youtube') {
-            if ($img_w && $img_h) {
-               $video   = '<iframe width="' . $img_w . '" height="' . $img_h . '" src="http://youtube.com/embed/' . $id . '?rel=0&autoplay=' . $autoplay . '" frameborder="0" allowfullscreen></iframe>';
-            } else {
-               $video   = '<iframe src="http://youtube.com/embed/' . $id . '?rel=0&autoplay=' . $autoplay . '" frameborder="0" allowfullscreen></iframe>';
-            }
+            $video   = '<iframe width="' . $vid_w . '" height="' . $vid_h . '" src="http://youtube.com/embed/' . $id . '?rel=0&autoplay=' . $autoplay . '" frameborder="0" allowfullscreen></iframe>';
             
             $html    = '<div class="shortcode-video sc-' . $type . '">' . $video . '</div>';
             
             return $html;
             
          } elseif ($type == 'vimeo') {
-            if ($img_w && $img_h) {
-               $video   = '<iframe src="//player.vimeo.com/video/' . $id . '?autoplay=' . $autoplay . '" width="' . $img_w . '" height="' . $img_h . '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
-            } else {
-               $video   = '<iframe src="//player.vimeo.com/video/' . $id . '?autoplay=' . $autoplay . '" width="' . $img_w . '" height="' . $img_h . '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
-            }
+            $video   = '<iframe src="//player.vimeo.com/video/' . $id . '?autoplay=' . $autoplay . '" width="' . $vid_w . '" height="' . $vid_h . '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
             
             $html    = '<div class="shortcode-video sc-' . $type . '">' . $video . '</div>';
             
@@ -367,7 +359,7 @@ class ShortcodesDefault extends Controller {
     * Show lite System Information 
     * (full: http://www.echothemes.com/extensions/system-information.html)
     *
-    * [debug]
+    * [debug /]
     */
    function debug() {
       $data    = '<h3>OpenCart Debug Info - ' . date('d M, Y') . '</h3>';
