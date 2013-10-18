@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <modification>
 	<id>OpenCart Shortcodes</id>
-	<version>1.0-RC.3</version>
+	<version>1.0</version>
 	<vqmver>2.4.0</vqmver>
 	<author>qahar [echothemes.com]</author>
    <file name="system/startup.php">
       <operation error="abort" info="Load shortcodes library">
          <search position="after"><![CDATA[DIR_SYSTEM . 'engine/action.php']]></search>
          <add><![CDATA[
-         define('SHORTCODES_VERSION', '1.0-RC.3');
+         define('SHORTCODES_VERSION', '1.0');
          require_once(DIR_SYSTEM . 'library/shortcodes.php');
          ]]></add>
       </operation>
