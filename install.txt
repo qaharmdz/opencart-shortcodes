@@ -1,19 +1,27 @@
-Status: v.1.0-RC.3
+# OpenCart Shortcodes 
 
-OpenCart Shortcodes is a library and set of modification to enhance OpenCart
-with shortcodes based on Wordpress API.
+OpenCart Shortcodes is a library and set of modification to enhance OpenCart with shortcodes based on Wordpress API.
 
-This is rc (release candidate) version to publicly test. We do our homework to test it
-but more tester mean more possibility to find bugs. We are expecting report or feedback 
-before release it as -stable version- ready for production.
+## Requirements
+vQmod v2.4.0 or above
 
 
-### For installation please refer to: 
+## Installation
+1. Download and extract OpenCart Shortcodes.
+2. Inside upload/ folder you will found three folder: catalog/, system/ and vqmod/
+3. Upload three folder above to your site.
+4. Installation is done :)
 
-https://github.com/qahar/opencart-shortcodes/wiki/Install
+
+## Quick Test
+1. Login to admin and go to extensions -> information
+2. You can insert new information page, then click source on the editor.
+3. Open quick-sample-code.txt and insert to editor (source mode).
+4. Save the information page and check the result at front site.
+
+For further information: http://qahar.github.io/opencart-shortcodes/
 
 
-
-OpenCart Shortcodes
+## License
 Copyright (c) 2013 qahar (http://www.echothemes.com)
 Licensed under the GPLv3 (or later)
