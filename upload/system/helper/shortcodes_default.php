@@ -338,6 +338,7 @@ class ShortcodesDefault extends Controller {
          'title'     => '',
          'alt'       => '',
          'align'     => ''    // left, right, center
+         'cache'     => 0
       ), $atts));
       
       if (!$src && $content) { $src = $content; }
@@ -350,8 +351,74 @@ class ShortcodesDefault extends Controller {
          $align_style = 'float:left;margin:0 10px 0 10px;';
       }
 
-      if ($src) {
-         return '<img class="shortcode-video sc-image" src="' . $src . '" width="' . $img_w.'px' . '" height="' . $img_h.'px' . '" alt="' . $alt . '" title="' . $title . '" style="' . $align_style . '">';
+      $src_resize    = str_replace('image/', '', $src);
+      
+      if (is_file(DIR_IMAGE . $src_resize)) {
+         if ($cache) {
+            $this->load->model('tool/image');
+            $src           = $this->model_tool_image->resize($src_resize, $img_w, $img_h);
+         }
+         
+         return '<img class="shortcode-image" src="' . $src . '" width="' . $img_w.'px' . '" height="' . $img_h.'px' . '" alt="' . $alt . '" title="' . $title . '" style="' . $align_style . '">';
+      }
+   }
+   
+   /**
+    * Embed image with modalbox feature
+    *
+    * @example [image_modal src="image/data/your_image.jpg" /]
+    * @example [image_modal src="image/data/your_image.jpg" img_w="450" img_h="280" title="" alt="" align="" caption="" load_script="1"/]
+    */
+   function image_modal($atts, $content = '') {
+      extract($this->shortcodes->shortcode_atts(array(
+         'src'       => '',
+         'img_w'     => 200,
+         'img_h'     => 200,
+         'title'     => '',
+         'alt'       => '',
+         'align'     => 'left',    // left, right, center
+         'caption'   => 'Click to enlarge.',
+         'load_script'  => 0
+      ), $atts));
+      
+      if (!$src && $content) { $src = $content; }
+      if (!$alt & $title) { $alt = $title; }
+      if ($align == 'right') {
+         $align_style = 'float:right;margin:0 0 10px 10px;';
+      } elseif ($align == 'center') {
+         $align_style = 'display:block;margin:0 auto 15px;';
+      } else {
+         $align_style = 'float:left;margin:0 10px 0 10px;';
+      }
+      
+      $src_resize    = str_replace('image/', '', $src);
+      $script_load   = '';
+      
+      if ($load_script) {
+         $script_load = '<script type="text/javascript"><!--
+               $(document).ready(function() {
+                  $(".modalbox").colorbox({
+                     overlayClose: true,
+                     opacity: 0.5
+                  });
+               });
+               //--></script> ';
+         $script_load .= '<link rel="stylesheet" type="text/css" href="catalog/view/javascript/jquery/colorbox/colorbox.css" media="screen" />';
+         $script_load .= '<script type="text/javascript" src="catalog/view/javascript/jquery/colorbox/jquery.colorbox-min.js"></script>';
+      }
+      
+      if (is_file(DIR_IMAGE . $src_resize)) {
+         $this->load->model('tool/image');
+
+         $html  = '<div style="' . $align_style . '">';
+         $html .= '<a href="' . $src . '" title="' . $title . '" class="colorbox modalbox" style="text-decoration:none; outline:0;">';
+         $html .= '<img class="shortcode-image-modal" src="' . $this->model_tool_image->resize($src_resize, $img_w, $img_h) . '" width="' . $img_w.'px' . '" height="' . $img_h.'px' . '" alt="' . $alt . '" title="' . $title . '">';
+         $html .= '<div class="help" style="font-style:italic;">' . $caption . '</div>';
+         $html .= '</a>';
+         $html .= $script_load;
+         $html .= '</div>';
+         
+         return $html;
       }
    }
    
