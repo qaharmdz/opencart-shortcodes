@@ -326,9 +326,9 @@ class ShortcodesDefault extends Controller {
    }
    
    /**
-    * Embed image
+    * Embed image directly or with cache
     *
-    * [image src="" img_w="450" img_h="280" title="" alt="" align="" /]
+    * @example [image src="" img_w="450" img_h="280" title="" alt="" align="" /]
     */
    function image($atts, $content = '') {
       extract($this->shortcodes->shortcode_atts(array(
@@ -337,7 +337,7 @@ class ShortcodesDefault extends Controller {
          'img_h'     => 200,
          'title'     => '',
          'alt'       => '',
-         'align'     => ''    // left, right, center
+         'align'     => '',    // left, right, center
          'cache'     => 0
       ), $atts));
       
@@ -365,7 +365,9 @@ class ShortcodesDefault extends Controller {
    
    /**
     * Embed image with modalbox feature
-    *
+    * 
+    * @since 1.1
+    * 
     * @example [image_modal src="image/data/your_image.jpg" /]
     * @example [image_modal src="image/data/your_image.jpg" img_w="450" img_h="280" title="" alt="" align="" caption="" load_script="1"/]
     */
@@ -376,7 +378,7 @@ class ShortcodesDefault extends Controller {
          'img_h'     => 200,
          'title'     => '',
          'alt'       => '',
-         'align'     => 'left',    // left, right, center
+         'align'     => 'left', // left, right, center
          'caption'   => 'Click to enlarge.',
          'load_script'  => 0
       ), $atts));
