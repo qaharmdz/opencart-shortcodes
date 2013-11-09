@@ -283,10 +283,20 @@ class ShortcodesDefault extends Controller {
    function login($atts, $content = '') {
       extract($this->shortcodes->shortcode_atts(array(
          'message'   => 'Please <a href="%s">login</a> to read the rest of the post.',
-         'suffix'    => 'attention'
+         'suffix'    => 'attention',
+         'group'     => ''
       ), $atts));
       
+      $ok = false;
       if ($content && $this->customer->isLogged()) {
+          $ok = true;
+          //anyone say 'group' ?
+          if (! empty($group)) {
+             $ok = ($group == $this->customer->getCustomerGroupId()) ? true : false ; 
+          }          
+      }
+
+      if (true == $ok) {         
          return $this->shortcodes->do_shortcode($content);
       } else {
          return '<div class="' . $suffix . '">' . sprintf($message, $this->url->link('account/login')) . '</div>';
