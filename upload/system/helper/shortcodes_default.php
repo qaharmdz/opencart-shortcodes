@@ -348,7 +348,7 @@ class ShortcodesDefault extends Controller {
          'title'     => '',
          'alt'       => '',
          'align'     => '',    // left, right, center
-         'cache'     => 0
+         'cache'     => 1
       ), $atts));
       
       if (!$src && $content) { $src = $content; }
@@ -390,7 +390,8 @@ class ShortcodesDefault extends Controller {
          'alt'       => '',
          'align'     => 'left', // left, right, center
          'caption'   => 'Click to enlarge.',
-         'load_script'  => 0
+         'load_script'  => 0,
+         'cache'     => 1
       ), $atts));
       
       if (!$src && $content) { $src = $content; }
@@ -420,11 +421,16 @@ class ShortcodesDefault extends Controller {
       }
       
       if (is_file(DIR_IMAGE . $src_resize)) {
-         $this->load->model('tool/image');
+         if ($cache) {
+            $this->load->model('tool/image');
+            $src_thumb  = $this->model_tool_image->resize($src_resize, $img_w, $img_h);
+         } else {
+            $src_thumb  = $src;
+         }
 
          $html  = '<div style="' . $align_style . '">';
          $html .= '<a href="' . $src . '" title="' . $title . '" class="colorbox modalbox" style="text-decoration:none; outline:0;">';
-         $html .= '<img class="shortcode-image-modal" src="' . $this->model_tool_image->resize($src_resize, $img_w, $img_h) . '" width="' . $img_w.'px' . '" height="' . $img_h.'px' . '" alt="' . $alt . '" title="' . $title . '">';
+         $html .= '<img class="shortcode-image-modal" src="' . $src_thumb . '" width="' . $img_w.'px' . '" height="' . $img_h.'px' . '" alt="' . $alt . '" title="' . $title . '">';
          $html .= '<div class="help" style="font-style:italic;">' . $caption . '</div>';
          $html .= '</a>';
          $html .= $script_load;
