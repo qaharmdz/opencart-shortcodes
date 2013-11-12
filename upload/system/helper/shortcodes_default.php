@@ -4,8 +4,14 @@ class ShortcodesDefault extends Controller {
    /**
     * Generate product link with it variant of category and manufacture link.
     *
-    * [link_product id="x" path="x_x" brand="x" ssl="0" title="xyz" /]
-    * [link_product id="x" path="x_x" brand="x" ssl="0" title="xyz"]custom text[/link_product]
+    * @since 1.0
+    * 
+    * @param array $atts Shortcode attributes
+    * @param string $content Shortcode content
+    * @return string Link to product page
+    * 
+    * @example [link_product id="x" path="x_x" brand="x" ssl="0" title="xyz" /]
+    * @example [link_product id="x" path="x_x" brand="x" ssl="0" title="xyz"]custom text[/link_product]
     */
    function link_product($atts, $content = '') {
       extract($this->shortcodes->shortcode_atts(array(
@@ -50,8 +56,14 @@ class ShortcodesDefault extends Controller {
    /**
     * Generate category link.
     *
-    * [link_category path="x_y" ssl="0" title="xyz" /]
-    * [link_category path="x_y" ssl="1" title="xyz"]custom text[/link_category]
+    * @since 1.0
+    * 
+    * @param array $atts Shortcode attributes
+    * @param string $content Shortcode content
+    * @return string Link to category page
+    * 
+    * @example [link_category path="x_y" ssl="0" title="xyz" /]
+    * @example [link_category path="x_y" ssl="1" title="xyz"]custom text[/link_category]
     */
    function link_category($atts, $content = '') {
       extract($this->shortcodes->shortcode_atts(array(
@@ -81,12 +93,17 @@ class ShortcodesDefault extends Controller {
    
    /**
     * Generate brand/ manufacturer link.
-    *
-    * [link_brand ssl="0" title="xyz" /]
-    * [link_brand ssl="1" title="xyz"]custom text[/link_brand]
-    *
-    * [link_brand brand="x" ssl="0" title="xyz" /]
-    * [link_brand brand="x" ssl="1" title="xyz"]custom text[/link_brand]
+    * 
+    * @since 1.0
+    * 
+    * @param array $atts Shortcode attributes
+    * @param string $content Shortcode content
+    * @return string Link to manufacturer list or manufacture page
+    * 
+    * @example [link_brand ssl="0" title="xyz" /]
+    * @example [link_brand ssl="1" title="xyz"]custom text[/link_brand]
+    * @example [link_brand brand="x" ssl="0" title="xyz" /]
+    * @example [link_brand brand="x" ssl="1" title="xyz"]custom text[/link_brand]
     */
    function link_brand($atts, $content = '') {
       extract($this->shortcodes->shortcode_atts(array(
@@ -130,9 +147,15 @@ class ShortcodesDefault extends Controller {
    
    /**
     * Generate information link.
-    *
-    * [link_info id="x" ssl="0" title="xyz" /]
-    * [link_info id="x" ssl="0" title="xyz"]custom text[/link_info]
+    * 
+    * @since 1.0
+    * 
+    * @param array $atts Shortcode attributes
+    * @param string $content Shortcode content
+    * @return string Link to information page
+    * 
+    * @example [link_info id="x" ssl="0" title="xyz" /]
+    * @example [link_info id="x" ssl="0" title="xyz"]custom text[/link_info]
     */
    function link_info($atts, $content = '') {
       extract($this->shortcodes->shortcode_atts(array(
@@ -162,8 +185,14 @@ class ShortcodesDefault extends Controller {
    
    /**
     * Generate custom link based on OpenCart API Url format
-    *
-    * [link_custom route="foo" args="bar" ssl="0" title="xyz"]custom text[/link_custom]
+    * 
+    * @since 1.0
+    * 
+    * @param array $atts Shortcode attributes
+    * @param string $content Shortcode content
+    * @return string Return link based on user input
+    * 
+    * @example [link_custom route="foo" args="bar" ssl="0" title="xyz"]custom text[/link_custom]
     */
    function link_custom($atts, $content = '') {
       extract($this->shortcodes->shortcode_atts(array(
@@ -180,8 +209,14 @@ class ShortcodesDefault extends Controller {
    
    /**
     * Generate custom link for multi-store site
-    *
-    * [link_store store="x" route="foo" args="bar" ssl="0" title="xyz"]custom text[/link_custom]
+    * 
+    * @since 1.0
+    * 
+    * @param array $atts Shortcode attributes
+    * @param string $content Shortcode content
+    * @return string Link to manufacturer list or manufacture page
+    * 
+    * @example [link_store store="x" route="foo" args="bar" ssl="0" title="xyz"]custom text[/link_custom]
     */
    function link_store($atts, $content = '') {
       extract($this->shortcodes->shortcode_atts(array(
@@ -223,8 +258,13 @@ class ShortcodesDefault extends Controller {
    
    /**
     * Load module type product (featured, latest, bestseller, special) anywhere!
-    *
-    * [module_product type="featured" limit="5" img_w="100" img_h="100" /]
+    * 
+    * @since 1.0
+    * 
+    * @param array $atts Shortcode attributes
+    * @return string Module based on user choose
+    * 
+    * @example [module_product type="featured" limit="5" img_w="100" img_h="100" /]
     */
    function module_product($atts) {
       extract($this->shortcodes->shortcode_atts(array(
@@ -249,8 +289,13 @@ class ShortcodesDefault extends Controller {
    
    /**
     * Load module slideshow
-    *
-    * [module_slideshow id="x" limit="5" img_w="100" img_h="100" /]
+    * 
+    * @since 1.0
+    * 
+    * @param array $atts Shortcode attributes
+    * @return string Show module slideshow
+    * 
+    * @example [module_slideshow id="x" limit="5" img_w="100" img_h="100" /]
     */
    function module_slideshow($atts) {
       extract($this->shortcodes->shortcode_atts(array(
@@ -277,8 +322,15 @@ class ShortcodesDefault extends Controller {
    
    /**
     * User required to login to read the rest of the content.
-    *
-    * [login message='Silahkan <a href="%s">login</a> untuk melihat halaman ini.']content[/login]
+    * Able to restrict user to read based on their group.
+    * 
+    * @since 1.0
+    * 
+    * @param array $atts Shortcode attributes
+    * @param string $content Shortcode content
+    * @return string Message if not permitted to read, show rest of article if permitted.
+    * 
+    * @example [login message='Silahkan <a href="%s">login</a> untuk melihat halaman ini.']content[/login]
     */
    function login($atts, $content = '') {
       extract($this->shortcodes->shortcode_atts(array(
@@ -305,8 +357,13 @@ class ShortcodesDefault extends Controller {
    
    /**
     * Embed video: youtube and vimeo
-    *
-    * [video type="vimeo" id="xxx" vid_w="450" vid_h="280" /]
+    * 
+    * @since 1.0
+    * 
+    * @param array $atts Shortcode attributes
+    * @return string Video embed code
+    * 
+    * @example [video type="vimeo" id="xxx" vid_w="450" vid_h="280" /]
     */
    function video($atts) {
       extract($this->shortcodes->shortcode_atts(array(
@@ -337,7 +394,13 @@ class ShortcodesDefault extends Controller {
    
    /**
     * Embed image directly or with cache
-    *
+    * 
+    * @since 1.0
+    * 
+    * @param array $atts Shortcode attributes
+    * @param string $content Shortcode content
+    * @return string Image html code
+    * 
     * @example [image src="" img_w="450" img_h="280" title="" alt="" align="" /]
     */
    function image($atts, $content = '') {
@@ -361,12 +424,12 @@ class ShortcodesDefault extends Controller {
          $align_style = 'float:left;margin:0 10px 0 10px;';
       }
 
-      $src_resize    = str_replace('image/', '', $src);
+      $src_resize = str_replace('image/', '', $src);
       
       if (is_file(DIR_IMAGE . $src_resize)) {
          if ($cache) {
             $this->load->model('tool/image');
-            $src           = $this->model_tool_image->resize($src_resize, $img_w, $img_h);
+            $src = $this->model_tool_image->resize($src_resize, $img_w, $img_h);
          }
          
          return '<img class="shortcode-image" src="' . $src . '" width="' . $img_w.'px' . '" height="' . $img_h.'px' . '" alt="' . $alt . '" title="' . $title . '" style="' . $align_style . '">';
@@ -377,6 +440,9 @@ class ShortcodesDefault extends Controller {
     * Embed image with modalbox feature
     * 
     * @since 1.1
+    * 
+    * @param array $atts Shortcode attributes
+    * @return string Thumbnail with link to open modal box
     * 
     * @example [image_modal src="image/data/your_image.jpg" /]
     * @example [image_modal src="image/data/your_image.jpg" img_w="450" img_h="280" title="" alt="" align="" caption="" load_script="1"/]
@@ -443,8 +509,14 @@ class ShortcodesDefault extends Controller {
    /**
     * Show lite System Information 
     * (full: http://www.echothemes.com/extensions/system-information.html)
-    *
-    * [debug /]
+    * 
+    * @since 1.0
+    * 
+    * @param array $atts Shortcode attributes
+    * @param string $content Shortcode content
+    * @return string List of system information
+    * 
+    * @example [debug /]
     */
    function debug() {
       $data    = '<h3>OpenCart Debug Info - ' . date('d M, Y') . '</h3>';
