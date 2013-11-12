@@ -282,12 +282,22 @@ class ShortcodesDefault extends Controller {
     */
    function login($atts, $content = '') {
       extract($this->shortcodes->shortcode_atts(array(
-         'message'   => 'Please <a href="%s">login</a> to read the rest of the post.',
-         'suffix'    => 'attention'
+         'message'      => 'Please <a href="%s">login</a> to read the rest of the post.',
+         'msg_group'    => 'Your customer group is not permitted to read the rest of the post. Please <a href="%s">contact us</a> for further info.',
+         'suffix'       => 'attention',
+         'group'        => ''
       ), $atts));
       
       if ($content && $this->customer->isLogged()) {
-         return $this->shortcodes->do_shortcode($content);
+         if($group) {
+            if ($group == $this->customer->getCustomerGroupId()) {
+               return $this->shortcodes->do_shortcode($content);
+            } else {
+               return '<div class="' . $suffix . '">' . sprintf($msg_group, $this->url->link('information/contact')) . '</div>';
+            }
+         } else {
+            return $this->shortcodes->do_shortcode($content);
+         }
       } else {
          return '<div class="' . $suffix . '">' . sprintf($message, $this->url->link('account/login')) . '</div>';
       }
