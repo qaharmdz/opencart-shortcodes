@@ -333,12 +333,16 @@ class ShortcodesDefault extends Controller {
     * @example [login message='Silahkan <a href="%s">login</a> untuk melihat halaman ini.']content[/login]
     */
    function login($atts, $content = '') {
+      $this->language->load('common/shortcodes_default');
+      
       extract($this->shortcodes->shortcode_atts(array(
-         'message'      => 'Please <a href="%s">login</a> to read the rest of the post.',
-         'msg_group'    => 'Your customer group is not permitted to read the rest of the post. Please <a href="%s">contact us</a> for further info.',
+         'msg_login'    => $this->language->get('login_message'),
+         'msg_group'    => $this->language->get('login_group'),
          'suffix'       => 'attention',
          'group'        => ''
       ), $atts));
+      
+      
       
       if ($content && $this->customer->isLogged()) {
          if($group) {
@@ -351,7 +355,7 @@ class ShortcodesDefault extends Controller {
             return $this->shortcodes->do_shortcode($content);
          }
       } else {
-         return '<div class="' . $suffix . '">' . sprintf($message, $this->url->link('account/login')) . '</div>';
+         return '<div class="' . $suffix . '">' . sprintf($msg_login, $this->url->link('account/login')) . '</div>';
       }
    }
    
@@ -448,6 +452,8 @@ class ShortcodesDefault extends Controller {
     * @example [image_modal src="image/data/your_image.jpg" img_w="450" img_h="280" title="" alt="" align="" caption="" load_script="1"/]
     */
    function image_modal($atts, $content = '') {
+      $this->language->load('common/shortcodes_default');
+      
       extract($this->shortcodes->shortcode_atts(array(
          'src'       => '',
          'img_w'     => 200,
@@ -455,7 +461,7 @@ class ShortcodesDefault extends Controller {
          'title'     => '',
          'alt'       => '',
          'align'     => 'left', // left, right, center
-         'caption'   => 'Click to enlarge.',
+         'caption'   => $this->language->get('imgModal_caption'),
          'load_script'  => 0,
          'cache'     => 1
       ), $atts));
@@ -512,38 +518,38 @@ class ShortcodesDefault extends Controller {
     * 
     * @since 1.0
     * 
-    * @param array $atts Shortcode attributes
-    * @param string $content Shortcode content
     * @return string List of system information
     * 
     * @example [debug /]
     */
    function debug() {
-      $data    = '<h3>OpenCart Debug Info - ' . date('d M, Y') . '</h3>';
+      $this->language->load('common/shortcodes_default');
+      
+      $data    = '<h3>' . $this->language->get('debug_title') . ' - ' . date('d M, Y') . '</h3>';
       $data   .= '<table class="sc-debug">';
-      $data   .= '<tr><td>OpenCart</td><td>: v' . VERSION . '</td></tr>';
+      $data   .= '<tr><td>' . $this->language->get('debug_opencart') . '</td><td>: v' . VERSION . '</td></tr>';
       if (isset(VQMod::$_vqversion)) {
-         $data   .=  '<tr><td>vQmod</td><td>: v' . VQMod::$_vqversion . '</td></tr>';
+         $data   .=  '<tr><td>' . $this->language->get('debug_vqmod') . '</td><td>: v' . VQMod::$_vqversion . '</td></tr>';
       }
-      $data   .= '<tr><td>Shortcodes</td><td>: v' . SHORTCODES_VERSION . '</td></tr>';
+      $data   .= '<tr><td>' . $this->language->get('debug_shortcodes') . '</td><td>: v' . SHORTCODES_VERSION . '</td></tr>';
       $data   .= '</table>';
       $data   .= '<table class="sc-debug">';
-      $data   .= '<tr><td>PHP version</td><td>: ' . phpversion() . '</td></tr>';
-      $data   .= '<tr><td>Safe Mode</td><td>: ' . ((ini_get('safe_mode')) ? 'ON <span class="sc-alert">- Required to turn off!</span>' : 'OFF <span class="sc-good">- Good</span>') . '</td></tr>';
-      $data   .= '<tr><td>Register Globals</td><td>: ' . ((ini_get('register_globals')) ? 'ON <span class="sc-alert">- Required to turn off!</span>' : 'OFF <span class="sc-good">- Good</span>') . '</td></tr>';
-      $data   .= '<tr><td>Magic Quotes GPC</td><td>: ' . ((ini_get('magic_quotes_gpc') || get_magic_quotes_gpc()) ? 'ON <span class="sc-alert">- Required to turn off!</span>' : 'OFF <span class="sc-good">- Good</span>') . '</td></tr>';
-      $data   .= '<tr><td>Session Auto Start</td><td>: ' . ((ini_get('session_auto_start')) ? 'ON <span class="sc-alert">- Required to turn off!</span>' : 'OFF <span class="sc-good">- Good</span>') . '</td></tr>';
-      $data   .= '<tr><td>Allow Url Fopen</td><td>: ' . ((ini_get('allow_url_fopen')) ? 'ON <span class="sc-good">- Good</span>' : 'OFF <span class="sc-alert">- Required to turn ON!</span>') . '</td></tr>';
+      $data   .= '<tr><td>' . $this->language->get('debug_php') . '</td><td>: v.' . phpversion() . '</td></tr>';
+      $data   .= '<tr><td>' . $this->language->get('debug_safemode') . '</td><td>: ' . ((ini_get('safe_mode')) ? $this->language->get('text_on') . ' <span class="sc-alert">- ' . $this->language->get('text_req_off') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>') . '</td></tr>';
+      $data   .= '<tr><td>' . $this->language->get('debug_reg_global') . '</td><td>: ' . ((ini_get('register_globals')) ? $this->language->get('text_on') . ' <span class="sc-alert">- ' . $this->language->get('text_req_off') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>') . '</td></tr>';
+      $data   .= '<tr><td>' . $this->language->get('debug_gpc') . '</td><td>: ' . ((ini_get('magic_quotes_gpc') || get_magic_quotes_gpc()) ? $this->language->get('text_on') . ' <span class="sc-alert">- ' . $this->language->get('text_req_off') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>') . '</td></tr>';
+      $data   .= '<tr><td>' . $this->language->get('debug_session') . '</td><td>: ' . ((ini_get('session_auto_start')) ? $this->language->get('text_on') . ' <span class="sc-alert">- ' . $this->language->get('text_req_off') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>') . '</td></tr>';
+      $data   .= '<tr><td>' . $this->language->get('debug_fopen') . '</td><td>: ' . ((ini_get('allow_url_fopen')) ? $this->language->get('text_on') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-alert">- ' . $this->language->get('text_req_on') . '</span>') . '</td></tr>';
       if(VERSION >= '1.5.4') {
-         $data   .= '<tr><td>mCrypt</td><td>: ' . ((extension_loaded('mcrypt')) ? 'ON <span class="sc-good">- Good</span>' : 'OFF <span class="sc-alert">- Required to turn ON!</span>') . '</td></tr>';
+         $data   .= '<tr><td>' . $this->language->get('debug_mcrypt') . '</td><td>: ' . ((extension_loaded('mcrypt')) ? $this->language->get('text_on') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-alert">- ' . $this->language->get('text_req_on') . '</span>') . '</td></tr>';
       }
-      $data   .= '<tr><td>File Uploads</td><td>: ' . ((ini_get('file_uploads')) ? 'ON <span class="sc-good">- Good</span>' : 'OFF <span class="sc-alert">- Required to turn ON!</span>') . '</td></tr>';
-      $data   .= '<tr><td>Cookies</td><td>: ' . ((ini_get('session.use_cookies')) ? 'ON <span class="sc-good">- Good</span>' : 'OFF <span class="sc-alert">- Required to turn ON!</span>') . '</td></tr>';
-      $data   .= '<tr><td>GD</td><td>: ' . ((extension_loaded('gd')) ? 'ON <span class="sc-good">- Good</span>' : 'OFF <span class="sc-alert">- Required to turn ON!</span>') . '</td></tr>';
-      $data   .= '<tr><td>Curl</td><td>: ' . ((extension_loaded('curl')) ? 'ON <span class="sc-good">- Good</span>' : 'OFF <span class="sc-alert">- Required to turn ON!</span>') . '</td></tr>';
-      $data   .= '<tr><td>Fsock</td><td>: ' . ((extension_loaded('sockets')) ? 'ON <span class="sc-good">- Good</span>' : 'OFF <span class="sc-alert">- Required to turn ON!</span>') . '</td></tr>';
-      $data   .= '<tr><td>Zip</td><td>: ' . ((extension_loaded('zlib')) ? 'ON <span class="sc-good">- Good</span>' : 'OFF <span class="sc-alert">- Required to turn ON!</span>') . '</td></tr>';
-      $data   .= '<tr><td>Xml</td><td>: ' . ((extension_loaded('xml')) ? 'ON <span class="sc-good">- Good</span>' : 'OFF <span class="sc-alert">- Required to turn ON!</span>') . '</td></tr>';
+      $data   .= '<tr><td>' . $this->language->get('debug_upload') . '</td><td>: ' . ((ini_get('file_uploads')) ? $this->language->get('text_on') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-alert">- ' . $this->language->get('text_req_on') . '</span>') . '</td></tr>';
+      $data   .= '<tr><td>' . $this->language->get('debug_cookies') . '</td><td>: ' . ((ini_get('session.use_cookies')) ? $this->language->get('text_on') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-alert">- ' . $this->language->get('text_req_on') . '</span>') . '</td></tr>';
+      $data   .= '<tr><td>' . $this->language->get('debug_gd') . '</td><td>: ' . ((extension_loaded('gd')) ? $this->language->get('text_on') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-alert">- ' . $this->language->get('text_req_on') . '</span>') . '</td></tr>';
+      $data   .= '<tr><td>' . $this->language->get('debug_curl') . '</td><td>: ' . ((extension_loaded('curl')) ? $this->language->get('text_on') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-alert">- ' . $this->language->get('text_req_on') . '</span>') . '</td></tr>';
+      $data   .= '<tr><td>' . $this->language->get('debug_fsock') . '</td><td>: ' . ((extension_loaded('sockets')) ? $this->language->get('text_on') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-alert">- ' . $this->language->get('text_req_on') . '</span>') . '</td></tr>';
+      $data   .= '<tr><td>' . $this->language->get('debug_zip') . '</td><td>: ' . ((extension_loaded('zlib')) ? $this->language->get('text_on') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-alert">- ' . $this->language->get('text_req_on') . '</span>') . '</td></tr>';
+      $data   .= '<tr><td>' . $this->language->get('debug_xml') . '</td><td>: ' . ((extension_loaded('xml')) ? $this->language->get('text_on') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-alert">- ' . $this->language->get('text_req_on') . '</span>') . '</td></tr>';
       $data   .= '</table>';
 
       $style   = '<style>';
