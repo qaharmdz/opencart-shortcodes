@@ -473,7 +473,7 @@ class ShortcodesDefault extends Controller {
       } elseif ($align == 'center') {
          $align_style = 'display:block;margin:0 auto 15px;';
       } else {
-         $align_style = 'float:left;margin:0 10px 0 10px;';
+         $align_style = 'float:left;margin:0 10px 10px 0;';
       }
       
       $src_resize    = str_replace('image/', '', $src);

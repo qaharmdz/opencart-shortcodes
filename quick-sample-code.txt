@@ -1,220 +1,215 @@
 <h2>Links</h2>
 
 <h3># Product Link</h3>
+
 <div style="margin-left:40px;">
-   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
-      [[link_product id="42" /]]
-   </div>
-   <p><strong>Result:</strong> [link_product id="42" /]</p>
+<div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">[[link_product id="42" /]]</div>
 
-   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
-   [[link_product id="42" path="25_28" ssl="1" title="Very good products!" /]]
-   </div>
-   <p><strong>Result:</strong> [link_product id="42" path="25_28" ssl="1" title="Very good products!" /]</p>
+<p><strong>Result:</strong> [link_product id="42" /]</p>
 
-   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
-   A link to [[link_product id="42" brand="8"]product[/link_product]] with brand.
-   </div>
-   <p><strong>Result:</strong> A link to [link_product id="42" brand="8"]product[/link_product] with brand.</p>
-   
-   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
-   A link to [[link_product id="101" path="25_28"]product[/link_product]] with brand.
-   </div>
-   <p><strong>Result:</strong> A link to [link_product id="101" path="25_28"]product[/link_product] with category. <em>(return plain text if product is not available)</em></p>
+<div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">[[link_product id="42" path="25_28" ssl="1" title="Very good products!" /]]</div>
+
+<p><strong>Result:</strong> [link_product id="42" path="25_28" ssl="1" title="Very good products!" /]</p>
+
+<div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">A link to [[link_product id="42" brand="8"]product[/link_product]] with brand.</div>
+
+<p><strong>Result:</strong> A link to [link_product id="42" brand="8"]product[/link_product] with brand.</p>
+
+<div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">A link to [[link_product id="101" path="25_28"]product[/link_product]] with category.</div>
+
+<p><strong>Result:</strong> A link to [link_product id="101" path="25_28"]product[/link_product] with category. <em>(return plain text if product is not available)</em></p>
 </div>
 
 <h3># Category Link</h3>
-<div style="margin-left:40px;">
-   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
-      [[link_category path="20" ssl="0" /]]
-   </div>
-   <p><strong>Result:</strong> [link_category path="20" ssl="0" /]</p>
 
-   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
-      Upcoming amazing [[link_category path="20_27" ssl="0"]macbook[/link_category]] for geek!
-   </div>
-   <p><strong>Result:</strong> Upcoming amazing [link_category path="20_27" ssl="0"]macbook[/link_category] for geek!</p>
+<div style="margin-left:40px;">
+<div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">[[link_category path="20" ssl="0" /]]</div>
+
+<p><strong>Result:</strong> [link_category path="20" ssl="0" /]</p>
+
+<div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">Upcoming amazing [[link_category path="20_27" ssl="0"]macbook[/link_category]] for geek!</div>
+
+<p><strong>Result:</strong> Upcoming amazing [link_category path="20_27" ssl="0"]macbook[/link_category] for geek!</p>
 </div>
 
 <h3># Manufacturer Link</h3>
-<div style="margin-left:40px;">
-   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
-      [[link_brand /]]
-   </div>
-   <p><strong>Result:</strong> [link_brand/]</p>
-   
-   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
-      [[link_brand title="brand custom text"]custom text[/link_brand]]
-   </div>
-   <p><strong>Result:</strong> [link_brand title="brand custom text"]custom text[/link_brand]</p>
 
-   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
-      View all [[link_brand brand="8"]apple[/link_brand]] product at the store.
-   </div>
-   <p><strong>Result:</strong> View all [link_brand brand="8" ssl="0"]apple[/link_brand] available at the store.</p>
+<div style="margin-left:40px;">
+<div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">[[link_brand /]]</div>
+
+<p><strong>Result:</strong> [link_brand/]</p>
+
+<div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">[[link_brand title="brand custom text"]custom text[/link_brand]]</div>
+
+<p><strong>Result:</strong> [link_brand title="brand custom text"]custom text[/link_brand]</p>
+
+<div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">View all [[link_brand brand="8"]apple[/link_brand]] product at the store.</div>
+
+<p><strong>Result:</strong> View all [link_brand brand="8" ssl="0"]apple[/link_brand] available at the store.</p>
 </div>
 
 <h3># Information Link</h3>
-<div style="margin-left:40px;">
-   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
-      [[link_info id="6" ssl="0" /]]
-   </div>
-   <p><strong>Result:</strong> [link_info id="6" /]</p>
 
-   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
-      Check world wide free [[link_info id="6" ssl="0"]shipping[/link_info]].
-   </div>
-   <p><strong>Result:</strong> Check world wide free [link_info id="6" ssl="1"]shipping[/link_info].</p>
+<div style="margin-left:40px;">
+<div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">[[link_info id="6" ssl="0" /]]</div>
+
+<p><strong>Result:</strong> [link_info id="6" /]</p>
+
+<div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">Check world wide free [[link_info id="6" ssl="0"]shipping[/link_info]].</div>
+
+<p><strong>Result:</strong> Check world wide free [link_info id="6" ssl="1"]shipping[/link_info].</p>
 </div>
 
 <h3># Custom Link</h3>
+
 <div style="margin-left:40px;">
-   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
-      [[link_custom route="common/home"]homepage[/link_custom]]
-   </div>
-   <p><strong>Result:</strong> [link_custom route="common_home"]homepage[/link_custom]</p>
-   
-   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
-      Read our [[link_custom route="information/information" args="information_id=3"]privacy[/link_custom]] policy
-   </div>
-   <p><strong>Result:</strong> Read our [link_custom route="information/information" args="information_id=3"]privacy[/link_custom] policy</p>
+<div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">[[link_custom route="common/home"]homepage[/link_custom]]</div>
+
+<p><strong>Result:</strong> [link_custom route="common_home"]homepage[/link_custom]</p>
+
+<div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">Read our [[link_custom route="information/information" args="information_id=3"]privacy[/link_custom]] policy</div>
+
+<p><strong>Result:</strong> Read our [link_custom route="information/information" args="information_id=3"]privacy[/link_custom] policy</p>
 </div>
 
 <h3># Store Link</h3>
+
 <p>Similiar to custom link shortcode with specific purpose to generate link to multistore.</p>
+
 <div style="margin-left:40px;">
-   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
-      [[link_store store="1" route="common/home"]homepage[/link_store]]
-   </div>
-   <p><strong>Result:</strong> [link_store store="1" route="common/home"]homepage[/link_store]</p>
-   
-   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
-      Read our [[link_store store="1" route="information/information" args="information_id=3"]privacy[/link_store]] policy
-   </div>
-   <p><strong>Result:</strong> Read our [link_store store="1" route="information/information" args="information_id=3"]privacy[/link_store] policy</p>
-   
-   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
-      [[link_store store="2" route="common/home"]homepage[/link_store]]
-   </div>
-   <p><strong>Result:</strong> [link_store store="2" route="common/home"]homepage[/link_store] <em>(return plain text if store is not available)</em></p>
+<div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">[[link_store store="1" route="common/home"]homepage[/link_store]]</div>
+
+<p><strong>Result:</strong> [link_store store="1" route="common/home"]homepage[/link_store]</p>
+
+<div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">Read our [[link_store store="1" route="information/information" args="information_id=3"]privacy[/link_store]] policy</div>
+
+<p><strong>Result:</strong> Read our [link_store store="1" route="information/information" args="information_id=3"]privacy[/link_store] policy</p>
+
+<div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">[[link_store store="2" route="common/home"]homepage[/link_store]]</div>
+
+<p><strong>Result:</strong> [link_store store="2" route="common/home"]homepage[/link_store] <em>(return plain text if store is not available)</em></p>
 </div>
 
 <h2>Modules</h2>
 
 <h3># Products Module</h3>
+
 <div>
-   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
-      [[module_product type="featured" /]]
-   </div>
-   [module_product type="featured" /]
-   
-   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
-      [[module_product type="latest" limit="5" img_w="110" img_h="110" /]]
-   </div>
-   [module_product type="latest" limit="6" img_w="110" img_h="110" /]
-   
-   <div style="overflow:hidden;">
-      <div style="width:49%; float:left;">
-         <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
-            [[module_product type="special"  limit="3" /]]
-         </div>
-         [module_product type="special" limit="3" /]
-      </div>
-      <div style="width:49%; margin-left:2%; float:left;">
-         <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
-            [[module_product type="bestseller"  limit="3" /]]
-         </div>
-         [module_product type="bestseller" limit="3" /]
-      </div>
-   </div>
+<div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">[[module_product type="featured" /]]</div>
+[module_product type="featured" /]
+
+<div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">[[module_product type="latest" limit="5" img_w="110" img_h="110" /]]</div>
+[module_product type="latest" limit="6" img_w="110" img_h="110" /]
+
+<div style="overflow:hidden;">
+<div style="width:49%; float:left;">
+<div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">[[module_product type="special" limit="3" /]]</div>
+[module_product type="special" limit="3" /]</div>
+
+<div style="width:49%; margin-left:2%; float:left;">
+<div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">[[module_product type="bestseller" limit="3" /]]</div>
+[module_product type="bestseller" limit="3" /]</div>
+</div>
 </div>
 
 <h3># Slideshow Module</h3>
+
 <div style="margin-left:40px;">
-   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
-      [[module_slideshow id="7" img_w="800" img_h="230" /]]
-   </div>
-   [module_slideshow id="7" img_w="800" img_h="230" /]
-</div>
+<div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">[[module_slideshow id="7" img_w="800" img_h="230" /]]</div>
+[module_slideshow id="7" img_w="800" img_h="230" /]</div>
 
 <h2>Extra Shortcodes</h2>
 
 <h3># Login</h3>
+
 <div style="margin-left:40px;">
-   <div style="overflow:hidden;">
-      <div style="width:49%; float:left;">
-         <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
-            &lt;p>Lorem ipsum dolor sit amet, dona abstulit meis audi anim igitur cui Tharsia. Euro in deinde cepit roseo commendavit auri in lucem concitaverunt in lucem exempli paupers coniunx efficerer nuptiarum cui.&lt;/p><br/><br/>
-            [[login]<br/>
-            &lt;p>Archistratem solatium persequendum loco sed esse deprecor cum autem nobiscum ei sed haec vidit tam ubicumque generum dixit. Cyrenaeam plus damna nautis unum eam ad quia illum in rei finibus veteres hoc contra me in.&lt;/p><br/>
-            [/login]]
-         </div>
-         <p>Lorem ipsum dolor sit amet, dona abstulit meis audi anim igitur cui Tharsia. Euro in deinde cepit roseo commendavit auri in lucem concitaverunt in lucem exempli paupers coniunx efficerer nuptiarum cui.</p>
-         [login]
-         <p>Archistratem solatium persequendum loco sed esse deprecor cum autem nobiscum ei sed haec vidit tam ubicumque generum dixit. Cyrenaeam plus damna nautis unum eam ad quia illum in rei finibus veteres hoc contra me in.</p>
-         [/login]
-      </div>
-      <div style="width:49%; margin-left:2%; float:left;">
-         <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
-            &lt;p>Lorem ipsum dolor sit amet, dona abstulit meis audi anim igitur cui Tharsia. Euro in deinde cepit roseo commendavit auri in lucem concitaverunt in lucem exempli paupers coniunx efficerer nuptiarum cui.&lt;/p><br/><br/>
-            [[login message='Silahkan &lt;a href="%s">login&lt;/a> untuk melihat halaman ini.' suffix="warning"]<br/>
-            &lt;p>Archistratem solatium persequendum loco sed esse deprecor cum autem nobiscum ei sed haec vidit tam ubicumque generum dixit. Cyrenaeam plus damna nautis unum eam ad quia illum in rei finibus veteres hoc contra me in.&lt;/p><br/>
-            [/login]]
-         </div>
-         <p>Lorem ipsum dolor sit amet, dona abstulit meis audi anim igitur cui Tharsia. Euro in deinde cepit roseo commendavit auri in lucem concitaverunt in lucem exempli paupers coniunx efficerer nuptiarum cui.</p>
-         [login message='Silahkan <a href="%s">login</a> untuk melihat halaman ini.' suffix="warning"]
-         <p>Archistratem solatium persequendum loco sed esse deprecor cum autem nobiscum ei sed haec vidit tam ubicumque generum dixit. Cyrenaeam plus damna nautis unum eam ad quia illum in rei finibus veteres hoc contra me in.</p>
-         [/login]
-      </div>
-   </div>
+<div style="overflow:hidden;">
+<div style="width:49%; float:left;">
+<div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">&lt;p&gt;Lorem ipsum dolor sit amet, dona abstulit meis audi anim igitur cui Tharsia. Euro in deinde cepit roseo commendavit auri in lucem concitaverunt in lucem exempli paupers coniunx efficerer nuptiarum cui.&lt;/p&gt;<br />
+<br />
+[[login]<br />
+&lt;p&gt;Archistratem solatium persequendum loco sed esse deprecor cum autem nobiscum ei sed haec vidit tam ubicumque generum dixit. Cyrenaeam plus damna nautis unum eam ad quia illum in rei finibus veteres hoc contra me in.&lt;/p&gt;<br />
+[/login]]</div>
+
+<p>Lorem ipsum dolor sit amet, dona abstulit meis audi anim igitur cui Tharsia. Euro in deinde cepit roseo commendavit auri in lucem concitaverunt in lucem exempli paupers coniunx efficerer nuptiarum cui.</p>
+[login]
+
+<p>Archistratem solatium persequendum loco sed esse deprecor cum autem nobiscum ei sed haec vidit tam ubicumque generum dixit. Cyrenaeam plus damna nautis unum eam ad quia illum in rei finibus veteres hoc contra me in.</p>
+[/login]</div>
+
+<div style="width:49%; margin-left:2%; float:left;">
+<div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">&lt;p&gt;Lorem ipsum dolor sit amet, dona abstulit meis audi anim igitur cui Tharsia. Euro in deinde cepit roseo commendavit auri in lucem concitaverunt in lucem exempli paupers coniunx efficerer nuptiarum cui.&lt;/p&gt;<br />
+<br />
+[[login msg_login='Silahkan &lt;a href="%s"&gt;login&lt;/a&gt; untuk melihat halaman ini.' suffix="warning"]<br />
+&lt;p&gt;Archistratem solatium persequendum loco sed esse deprecor cum autem nobiscum ei sed haec vidit tam ubicumque generum dixit. Cyrenaeam plus damna nautis unum eam ad quia illum in rei finibus veteres hoc contra me in.&lt;/p&gt;<br />
+[/login]]</div>
+
+<p>Lorem ipsum dolor sit amet, dona abstulit meis audi anim igitur cui Tharsia. Euro in deinde cepit roseo commendavit auri in lucem concitaverunt in lucem exempli paupers coniunx efficerer nuptiarum cui.</p>
+[login msg_login='Silahkan <a href="%s">login</a> untuk melihat halaman ini.' suffix="warning"]
+
+<p>Archistratem solatium persequendum loco sed esse deprecor cum autem nobiscum ei sed haec vidit tam ubicumque generum dixit. Cyrenaeam plus damna nautis unum eam ad quia illum in rei finibus veteres hoc contra me in.</p>
+[/login]</div>
+</div>
 </div>
 
 <h3># Video</h3>
+
 <div style="margin-left:40px;">
-   <div style="overflow:hidden;">
-      <div style="width:49%; float:left;">
-         <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
-            [[video type="vimeo" id="23754691" vid_w="450" vid_h="280" /]]
-         </div>
-         [video type="vimeo" id="23754691" vid_w="450" vid_h="280" /]
-      </div>
-      <div style="width:49%; margin-left:2%; float:left;">
-         <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
-            [[video type="youtube" id="kPBzTxZQG5Q" autoplay="0" vid_w="450" vid_h="280" /]]
-         </div>
-         [video type="youtube" id="kPBzTxZQG5Q" autoplay="0" vid_w="450" vid_h="280" /]
-      </div>
-   </div>
+<div style="overflow:hidden;">
+<div style="width:49%; float:left;">
+<div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">[[video type="vimeo" id="23754691" vid_w="450" vid_h="280" /]]</div>
+[video type="vimeo" id="23754691" vid_w="450" vid_h="280" /]</div>
+
+<div style="width:49%; margin-left:2%; float:left;">
+<div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">[[video type="youtube" id="kPBzTxZQG5Q" autoplay="0" vid_w="450" vid_h="280" /]]</div>
+[video type="youtube" id="kPBzTxZQG5Q" autoplay="0" vid_w="450" vid_h="280" /]</div>
+</div>
 </div>
 
 <h3># Image</h3>
+
 <div style="margin-left:40px;">
-   <div style="overflow:hidden;">
-      <div style="width:49%; float:left;">
-         <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
-            &lt;p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.&lt;/p><br/><br/>
-            &lt;p>[[image src="image/data/demo/compaq_presario.jpg" img_w="300" img_h="184" alt="compaq-presario-2014" /]]It has survived not only five centuries.. ...&lt;/p>
-         </div>
-         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-         <p>[image src="image/data/demo/compaq_presario.jpg" img_w="300" img_h="184" alt="compaq-presario-2014" align="center" /] It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-      </div>
-      <div style="width:49%; margin-left:2%; float:left;">
-         <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
-            &lt;p>[[image img_w="300" img_h="184" alt="compaq-presario-2014" align="right"]image/data/demo/compaq_presario.jpg[/image]]Lorem Ipsum is simply dummy text of the printing.. ...&lt;/p><br/><br/>
-            &lt;p>It has survived not only five centuries, but also the leap into electronic typesetting, ...&lt;/p>
-         </div>
-         <p>[image img_w="300" img_h="184" alt="compaq-presario-2014" align="right"]image/data/demo/compaq_presario.jpg[/image]Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-         <p>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-      </div>
-   </div>
+<div style="overflow:hidden;">
+<div style="width:49%; float:left;">
+<div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">&lt;p&gt;Lorem Ipsum is simply dummy text of the printing and typesetting industry.&lt;/p&gt;<br />
+<br />
+&lt;p&gt;[[image src="image/data/demo/compaq_presario.jpg" img_w="300" img_h="184" alt="compaq-presario-2014" /]]It has survived not only five centuries.. ...&lt;/p&gt;</div>
+
+<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+
+<p>[image src="image/data/demo/compaq_presario.jpg" img_w="300" img_h="184" alt="compaq-presario-2014" align="center" /] It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
 </div>
 
+<div style="width:49%; margin-left:2%; float:left;">
+<div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">&lt;p&gt;[[image img_w="300" img_h="184" alt="compaq-presario-2014" align="right"]image/data/demo/compaq_presario.jpg[/image]]Lorem Ipsum is simply dummy text of the printing.. ...&lt;/p&gt;<br />
+<br />
+&lt;p&gt;It has survived not only five centuries, but also the leap into electronic typesetting, ...&lt;/p&gt;</div>
+
+<p>[image img_w="300" img_h="184" alt="compaq-presario-2014" align="right"]image/data/demo/compaq_presario.jpg[/image]Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+
+<p>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+</div>
+</div>
+</div>
+
+<h3># Image Modalbox</h3>
+
+<div style="margin-left:40px; margin-bottom:20px;">
+<div style="overflow:hidden;">
+<div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">&lt;p&gt;[[image_modal src="image/data/demo/ipod_touch_6.jpg" load_script="1" /]]It has survived not only five centuries.. ...&lt;/p&gt;</div>
+
+<p>[image_modal src="image/data/demo/ipod_touch_6.jpg" img_h="135" load_script="1" /] Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+
+<p>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+
+<p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+</div>
+</div>
 
 <h2>Debug</h2>
 
 <div style="margin-left:40px;">
-   <div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">
-      [[debug /]]
-   </div>
-   <p>[debug /]</p>
+<div style="color:#333; background:#e9effa; font-family:monospace; padding:4px 10px; text-shadow:1px 1px 1px #fff; font-size:13px; margin-bottom:15px;">[[debug /]]</div>
+
+<p>[debug /]</p>
 </div>
