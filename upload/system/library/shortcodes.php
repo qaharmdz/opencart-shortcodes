@@ -19,17 +19,50 @@
  *
  *
  * Shortcodes format example:
- * [shortcode /]
- * [shortcode foo="bar" baz="bing" /]
- * [shortcode foo="bar"]content[/shortcode]
+ * @example [shortcode /]
+ * @example [shortcode foo="bar" baz="bing" /]
+ * @example [shortcode foo="bar"]content[/shortcode]
  */
 
 class Shortcodes {
 
+   /**
+    * Container for storing shortcode tags and their hook to call for the shortcode.
+    *
+    * @since 1.0
+    * @name shortcode_tags
+    * @access private
+    *
+    * @var array
+    */
    private $shortcode_tags = array();
+   
+   /**
+    * Class refference of shortcode tags method.
+    *
+    * @since 1.0
+    * @name $shortcode_class
+    * @access private
+    *
+    * @var array
+    */
    private $shortcode_class = array();
 
-   // Add shortcode tag
+   /**
+    * Add hook for shortcode tag.
+    *
+    * There can only be one hook for each shortcode. Which means that if another
+    * plugin has a similar shortcode, it will override yours or yours will override
+    * theirs depending on which order the plugins are included and/or ran.
+    *
+    * @since 1.0
+    * @uses shortcode_tags
+    * @uses $shortcode_class
+    *
+    * @param string $tag Shortcode tag to be searched in post content
+    * @param callable $func Hook to run when shortcode is found
+    * @param callable $class Class where the shortcode is stored
+    */
    public function add_shortcode($tag, $func, $class) {
       if (is_callable(get_class($class).'::'.$func)) {
          $this->shortcode_tags[$tag] = $func;
@@ -37,24 +70,57 @@ class Shortcodes {
       }
    }
 
-   // Removes shortcode tag
+   /**
+    * Removes hook for shortcode.
+    *
+    * @since 1.0
+    * @uses shortcode_tags
+    * @uses $shortcode_class
+    *
+    * @param string $tag shortcode tag to remove hook for
+    */
    public function remove_shortcode($tag) {
       unset($this->shortcode_tags[$tag]);
       unset($this->shortcode_class[$tag]);
    }
 
-   // Clear all shortcodes
+   /**
+    * Clear all shortcodes.
+    *
+    * This function is simple, it clears all of the shortcode tags by replacing the
+    * shortcodes global by a empty array. This is actually a very efficient method
+    * for removing all shortcodes.
+    *
+    * @since 1.0
+    * @uses shortcode_tags
+    * @uses $shortcode_class
+    */
    public function remove_all_shortcodes() {
       $this->shortcode_tags = array();
       $this->shortcode_class = array();
    }
 
-   // Check shortcode exists named $tag
+   /**
+    * Whether a registered shortcode exists named $tag
+    *
+    * @since 1.0
+    *
+    * @param string $tag
+    * @return boolean
+    */
    public function shortcode_exists($tag) {
       return array_key_exists($tag, $this->shortcode_tags);
    }
 
-   // Whether the passed content contains the specified shortcode
+   /**
+    * Whether the passed content contains the specified shortcode.
+    *
+    * @since 1.0
+    *
+    * @param string $content
+    * @param string $tag
+    * @return boolean
+    */
    public function has_shortcode($content, $tag) {
       if ( shortcode_exists( $tag ) ) {
          preg_match_all( '/' . $this->get_shortcode_regex() . '/s', $content, $matches, PREG_SET_ORDER );
@@ -72,7 +138,20 @@ class Shortcodes {
       return false;
    }
 
-   // Search content for shortcodes and apply them
+   /**
+    * Search content for shortcodes and filter shortcodes through their hooks.
+    *
+    * If there are no shortcode tags defined, then the content will be returned
+    * without any filtering. This might cause issues when extensions are disabled but
+    * the shortcode will still show up in the post or content.
+    *
+    * @since 1.0
+    * @uses shortcode_tags
+    * @uses get_shortcode_regex() Gets the search pattern for searching shortcodes.
+    *
+    * @param string $content Content to search for shortcodes
+    * @return string Content with shortcodes filtered out
+    */
    public function do_shortcode($content) {
       if (empty($this->shortcode_tags) || !is_array($this->shortcode_tags)) {
          return $content;
@@ -97,6 +176,11 @@ class Shortcodes {
     * 4 - The self closing /
     * 5 - The content of a shortcode when it wraps some content.
     * 6 - An extra ] to allow for escaping shortcodes with double [[]]
+    *
+    * @since 1.0
+    * @uses shortcode_tags
+    *
+    * @return string The shortcode search regular expression
     */
    public function get_shortcode_regex() {
       $tagnames = array_keys($this->shortcode_tags);
@@ -134,8 +218,18 @@ class Shortcodes {
          . '(\\]?)';                          // 6: Optional second closing brocket for escaping shortcodes: [[tag]]
    }
 
-   // Regular Expression callable for do_shortcode()
-   public function do_shortcode_tag($m) {
+   /**
+    * Regular Expression callable for do_shortcode() for calling shortcode hook.
+    * @see get_shortcode_regex for details of the match array contents.
+    *
+    * @since 1.0
+    * @access private
+    * @uses shortcode_tags
+    *
+    * @param array $m Regular expression match array
+    * @return mixed False on failure
+    */
+   private function do_shortcode_tag($m) {
       if ( $m[1] == '[' && $m[6] == ']' ) {
          return substr($m[0], 1, -1);
       }
@@ -152,7 +246,18 @@ class Shortcodes {
       }
    }
 
-   // Retrieve all attributes from the shortcodes tag
+   /**
+    * Retrieve all attributes from the shortcodes tag.
+    *
+    * The attributes list has the attribute name as the key and the value of the
+    * attribute as the value in the key/value pair. This allows for easier
+    * retrieval of the attributes, since all attributes have to be known.
+    *
+    * @since 1.0
+    *
+    * @param string $text
+    * @return array List of attributes and their value
+    */
    public function shortcode_parse_atts($text) {
       $atts = array();
       $pattern = '/(\w+)\s*=\s*"([^"]*)"(?:\s|$)|(\w+)\s*=\s*\'([^\']*)\'(?:\s|$)|(\w+)\s*=\s*([^\s\'"]+)(?:\s|$)|"([^"]*)"(?:\s|$)|(\S+)(?:\s|$)/';
@@ -178,7 +283,23 @@ class Shortcodes {
       return $atts;
    }
 
-   // Combine user attributes with known attributes and fill in defaults when needed
+   /**
+    * Combine user attributes with known attributes and fill in defaults when needed.
+    *
+    * The pairs should be considered to be all of the attributes which are
+    * supported by the caller and given as a list. The returned attributes will
+    * only contain the attributes in the $pairs list.
+    *
+    * If the $atts list has unsupported attributes, then they will be ignored and
+    * removed from the final returned list.
+    *
+    * @since 1.0
+    *
+    * @param array $pairs Entire list of supported attributes and their defaults
+    * @param array $atts User defined attributes in shortcode tag
+    * @param string $shortcode Optional. The name of the shortcode, provided for context to enable filtering
+    * @return array Combined and filtered attribute list
+    */
    public function shortcode_atts($pairs, $atts, $shortcode = '') {
       $atts = (array)$atts;
       $out = array();
@@ -193,7 +314,15 @@ class Shortcodes {
       return $out;
    }
 
-   // Remove shortcode tags from the given content
+   /**
+    * Remove all shortcode tags from the given content.
+    *
+    * @since 1.0
+    * @uses shortcode_tags
+    *
+    * @param string $content Content to remove shortcode tags
+    * @return string Content without shortcode tags
+    */
    public function strip_shortcodes($content) {
       if (empty($this->shortcode_tags) || !is_array($this->shortcode_tags)) {
          return $content;
@@ -210,8 +339,16 @@ class Shortcodes {
       return preg_replace_callback('/' . $pattern . '/s', 'Shortcodes::strip_shortcode_tag', $content);
    }
 
+   /**
+    * Allo [[foo]] syntax for escaping a tag.
+    *
+    * @since 1.0
+    * @uses shortcode_tags
+    *
+    * @param array $m Regular expression match array
+    * @return string Content without shortcode tags
+    */
    public function strip_shortcode_tag($m) {
-      // allow [[foo]] syntax for escaping a tag
       if ( $m[1] == '[' && $m[6] == ']' ) {
          return substr($m[0], 1, -1);
       }
