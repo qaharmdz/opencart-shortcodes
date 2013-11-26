@@ -330,7 +330,7 @@ class ShortcodesDefault extends Controller {
     * @param string $content Shortcode content
     * @return string Message if not permitted to read, show rest of article if permitted.
     * 
-    * @example [login message='Silahkan <a href="%s">login</a> untuk melihat halaman ini.']content[/login]
+    * @example [login msg_login='Silahkan <a href="%s">login</a> untuk melihat halaman ini.']content[/login]
     */
    function login($atts, $content = '') {
       $this->language->load('common/shortcodes_default');
@@ -449,7 +449,7 @@ class ShortcodesDefault extends Controller {
     * @return string Thumbnail with link to open modal box
     * 
     * @example [image_modal src="image/data/your_image.jpg" /]
-    * @example [image_modal src="image/data/your_image.jpg" img_w="450" img_h="280" title="" alt="" align="" caption="" load_script="1"/]
+    * @example [image_modal src="image/data/your_image.jpg" img_w="450" img_h="280" title="" alt="" align="" caption="" load_script="1" /]
     */
    function image_modal($atts, $content = '') {
       $this->language->load('common/shortcodes_default');

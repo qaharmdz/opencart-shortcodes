@@ -1,11 +1,4 @@
 <?php
-// Common
-$_['text_on']        = 'ON';
-$_['text_off']       = 'OFF';
-$_['text_good']      = 'Good';
-$_['text_req_on']    = 'Required to turn ON!';
-$_['text_req_off']    = 'Required to turn OFF!';
-
 
 // Shortcode login
 $_['login_message']        = 'Please <a href="%s">login</a> to read the rest of the post.';
@@ -15,6 +8,12 @@ $_['login_group']          = 'Your customer group is not permitted to read the r
 $_['imgModal_caption']     = 'Click to enlarge.';
 
 // Shortcode debug
+$_['text_on']              = 'ON';
+$_['text_off']             = 'OFF';
+$_['text_good']            = 'Good';
+$_['text_req_on']          = 'Required to turn ON!';
+$_['text_req_off']         = 'Required to turn OFF!';
+
 $_['debug_title']          = 'OpenCart Debug Info';
 $_['debug_opencart']       = 'OpenCart';
 $_['debug_vqmod']          = 'vQmod';
