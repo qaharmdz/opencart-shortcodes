@@ -13,7 +13,7 @@
          ]]></add>
       </operation>
    </file>
-   <file name="catalog/controller/common/maintenance.php">
+   <file name="catalog/controller/common/seo_url.php">
       <operation error="log" info="Load default and extend shortcodes ">
          <search position="after"><![CDATA[function index()]]></search>
          <add><![CDATA[
