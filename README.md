@@ -2,11 +2,11 @@
 
 OpenCart Shortcodes is a library and set of modification to enhance OpenCart with shortcodes based on Wordpress API.
 
-For further information on download, installation and development:
-[OpenCart-Shortcodes site](http://qahar.github.io/opencart-shortcodes/)
+For further information on installation and development:
+[documentation](https://octave.atlassian.net/wiki/display/EXTDOCS/OpenCart+Shortcodes)
 
 
 ### License ###
 
-Copyright (C) 2013  A. Qahar Mudzakkir - [EchoThemes](http://www.echothemes.com/extensions/blog-manager.html)<br/>
+Copyright (C) 2013  A. Qahar Mudzakkir<br/>
 Licensed under the GPLv3 (or later)
