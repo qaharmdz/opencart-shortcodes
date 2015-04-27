@@ -340,7 +340,7 @@ class Shortcodes {
    }
 
    /**
-    * Allo [[foo]] syntax for escaping a tag.
+    * Allow [[foo]] syntax for escaping a tag.
     *
     * @since 1.0
     * @uses shortcode_tags

@@ -24,12 +24,13 @@ class ShortcodesDefault extends Controller {
       
       if ($id) {
          $ssl     = ($ssl) ? "'SSL'" : "";
-         $title   = ($title) ? 'Title="' . $title . '"' : "";
 
          $this->load->model('catalog/product');
          $product = $this->model_catalog_product->getProduct($id);
          
          if ($product) {
+            $title = ($title) ? 'title="' . $title . '"' : 'title="' . $product['name'] . '"';
+
             if (!$content) {
                if(!$path && !$brand) {
                   return '<a href="' . $this->url->link('product/product', 'product_id=' . $id, $ssl) . '" ' . $title . '>' . $product['name'] . '</a>';
@@ -74,16 +75,15 @@ class ShortcodesDefault extends Controller {
       
       if ($path) {
          $ssl     = ($ssl) ? "'SSL'" : "";
-         $title   = ($title) ? 'Title="' . $title . '"' : "";
          
          $this->load->model('catalog/category');
          $category = $this->model_catalog_category->getCategory($path);
          
          if ($category) {
             if (!$content) {
-               return '<a href="' . $this->url->link('product/category', 'path=' . $path, $ssl) . '" ' . $title . '>' . $category['name'] . '</a>';
+               return '<a href="' . $this->url->link('product/category', 'path=' . $path, $ssl) . '"' . ' title="' . ($title ? $title : $category['name']) . '">' . $category['name'] . '</a>';
             } elseif ($content) {
-               return '<a href="' . $this->url->link('product/category', 'path=' . $path, $ssl) . '" ' . $title . '>' . $content . '</a>';
+               return '<a href="' . $this->url->link('product/category', 'path=' . $path, $ssl) . '"' . ' title="' . ($title ? $title : $content) . '">' . $content . '</a>';
             }
          } elseif (!$category && $content) {
             return $content;
@@ -113,23 +113,17 @@ class ShortcodesDefault extends Controller {
       ), $atts));
       
       $ssl     = ($ssl) ? "'SSL'" : "";
-      $title   = ($title) ? 'Title="' . $title . '"' : "";
+      $title   = ($title) ? 'title="' . $title . '"' : "";
 
       if ($brand) {
          $this->load->model('catalog/manufacturer');
          $manufacturer = $this->model_catalog_manufacturer->getManufacturer($brand);
-         
-         if (version_compare(VERSION, '1.5.3.1', '<=') == true) {
-            $brand_route   = 'product/manufacturer/product';
-         } else {
-            $brand_route   = 'product/manufacturer/info';
-         }
-         
+
          if ($manufacturer) {
             if (!$content) {
-               return '<a href="' . $this->url->link($brand_route, 'manufacturer_id=' . $brand, $ssl) . '" ' . $title . '>' . $manufacturer['name'] . '</a>';
+               return '<a href="' . $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $brand, $ssl) . '" ' . $title . '>' . $manufacturer['name'] . '</a>';
             } else {
-               return '<a href="' . $this->url->link($brand_route, 'manufacturer_id=' . $brand, $ssl) . '" ' . $title . '>' . $content . '</a>';
+               return '<a href="' . $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $brand, $ssl) . '" ' . $title . '>' . $content . '</a>';
             }
          } elseif (!$manufacturer && $content) {
             return $content;
@@ -166,7 +160,7 @@ class ShortcodesDefault extends Controller {
       
       if ($id) {
          $ssl     = ($ssl) ? "'SSL'" : "";
-         $title   = ($title) ? 'Title="' . $title . '"' : "";
+         $title   = ($title) ? 'title="' . $title . '"' : "";
          
          $this->load->model('catalog/category');
          $information = $this->model_catalog_information->getInformation($id);
@@ -203,7 +197,7 @@ class ShortcodesDefault extends Controller {
       ), $atts));
       
       if($route && $content) {
-         return '<a href="' . $this->url->link($route, $args, $ssl) . '" ' . $title . '>' . $content . '</a>';
+         return '<a href="' . $this->url->link($route, $args, $ssl) . '" ' . 'title="' . $title . '">' . $content . '</a>';
       }
    }
    
@@ -216,7 +210,7 @@ class ShortcodesDefault extends Controller {
     * @param string $content Shortcode content
     * @return string Link to manufacturer list or manufacture page
     * 
-    * @example [link_store store="x" route="foo" args="bar" ssl="0" title="xyz"]custom text[/link_custom]
+    * @example [link_store store="x" route="foo" args="bar=3" ssl="0" title="xyz"]custom text[/link_custom]
     */
    function link_store($atts, $content = '') {
       extract($this->shortcodes->shortcode_atts(array(
@@ -241,17 +235,18 @@ class ShortcodesDefault extends Controller {
                }
 
                $url = str_replace($current_store, $store_url, $this->url->link($route, $args, $ssl));
-               
-               return '<a href="' . $url . '" ' . $title . '>' . $content . '</a>';
+
+               return '<a href="' . $url . '" ' . 'title="' . $title . '">' . $content . '</a>';
             } else {
                return $content;
             }
          } else {
+            // from multi-store to default store
             $store_url  = HTTP_SERVER;
-            
+
             $url = str_replace($current_store, $store_url, $this->url->link($route, $args, $ssl));
-               
-            return '<a href="' . $url . '" ' . $title . '>' . $content . '</a>';
+
+            return '<a href="' . $url . '" ' . 'title="' . $title . '">' . $content . '</a>';
          }
       }
    }
@@ -264,29 +259,31 @@ class ShortcodesDefault extends Controller {
     * @param array $atts Shortcode attributes
     * @return string Module based on user choose
     * 
-    * @example [module_product type="featured" limit="5" img_w="100" img_h="100" /]
+    * @example [module_product type="latest" limit="4" img_w="100" img_h="100" /]
     */
    function module_product($atts) {
       extract($this->shortcodes->shortcode_atts(array(
-         'type'   => '',
-         'limit'  => 5,
-         'img_w'  => 80,
-         'img_h'  => 80
+         'type'    => '',
+         'limit'   => 4,
+         'img_w'   => 200,
+         'img_h'   => 200,
+         'product' => ''
       ), $atts));
 
       if ($type) {
-         $module = $this->getChild('module/' . $type, array(
-                     'limit'        => $limit,
-                     'image_width'  => $img_w,
-                     'image_height' => $img_h
+         $module = $this->load->controller('module/' . $type, array(
+                     'limit'   => $limit,
+                     'width'   => $img_w,
+                     'height'  => $img_h,
+                     'product' => explode(',', $product)
                   ));
-         
+
          $html = '<div class="shortcode-module sc-' . $type . '">' . $module . '</div>';
-         
+
          return $html;
       }
    }
-   
+
    /**
     * Load module slideshow
     * 
@@ -295,20 +292,20 @@ class ShortcodesDefault extends Controller {
     * @param array $atts Shortcode attributes
     * @return string Show module slideshow
     * 
-    * @example [module_slideshow id="x" limit="5" img_w="100" img_h="100" /]
+    * @example [module_slideshow id="7" img_w="1200" img_h="300" /]
     */
    function module_slideshow($atts) {
       extract($this->shortcodes->shortcode_atts(array(
          'id'     => 0,
-         'img_w'  => 80,
-         'img_h'  => 80
+         'img_w'  => 400,
+         'img_h'  => 300
       ), $atts));
 
       if ($id) {
-         $script  = '<script type="text/javascript" src="catalog/view/javascript/jquery/nivo-slider/jquery.nivo.slider.pack.js"></script>';
-         $style   = '<link href="catalog/view/theme/default/stylesheet/slideshow.css" type="text/css" rel="stylesheet" />';
+         $script  = '<script type="text/javascript" src="catalog/view/javascript/jquery/owl-carousel/owl.carousel.min.js"></script>';
+         $style   = '<link href="catalog/view/javascript/jquery/owl-carousel/owl.carousel.css" type="text/css" rel="stylesheet" />';
 
-         $module = $this->getChild('module/slideshow', array(
+         $module = $this->load->controller('module/slideshow', array(
                      'banner_id' => $id,
                      'width'     => $img_w,
                      'height'    => $img_h
@@ -338,7 +335,7 @@ class ShortcodesDefault extends Controller {
       extract($this->shortcodes->shortcode_atts(array(
          'msg_login'    => $this->language->get('login_message'),
          'msg_group'    => $this->language->get('login_group'),
-         'suffix'       => 'attention',
+         'suffix'       => '',
          'group'        => ''
       ), $atts));
       
@@ -367,27 +364,30 @@ class ShortcodesDefault extends Controller {
     * @param array $atts Shortcode attributes
     * @return string Video embed code
     * 
-    * @example [video type="vimeo" id="xxx" vid_w="450" vid_h="280" /]
+    * @example [video type="vimeo" id="xxx" ratio="16by9" /]
     */
    function video($atts) {
       extract($this->shortcodes->shortcode_atts(array(
          'type'      => 'youtube',
          'id'        => 0,
-         'vid_w'     => 450,
-         'vid_h'     => 280,
+         'ratio'     => '16by9', // 4by3
          'autoplay'  => 0
       ), $atts));
 
       if ($id) {
          if ($type == 'youtube') {
-            $video   = '<iframe width="' . $vid_w . '" height="' . $vid_h . '" src="http://youtube.com/embed/' . $id . '?rel=0&autoplay=' . $autoplay . '" frameborder="0" allowfullscreen></iframe>';
+            $video   = '<div class="embed-responsive embed-responsive-' . $ratio . '">';
+            $video  .= '<iframe class="embed-responsive-item" src="http://youtube.com/embed/' . $id . '?rel=0&autoplay=' . $autoplay . '" allowfullscreen></iframe>';
+            $video  .= '</div>';
             
             $html    = '<div class="shortcode-video sc-' . $type . '">' . $video . '</div>';
             
             return $html;
             
          } elseif ($type == 'vimeo') {
-            $video   = '<iframe src="//player.vimeo.com/video/' . $id . '?autoplay=' . $autoplay . '" width="' . $vid_w . '" height="' . $vid_h . '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+            $video   = '<div class="embed-responsive embed-responsive-' . $ratio . '">';
+            $video  .= '<iframe class="embed-responsive-item" src="//player.vimeo.com/video/' . $id . '?autoplay=' . $autoplay . '" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+            $video  .= '</div>';
             
             $html    = '<div class="shortcode-video sc-' . $type . '">' . $video . '</div>';
             
@@ -417,7 +417,7 @@ class ShortcodesDefault extends Controller {
          'align'     => '',    // left, right, center
          'cache'     => 1
       ), $atts));
-      
+
       if (!$src && $content) { $src = $content; }
       if (!$alt & $title) { $alt = $title; }
       if ($align == 'right') {
@@ -428,14 +428,12 @@ class ShortcodesDefault extends Controller {
          $align_style = 'float:left;margin:0 10px 0 10px;';
       }
 
-      $src_resize = str_replace('image/', '', $src);
-      
-      if (is_file(DIR_IMAGE . $src_resize)) {
+      if (is_file(DIR_IMAGE . $src)) {
          if ($cache) {
             $this->load->model('tool/image');
-            $src = $this->model_tool_image->resize($src_resize, $img_w, $img_h);
+            $src = $this->model_tool_image->resize($src, $img_w, $img_h);
          }
-         
+
          return '<img class="shortcode-image" src="' . $src . '" width="' . $img_w.'px' . '" height="' . $img_h.'px' . '" alt="' . $alt . '" title="' . $title . '" style="' . $align_style . '">';
       }
    }
@@ -476,32 +474,31 @@ class ShortcodesDefault extends Controller {
          $align_style = 'float:left;margin:0 10px 10px 0;';
       }
       
-      $src_resize    = str_replace('image/', '', $src);
+      $src_resize    = 'image/' . $src;
       $script_load   = '';
       
       if ($load_script) {
-         $script_load = '<script type="text/javascript"><!--
+         $script_load .= '<link rel="stylesheet" type="text/css" href="catalog/view/javascript/jquery/magnific/magnific-popup.css" media="screen" />';
+         $script_load .= '<script type="text/javascript" src="catalog/view/javascript/jquery/magnific/jquery.magnific-popup.min.js"></script>';
+         $script_load .= '<script type="text/javascript">
                $(document).ready(function() {
-                  $(".modalbox").colorbox({
-                     overlayClose: true,
-                     opacity: 0.5
+                  $(".modalbox").magnificPopup({
+                     type:"image"
                   });
                });
-               //--></script> ';
-         $script_load .= '<link rel="stylesheet" type="text/css" href="catalog/view/javascript/jquery/colorbox/colorbox.css" media="screen" />';
-         $script_load .= '<script type="text/javascript" src="catalog/view/javascript/jquery/colorbox/jquery.colorbox-min.js"></script>';
+               </script> ';
       }
-      
-      if (is_file(DIR_IMAGE . $src_resize)) {
+
+      if (is_file(DIR_IMAGE . $src)) {
          if ($cache) {
             $this->load->model('tool/image');
-            $src_thumb  = $this->model_tool_image->resize($src_resize, $img_w, $img_h);
+            $src_thumb  = $this->model_tool_image->resize($src, $img_w, $img_h);
          } else {
             $src_thumb  = $src;
          }
 
          $html  = '<div style="' . $align_style . '">';
-         $html .= '<a href="' . $src . '" title="' . $title . '" class="colorbox modalbox" style="text-decoration:none; outline:0;">';
+         $html .= '<a href="' . $src_resize . '" title="' . $title . '" class="modalbox" style="text-decoration:none; outline:0;">';
          $html .= '<img class="shortcode-image-modal" src="' . $src_thumb . '" width="' . $img_w.'px' . '" height="' . $img_h.'px' . '" alt="' . $alt . '" title="' . $title . '">';
          $html .= '<div class="help" style="font-style:italic;">' . $caption . '</div>';
          $html .= '</a>';
@@ -516,57 +513,57 @@ class ShortcodesDefault extends Controller {
     * Show lite System Information 
     * (full: http://www.echothemes.com/extensions/system-information.html)
     * 
-    * @since 1.0
+    * @since 2.0
     * 
     * @return string List of system information
     * 
-    * @example [debug /]
+    * @example [sysinfo /]
     */
-   function debug() {
-      $this->language->load('common/shortcodes_default');
-      
-      $data    = '<h3>' . $this->language->get('debug_title') . ' - ' . date('d M, Y') . '</h3>';
-      $data   .= '<table class="sc-debug">';
-      $data   .= '<tr><td>' . $this->language->get('debug_opencart') . '</td><td>: v' . VERSION . '</td></tr>';
-      if (isset(VQMod::$_vqversion)) {
-         $data   .=  '<tr><td>' . $this->language->get('debug_vqmod') . '</td><td>: v' . VQMod::$_vqversion . '</td></tr>';
-      }
-      $data   .= '<tr><td>' . $this->language->get('debug_shortcodes') . '</td><td>: v' . SHORTCODES_VERSION . '</td></tr>';
-      $data   .= '</table>';
-      $data   .= '<table class="sc-debug">';
-      $data   .= '<tr><td>' . $this->language->get('debug_php') . '</td><td>: v.' . phpversion() . '</td></tr>';
-      $data   .= '<tr><td>' . $this->language->get('debug_safemode') . '</td><td>: ' . ((ini_get('safe_mode')) ? $this->language->get('text_on') . ' <span class="sc-alert">- ' . $this->language->get('text_req_off') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>') . '</td></tr>';
-      $data   .= '<tr><td>' . $this->language->get('debug_reg_global') . '</td><td>: ' . ((ini_get('register_globals')) ? $this->language->get('text_on') . ' <span class="sc-alert">- ' . $this->language->get('text_req_off') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>') . '</td></tr>';
-      $data   .= '<tr><td>' . $this->language->get('debug_gpc') . '</td><td>: ' . ((ini_get('magic_quotes_gpc') || get_magic_quotes_gpc()) ? $this->language->get('text_on') . ' <span class="sc-alert">- ' . $this->language->get('text_req_off') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>') . '</td></tr>';
-      $data   .= '<tr><td>' . $this->language->get('debug_session') . '</td><td>: ' . ((ini_get('session_auto_start')) ? $this->language->get('text_on') . ' <span class="sc-alert">- ' . $this->language->get('text_req_off') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>') . '</td></tr>';
-      $data   .= '<tr><td>' . $this->language->get('debug_fopen') . '</td><td>: ' . ((ini_get('allow_url_fopen')) ? $this->language->get('text_on') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-alert">- ' . $this->language->get('text_req_on') . '</span>') . '</td></tr>';
-      if(VERSION >= '1.5.4') {
-         $data   .= '<tr><td>' . $this->language->get('debug_mcrypt') . '</td><td>: ' . ((extension_loaded('mcrypt')) ? $this->language->get('text_on') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-alert">- ' . $this->language->get('text_req_on') . '</span>') . '</td></tr>';
-      }
-      $data   .= '<tr><td>' . $this->language->get('debug_upload') . '</td><td>: ' . ((ini_get('file_uploads')) ? $this->language->get('text_on') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-alert">- ' . $this->language->get('text_req_on') . '</span>') . '</td></tr>';
-      $data   .= '<tr><td>' . $this->language->get('debug_cookies') . '</td><td>: ' . ((ini_get('session.use_cookies')) ? $this->language->get('text_on') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-alert">- ' . $this->language->get('text_req_on') . '</span>') . '</td></tr>';
-      $data   .= '<tr><td>' . $this->language->get('debug_gd') . '</td><td>: ' . ((extension_loaded('gd')) ? $this->language->get('text_on') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-alert">- ' . $this->language->get('text_req_on') . '</span>') . '</td></tr>';
-      $data   .= '<tr><td>' . $this->language->get('debug_curl') . '</td><td>: ' . ((extension_loaded('curl')) ? $this->language->get('text_on') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-alert">- ' . $this->language->get('text_req_on') . '</span>') . '</td></tr>';
-      $data   .= '<tr><td>' . $this->language->get('debug_fsock') . '</td><td>: ' . ((extension_loaded('sockets')) ? $this->language->get('text_on') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-alert">- ' . $this->language->get('text_req_on') . '</span>') . '</td></tr>';
-      $data   .= '<tr><td>' . $this->language->get('debug_zip') . '</td><td>: ' . ((extension_loaded('zlib')) ? $this->language->get('text_on') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-alert">- ' . $this->language->get('text_req_on') . '</span>') . '</td></tr>';
-      $data   .= '<tr><td>' . $this->language->get('debug_xml') . '</td><td>: ' . ((extension_loaded('xml')) ? $this->language->get('text_on') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-alert">- ' . $this->language->get('text_req_on') . '</span>') . '</td></tr>';
-      $data   .= '</table>';
-
-      $style   = '<style>';
-      $style  .= '.sc-debug { width:400px; border-collapse:separate; border-spacing:0; margin-bottom:20px; line-height:16px; }';
-      $style  .= '.sc-debug > tbody > tr:nth-child(odd) > td { background-color:#f2f2f2; }';
-      $style  .= '.sc-debug td { padding:6px 10px; vertical-align:top; }';
-      $style  .= '.sc-debug td:first-child { width:175px; }';
-      $style  .= '.sc-alert { color:#d00; }';
-      $style  .= '.sc-good { color:#1da00c; font-weight:bold; }';
-      $style  .= '</style>';
-      
-      // Show debug only for admin user
+   function sysinfo() {
+      // Show sysinfo only for admin user
       $this->load->library('user');
-      $this->user = new User($this->registry);
+      $user = new User($this->registry);
 
-      if ($this->user->isLogged()) {
-         $html = '<div class="shortcode-debug">' . $style . $data . '</div>';
+      if ($user->isLogged()) {
+         $this->language->load('common/shortcodes_default');
+         
+         $data    = '<h3>' . $this->language->get('sysinfo_title') . ' - ' . date('d M, Y') . '</h3>';
+         $data   .= '<table class="sc-sysinfo">';
+         $data   .= '<tr><td>' . $this->language->get('sysinfo_opencart') . '</td><td>: v' . VERSION . '</td></tr>';
+         if (isset(VQMod::$_vqversion)) {
+            $data   .=  '<tr><td>' . $this->language->get('sysinfo_vqmod') . '</td><td>: v' . VQMod::$_vqversion . '</td></tr>';
+         }
+         $data   .= '<tr><td>' . $this->language->get('sysinfo_shortcodes') . '</td><td>: v' . SHORTCODES_VERSION . '</td></tr>';
+         $data   .= '</table>';
+         $data   .= '<table class="sc-sysinfo">';
+         $data   .= '<tr><td>' . $this->language->get('sysinfo_php') . '</td><td>: v.' . phpversion() . '</td></tr>';
+         $data   .= '<tr><td>' . $this->language->get('sysinfo_safemode') . '</td><td>: ' . ((ini_get('safe_mode')) ? $this->language->get('text_on') . ' <span class="sc-alert">- ' . $this->language->get('text_req_off') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>') . '</td></tr>';
+         $data   .= '<tr><td>' . $this->language->get('sysinfo_reg_global') . '</td><td>: ' . ((ini_get('register_globals')) ? $this->language->get('text_on') . ' <span class="sc-alert">- ' . $this->language->get('text_req_off') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>') . '</td></tr>';
+         $data   .= '<tr><td>' . $this->language->get('sysinfo_gpc') . '</td><td>: ' . ((ini_get('magic_quotes_gpc') || get_magic_quotes_gpc()) ? $this->language->get('text_on') . ' <span class="sc-alert">- ' . $this->language->get('text_req_off') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>') . '</td></tr>';
+         $data   .= '<tr><td>' . $this->language->get('sysinfo_session') . '</td><td>: ' . ((ini_get('session_auto_start')) ? $this->language->get('text_on') . ' <span class="sc-alert">- ' . $this->language->get('text_req_off') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>') . '</td></tr>';
+         $data   .= '<tr><td>' . $this->language->get('sysinfo_fopen') . '</td><td>: ' . ((ini_get('allow_url_fopen')) ? $this->language->get('text_on') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-alert">- ' . $this->language->get('text_req_on') . '</span>') . '</td></tr>';
+         if(VERSION >= '1.5.4') {
+            $data   .= '<tr><td>' . $this->language->get('sysinfo_mcrypt') . '</td><td>: ' . ((extension_loaded('mcrypt')) ? $this->language->get('text_on') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-alert">- ' . $this->language->get('text_req_on') . '</span>') . '</td></tr>';
+         }
+         $data   .= '<tr><td>' . $this->language->get('sysinfo_upload') . '</td><td>: ' . ((ini_get('file_uploads')) ? $this->language->get('text_on') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-alert">- ' . $this->language->get('text_req_on') . '</span>') . '</td></tr>';
+         $data   .= '<tr><td>' . $this->language->get('sysinfo_cookies') . '</td><td>: ' . ((ini_get('session.use_cookies')) ? $this->language->get('text_on') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-alert">- ' . $this->language->get('text_req_on') . '</span>') . '</td></tr>';
+         $data   .= '<tr><td>' . $this->language->get('sysinfo_gd') . '</td><td>: ' . ((extension_loaded('gd')) ? $this->language->get('text_on') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-alert">- ' . $this->language->get('text_req_on') . '</span>') . '</td></tr>';
+         $data   .= '<tr><td>' . $this->language->get('sysinfo_curl') . '</td><td>: ' . ((extension_loaded('curl')) ? $this->language->get('text_on') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-alert">- ' . $this->language->get('text_req_on') . '</span>') . '</td></tr>';
+         $data   .= '<tr><td>' . $this->language->get('sysinfo_fsock') . '</td><td>: ' . ((extension_loaded('sockets') || function_exists('fsockopen')) ? $this->language->get('text_on') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-alert">- ' . $this->language->get('text_req_on') . '</span>') . '</td></tr>';
+         $data   .= '<tr><td>' . $this->language->get('sysinfo_zip') . '</td><td>: ' . ((extension_loaded('zlib')) ? $this->language->get('text_on') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-alert">- ' . $this->language->get('text_req_on') . '</span>') . '</td></tr>';
+         $data   .= '<tr><td>' . $this->language->get('sysinfo_xml') . '</td><td>: ' . ((extension_loaded('xml')) ? $this->language->get('text_on') . ' <span class="sc-good">- ' . $this->language->get('text_good') . '</span>' :  $this->language->get('text_off') . ' <span class="sc-alert">- ' . $this->language->get('text_req_on') . '</span>') . '</td></tr>';
+         $data   .= '</table>';
+
+         $style   = '<style>';
+         $style  .= '.sc-sysinfo { width:400px; border-collapse:separate; border-spacing:0; margin-bottom:20px; line-height:16px; }';
+         $style  .= '.sc-sysinfo > tbody > tr:nth-child(odd) > td { background-color:#f2f2f2; }';
+         $style  .= '.sc-sysinfo td { padding:6px 10px; vertical-align:top; }';
+         $style  .= '.sc-sysinfo td:first-child { width:175px; }';
+         $style  .= '.sc-alert { color:#d00; }';
+         $style  .= '.sc-good { color:#1da00c; font-weight:bold; }';
+         $style  .= '</style>';
+      
+         $html = '<div class="shortcode-sysinfo">' . $style . $data . '</div>';
          
          return $html;
       }

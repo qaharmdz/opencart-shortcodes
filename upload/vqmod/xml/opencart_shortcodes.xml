@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <modification>
 	<id>OpenCart Shortcodes</id>
-	<version>1.1.1</version>
-	<vqmver>2.4.0</vqmver>
-	<author>qahar [echothemes.com]</author>
+	<version>2.0</version>
+	<vqmver>2.5.0</vqmver>
+	<author>EchoThemes.com</author>
+
    <file name="system/startup.php">
       <operation error="abort" info="Load shortcodes library">
-         <search position="after"><![CDATA[DIR_SYSTEM . 'engine/action.php']]></search>
+         <search position="after"><![CDATA[DIR_SYSTEM . 'engine/registry.php']]></search>
          <add><![CDATA[
-         define('SHORTCODES_VERSION', '1.1.1');
+         define('SHORTCODES_VERSION', '2.0');
          require_once(DIR_SYSTEM . 'library/shortcodes.php');
          ]]></add>
       </operation>
    </file>
-   <file name="catalog/controller/common/seo_url.php">
+   <file name="catalog/controller/common/maintenance.php">
       <operation error="log" info="Load default and extend shortcodes ">
          <search position="after"><![CDATA[function index()]]></search>
          <add><![CDATA[
@@ -36,12 +37,12 @@
          $files = glob(DIR_APPLICATION . '/view/shortcodes/*.php');
          if ($files) {
             foreach ($files as $file) {
-               require_once(VQMod::modCheck($file));
+               require_once($file);
                
-               $file       = basename($file, ".php");
-               $extClass   = 'Shortcodes' . preg_replace('/[^a-zA-Z0-9]/', '', $file);
+               $file     = basename($file, ".php");
+               $extClass = 'Shortcodes' . preg_replace('/[^a-zA-Z0-9]/', '', $file);
                
-               $class      = new $extClass($this->registry);
+               $class   = new $extClass($this->registry);
                $scExtensions = get_class_methods($class);
                foreach ($scExtensions as $shortcode) {
                   $this->shortcodes->add_shortcode($shortcode, $shortcode, $class);
@@ -52,10 +53,10 @@
          //=== Themes shortcodes : for theme developer
          $file = DIR_TEMPLATE . $this->config->get('config_template') . '/shortcodes_theme.php';
          if (file_exists($file)) {
-            require_once(VQMod::modCheck($file));
+            require_once($file);
             
-            $class         = new ShortcodesTheme($this->registry);
-            $scThemes      = get_class_methods($class);
+            $class      = new ShortcodesTheme($this->registry);
+            $scThemes   = get_class_methods($class);
             foreach ($scThemes as $shortcode) {
                $this->shortcodes->add_shortcode($shortcode, $shortcode, $class);
             }
@@ -64,10 +65,10 @@
          //=== Custom shortcodes : user power!
          $file = DIR_TEMPLATE . $this->config->get('config_template') . '/shortcodes_custom.php';
          if (file_exists($file)) {
-            require_once(VQMod::modCheck($file));
+            require_once($file);
             
-            $class         = new ShortcodesCustom($this->registry);
-            $scCustom      = get_class_methods($class);
+            $class      = new ShortcodesCustom($this->registry);
+            $scCustom   = get_class_methods($class);
             foreach ($scCustom as $shortcode) {
                $this->shortcodes->add_shortcode($shortcode, $shortcode, $class);
             }
@@ -75,42 +76,102 @@
          
          //=========== END :: OpenCart Shortcodes
          ]]></add>
-      </operation>		
+      </operation>      
    </file>
-	<file name="system/engine/controller.php">
-		<operation error="log" info="Execute shortcode tags">
-         <search position="before"><![CDATA[return $this->output;]]></search>
+
+   <file name="catalog/controller/information/information.php,catalog/controller/product/product.php,catalog/controller/product/category.php">
+      <operation error="log" info="Parse shortcodes at information, product and category content">
+         <search position="after"><![CDATA[$data['description']]]></search>
          <add><![CDATA[
-         if (!defined('HTTPS_CATALOG')) { // front
-            $this->output = $this->shortcodes->do_shortcode($this->output);
+         $data['description'] = $this->shortcodes->do_shortcode($data['description']);
+         ]]></add>
+      </operation>
+   </file>
+   <file name="catalog/controller/product/category.php,catalog/controller/product/manufacturer.php">
+      <operation error="log" info="Product teaser in category and manufacture">
+         <search position="before"><![CDATA[new Pagination()]]></search>
+         <add><![CDATA[
+         $x = count($data['products']);
+         if ($x) {
+            $sc_products = array();
+            for ($i=0; $i < $x; $i++) {
+               $sc_products[$i] = $data['products'][$i];
+               $sc_products[$i]['description'] = $this->shortcodes->do_shortcode($data['products'][$i]['description']);
+            }
+            $data['products'] = $sc_products;
          }
          ]]></add>
       </operation>
-	</file>
-   
+   </file>
+   <file name="catalog/controller/module/bestseller.php,catalog/controller/module/featured.php,catalog/controller/module/latest.php,catalog/controller/module/special.php">
+      <operation error="log" info="Product teaser in category and manufacture">
+         <search position="before"><![CDATA[if (file_exists(DIR_TEMPLATE]]></search>
+         <add><![CDATA[
+         $x = count($data['products']);
+         if ($x) {
+            $sc_products = array();
+            for ($i=0; $i < $x; $i++) {
+               $sc_products[$i] = $data['products'][$i];
+               $sc_products[$i]['description'] = $this->shortcodes->do_shortcode($data['products'][$i]['description']);
+            }
+            $data['products'] = $sc_products;
+         }
+         ]]></add>
+      </operation>
+   </file>
+
+<!--
+   @todo
+   - Product teaser in category
+   - Product teaser in manufacture
+   - Module
+-->
+
+
+
+   <!--
+      Code below deprecated on Shortcodes v2.0, will remove on v2.2.
+   -->
+
+   <!-- Execute shortcodes on all pages (do not forget strip shortcodes on user input) -->
+   <!--
+   <file name="system/engine/loader.php">
+      <operation error="log" info="Execute shortcode tags">
+         <search position="before"><![CDATA[return $output;]]></search>
+         <add><![CDATA[
+         if (!defined('HTTPS_CATALOG')) { // front
+            $output = $this->registry->get('shortcodes')->do_shortcode($output);
+         }
+         ]]></add>
+      </operation>
+   </file>
+   -->
+
    <!-- Strip shortcodes -->
+   <!--
    <file name="catalog/controller/product/product.php">
-		<operation error="log" info="Strip shortcodes on user input">
+      <operation error="log" info="Strip shortcodes on user input">
          <search position="after"><![CDATA[$this->request->server['REQUEST_METHOD']]]></search>
          <add><![CDATA[$this->request->post = $this->shortcodes->strip_shortcodes($this->request->post);]]></add>
       </operation>
-	</file>
+   </file>
    <file name="catalog/controller/checkout/payment_method.php">
-		<operation error="log" info="Strip shortcodes on user input">
+      <operation error="log" info="Strip shortcodes on user input">
          <search position="before"><![CDATA[$this->request->post['comment']]]></search>
          <add><![CDATA[$this->request->post['comment'] = $this->shortcodes->strip_shortcodes($this->request->post['comment']);]]></add>
       </operation>
-	</file>
+   </file>
    <file name="catalog/controller/checkout/shipping_method.php">
-		<operation error="log" info="Strip shortcodes on user input">
+      <operation error="log" info="Strip shortcodes on user input">
          <search position="before"><![CDATA[$this->request->post['comment']]]></search>
          <add><![CDATA[$this->request->post['comment'] = $this->shortcodes->strip_shortcodes($this->request->post['comment']);]]></add>
       </operation>
-	</file>
+   </file>
    <file name="catalog/controller/account/return.php">
-		<operation error="log" info="Strip shortcodes on user input">
+      <operation error="log" info="Strip shortcodes on user input">
          <search position="before"><![CDATA[$this->model_account_return->addReturn($this->request->post)]]></search>
          <add><![CDATA[$this->request->post = $this->shortcodes->strip_shortcodes($this->request->post);]]></add>
       </operation>
-	</file>
+   </file>
+   -->
 </modification>
