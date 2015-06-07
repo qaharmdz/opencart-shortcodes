@@ -343,7 +343,7 @@ class ShortcodesDefault extends Controller {
       
       if ($content && $this->customer->isLogged()) {
          if($group) {
-            if ($group == $this->customer->getCustomerGroupId()) {
+            if ($group == $this->customer->getGroupId()) {
                return $this->shortcodes->do_shortcode($content);
             } else {
                return '<div class="' . $suffix . '">' . sprintf($msg_group, $this->url->link('information/contact')) . '</div>';
