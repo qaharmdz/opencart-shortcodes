@@ -162,7 +162,7 @@ class ShortcodesDefault extends Controller {
          $ssl     = ($ssl) ? "'SSL'" : "";
          $title   = ($title) ? 'title="' . $title . '"' : "";
          
-         $this->load->model('catalog/category');
+         $this->load->model('catalog/information');
          $information = $this->model_catalog_information->getInformation($id);
          
          if ($information) {
