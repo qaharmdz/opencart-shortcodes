@@ -1,7 +1,7 @@
 <?php
 /**
  * OpenCart Shortcodes
- * Copyright (c) 2013 qahar
+ * Copyright (c) 2013-2015 qahar
  * http://www.echothemes.com
  * Licensed under the GPLv3 (or later)
  * All rights reserved
