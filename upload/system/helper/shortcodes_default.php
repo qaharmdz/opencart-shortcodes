@@ -478,8 +478,9 @@ class ShortcodesDefault extends Controller {
       $script_load   = '';
       
       if ($load_script) {
-         $script_load .= '<link rel="stylesheet" type="text/css" href="catalog/view/javascript/jquery/magnific/magnific-popup.css" media="screen" />';
-         $script_load .= '<script type="text/javascript" src="catalog/view/javascript/jquery/magnific/jquery.magnific-popup.min.js"></script>';
+        $this->document->addStyle('catalog/view/javascript/jquery/magnific/magnific-popup.css');
+        $this->document->addScript('catalog/view/javascript/jquery/magnific/jquery.magnific-popup.min.js');
+
          $script_load .= '<script type="text/javascript">
                $(document).ready(function() {
                   $(".modalbox").magnificPopup({
