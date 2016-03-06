@@ -4,12 +4,13 @@ OpenCart Shortcodes is a library and set of modification to enhance OpenCart wit
 
 ## Installation
 
-1. Shortcodes require vQmod to work properly. Download and install latest vQmod before proceed installation.
-2. Download and extract OpenCart Shortcodes.
-3. Uploading
-   Two uploading method, with Extension Installer and Manually through FTP (prefered).
-   a. Use Extension Installer to upload shortcodes.ocmod.zip. (Use 2nd method below if you had issue with this method).
-   b. Manually with FTP software. Upload all files INSIDE the upload/ folder to your site root.
-4. Installation is done
+1. Download and extract OpenCart Shortcodes.
+2. Extract the zip package and use admin installer to upload shortcodes.ocmod.zip
+3. Installation is done
 
-Note: For Shortcodes v1.x please refer to https://octave.atlassian.net/wiki/pages/editpage.action?pageId=26804241
+## Quick Test
+1. Copy and Paste content quick-sample-code.txt to Extension > Information content
+2. Open on front site to check if Shortcodes working
+
+## Documentation
+https://octave.atlassian.net/wiki/display/EXTDOCS/SC+Install+and+Update
