@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <modification>
     <name>OpenCart Shortcodes</name>
-    <version>2.1.0</version>
-    <code>shortcodes</code>
+    <version>2.1.1</version>
+    <code>shortcodes_2.1.1</code>
     <author>EchoThemes</author>
     <link>http://www.echothemes.com</link>
 
@@ -94,7 +94,7 @@
          ]]></add>
       </operation>
    </file>
-   <file path="catalog/controller/product/{category,manufacturer}.php">
+   <file path="catalog/controller/product/{category,manufacturer,search}.php">
       <operation info="Product teaser in category and manufacture">
          <search><![CDATA[new Pagination()]]></search>
          <add position="before"><![CDATA[

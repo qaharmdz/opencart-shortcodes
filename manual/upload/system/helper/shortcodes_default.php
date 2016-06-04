@@ -14,7 +14,7 @@ class ShortcodesDefault extends Controller
      * @example [link_product id="x" path="x_x" brand="x" ssl="0" title="xyz" /]
      * @example [link_product id="x" path="x_x" brand="x" ssl="0" title="xyz"]custom text[/link_product]
      */
-    public function link_product($atts, $content = '')
+    public function link_product($atts, $content='')
     {
         extract($this->shortcodes->shortcode_atts(array(
             'id'    => 0,
@@ -62,7 +62,7 @@ class ShortcodesDefault extends Controller
      * @example [link_category path="x_y" ssl="0" title="xyz" /]
      * @example [link_category path="x_y" ssl="1" title="xyz"]custom text[/link_category]
      */
-    public function link_category($atts, $content = '')
+    public function link_category($atts, $content='')
     {
         extract($this->shortcodes->shortcode_atts(array(
             'path'  => 0,
@@ -96,7 +96,7 @@ class ShortcodesDefault extends Controller
      * @example [link_brand brand="x" ssl="0" title="xyz" /]
      * @example [link_brand brand="x" ssl="1" title="xyz"]custom text[/link_brand]
      */
-    public function link_brand($atts, $content = '')
+    public function link_brand($atts, $content='')
     {
         extract($this->shortcodes->shortcode_atts(array(
             'brand' => 0,
@@ -137,7 +137,7 @@ class ShortcodesDefault extends Controller
      * @example [link_info id="x" ssl="0" title="xyz" /]
      * @example [link_info id="x" ssl="0" title="xyz"]custom text[/link_info]
      */
-    public function link_info($atts, $content = '')
+    public function link_info($atts, $content='')
     {
         extract($this->shortcodes->shortcode_atts(array(
             'id'    => 0,
@@ -169,7 +169,7 @@ class ShortcodesDefault extends Controller
      * 
      * @example [link_custom route="foo" args="bar" ssl="0" title="xyz"]custom text[/link_custom]
      */
-    public function link_custom($atts, $content = '')
+    public function link_custom($atts, $content='')
     {
         extract($this->shortcodes->shortcode_atts(array(
             'route'  => '',
@@ -188,7 +188,7 @@ class ShortcodesDefault extends Controller
      * 
      * @example [link_store store="x" route="foo" args="bar=3" ssl="0" title="xyz"]custom text[/link_custom]
      */
-    public function link_store($atts, $content = '')
+    public function link_store($atts, $content='')
     {
         extract($this->shortcodes->shortcode_atts(array(
             'store' => 0,
@@ -199,19 +199,12 @@ class ShortcodesDefault extends Controller
         ), $atts));
 
         if ($route && $content) {
-            $current_store     = $this->config->get('config_url');
+            $current_store = $this->config->get('config_url');
 
             if ($store) {
-                $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "setting WHERE store_id = '" . (int)$store . "'" );
-
+                $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "setting WHERE store_id = '" . (int)$store . "' AND `key` = 'config_url'");
                 if ($query->num_rows) {
-                    foreach ($query->rows as $setting) {
-                        if ($setting['key'] == 'config_url') {
-                            $store_url  = $setting['value'];
-                        }
-                    }
-
-                    $url = str_replace($current_store, $store_url, $this->url->link($route, $args, $ssl));
+                    $url = str_replace($current_store, $query->row['value'], $this->url->link($route, $args, $ssl));
 
                     return '<a href="' . $url . '" ' . 'title="' . $title . '">' . $content . '</a>';
                 } else {
@@ -289,7 +282,7 @@ class ShortcodesDefault extends Controller
      * 
      * @example [login msg_login='Silahkan <a href="%s">login</a> untuk melihat halaman ini.']content[/login]
      */
-    public function login($atts, $content = '')
+    public function login($atts, $content='')
     {
         $this->language->load('common/shortcodes_default');
         
@@ -356,7 +349,7 @@ class ShortcodesDefault extends Controller
      * 
      * @example [image src="" img_w="450" img_h="280" title="" alt="" align="" /]
      */
-    public function image($atts, $content = '')
+    public function image($atts, $content='')
     {
         extract($this->shortcodes->shortcode_atts(array(
             'src'    => '',
@@ -394,7 +387,7 @@ class ShortcodesDefault extends Controller
      * @example [image_modal src="catalog/your_image.jpg" /]
      * @example [image_modal src="catalog/your_image.jpg" img_w="450" img_h="280" title="" alt="" align="" caption="" /]
      */
-    public function image_modal($atts, $content = '')
+    public function image_modal($atts, $content='')
     {
         $this->language->load('common/shortcodes_default');
 

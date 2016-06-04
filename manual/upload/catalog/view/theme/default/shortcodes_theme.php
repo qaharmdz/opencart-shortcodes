@@ -15,7 +15,7 @@ class ShortcodesTheme extends Controller
      *
      * [themeinfo /]
      */
-    function themeinfo()
+    public function themeinfo()
     {
         return 'This store use <b>' . $this->config->get('config_theme') . '</b> theme.';
     }
