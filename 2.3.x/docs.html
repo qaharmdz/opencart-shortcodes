@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Shortcodes - EchoThemes</title>
+  <link href="docs/image/favicon.png" rel="icon" />
+
+  <link rel="stylesheet" type="text/css" href="docs/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="docs/css/bootstrap-extra.min.css" />
+  <link rel="stylesheet" type="text/css" href="docs/css/font-awesome.min.css" />
+  <link rel="stylesheet" type="text/css" href="docs/css/highlight.github.css" />
+  <link rel="stylesheet" type="text/css" href="docs/css/docs.css" />
+
+  <script type="text/javascript" src="docs/js/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="docs/js/highlight.pack.js"></script>
+
+  <script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+<body data-spy="scroll" data-target="#navigation">
+<div class="container docs-wrapper">
+  <div class="row">
+    <div class="col-xs-12">
+      <img src="docs/image/logo.png" alt="EchoThemes Logo">
+    </div>
+  </div>
+
+  <div class="panel panel-default docs-panel">
+    <div class="panel-heading">
+      <h1>Shortcodes - Install Documentation</h1>
+    </div>
+    <div class="panel-body">
+      <h4 class="bs-margin-top-xs">Table of Contents</h4>
+      <ul class="list-unstyled docs-list">
+        <li><a href="#install">Installation</a>
+          <ul type="disc">
+            <li><a href="#extension-installer">Extension Installer</a></li>
+            <li><a href="#manual-install">Manual Install</a></li>
+          </ul>
+        </li>
+        <li><a href="#update">Updates</a></li>
+        <li><a href="#changelog">Changelog</a></li>
+      </ul>
+
+      <div class="alert alert-info">
+        For usages, defelopment and faqs, please visit our <a href="https://octave.atlassian.net/wiki/display/EXTDOCS/OpenCart+Shortcodes" target="_blank">online docs</a>.
+      </div>
+
+      <h2 id="install">Installation</h2>
+      <h4 id="extension-installer" style="margin-top:0;">Extension Installer</h4>
+      <ol type="1">
+        <li><p><b>Uploading</b></p>
+          <p>Go to <code>Extensions > Extension Installer</code> and upload file <b>installer/shortcodes.ocmod.zip</b>.</p>
+          <p class="small"><span class="label label-danger">NOTE</span> If you previously have Shortcodes installed, you will see replace file list. Proceed to replace them.</p>
+          <p class="small"><span class="label label-danger">NOTE</span> If you get warning <i>"using the same ID code as the one you are trying to upload!"</i> mean you installing same version. Click the clear button and no need to proceed.</p>
+        </li>
+        <li><p><b>Installation</b></p>
+          <p>Go to <code>Extensions > Modifications</code>, refresh modification to generate new modification cache.</p>
+          <p class="small"><span class="label label-danger">NOTE</span> If you see modification with same name, delete the one with lower version before refresh modification.</p>
+        </li>
+        <li><p><b>Quick Test</b></p>
+          <ol type="a">
+            <li>Copy and Paste content of file quick-sample-code.txt to <code>Extension > Information content</code>. You san use "Shortcodes sample" as title.</li>
+            <li>Open on front site to check if Shortcodes working</li>
+          </ol>
+        </li>
+      </ol>
+
+      <h4 id="manual-install">Manual Install</h4>
+      <p>If you have issues using Extension Installer, proceed with this manual installation.</p>
+      <ol type="1">
+        <li><p><b>Upload Files</b></p>
+          <p>Use FTP software and upload folders inside <b>manual/upload</b> to your site root.</p>
+          <p class="small"><span class="label label-danger">NOTE</span> Do not upload the folder <code>upload/</code>, but folders <b>inside</b> it.</p>
+        </li>
+        <li><p><b>Upload OcMod</b></p>
+          <p>Go to <code>Extensions > Extension Installer</code> and upload file <b>manual/shortcodes.ocmod.xml</b>.</p>
+          <p class="small"><span class="label label-danger">NOTE</span> If you get warning <i>"using the same ID code as the one you are trying to upload!"</i> mean you installing same version. Click the clear button and no need to proceed.</p>
+        </li>
+        <li><p><b>Installation</b></p>
+          <p>Next installation step is the same as <b>Extension Installer</b>: Installation.</p>
+        </li>
+      </ol>
+
+      <div style="padding:10px 0 20px; margin:30px -30px -10px; border:1px solid #ddd; border-left:0; border-right:0; background:#f8f8f8;">
+        <div class="text-center bs-margin-bottom-xs">
+          <small>Other Products by EchoThemes</small>
+        </div>
+        <div class="row">
+          <div class="col-xs-4">
+            <div class="pull-right">
+              <a href="http://www.echothemes.com/extensions/blog-manager-2.html" target="_blank">
+                <img src="docs/image/opencart-blog-manager-2.png" alt="" class="img-responsive">
+              </a>
+            </div>
+          </div>
+          <div class="col-xs-4">
+            <div class="center-block" style="width:230px">
+              <a href="http://www.echothemes.com/extensions/customer-summary.html" target="_blank">
+                <img src="docs/image/opencart-customer-summary.png" alt="" class="img-responsive">
+              </a>
+            </div>
+          </div>
+          <div class="col-xs-4">
+            <div class="pull-left">
+              <a href="http://www.opencart.com/index.php?route=extension/extension/info&extension_id=21411" target="_blank">
+                <img src="docs/image/opencart-default2.png" alt="" class="img-responsive">
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h2 id="update">Updates</h2>
+      <p>Update have same step as Installation</p>
+
+      <h2 id="changelog">Changelog</h2>
+      <p>Changelog available <a href="https://octave.atlassian.net/wiki/display/EXTDOCS/BM2+Changelog" target="_blank">here</a>.</p>
+    </div>
+  </div>
+
+  <div class="docs-footer">
+    Copyright © <a href="http://www.echothemes.com" title="EchoThemes site" target="_blank">EchoThemes</a>. All right reserved.
+  </div>
+</div>
+</body>
+</html>

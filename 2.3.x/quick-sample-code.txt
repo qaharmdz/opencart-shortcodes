@@ -1,0 +1,339 @@
+<p class="lead">Shortcodes is away to replace simple code with advanced content. Increase your conversion rate by using shortcodes to enhance your <a href="http://www.echothemes.com/extensions/blog-manager-2.html" title="Profesional blog for OpenCart 2">blog</a> content.</p>
+
+<h2>Links</h2>
+<p><b>Key Features</b></p>
+<ul>
+    <li>Get product, category or brand name and link dynamicly.</li>
+    <li>Automaticly aplly url alias. Alias change won't brake product link in your blog.</li>
+    <li>Add category and brand to product link to show full url.</li>
+    <li>Disabled or deleted item (product, category etc) not cause incomplete sentence.</li>
+</ul>
+
+<h4># Product Link</h4>
+
+<div style="margin-left:40px;">
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <kbd style="margin-right:10px">Example</kbd> Dynamicly grab [link_product id="42" /] name and link by product_id.
+        </div>
+        <div class="panel-footer">Dynamicly grab [[link_product id="42" /]] name and link by product_id.</div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <kbd style="margin-right:10px">Example</kbd> [link_product id="42" path="25_28" ssl="1" title="Very good products!" /] is example of product link with category path, custom link title and force SSL.
+        </div>
+        <div class="panel-footer">[[link_product id="42" path="25_28" ssl="1" title="Very good products!" /]] is example of product link with category path, custom link title and force SSL.</div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <kbd style="margin-right:10px">Example</kbd> A link to [link_product id="42" brand="8"]product[/link_product] with custom shortcode content.
+        </div>
+        <div class="panel-footer">A link to [[link_product id="42" brand="8"]product[/link_product]]  with custom shortcode content.</div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <kbd style="margin-right:10px">Example</kbd> A link to unavailable [link_product id="101" path="25_28"]product[/link_product] will return the content to avoid incomplete sentences.
+        </div>
+        <div class="panel-footer"> A link to unavailable [[link_product id="101" path="25_28"]product[/link_product]] will return the content to avoid incomplete sentences.</div>
+    </div>
+</div>
+
+<h4># Category Link</h4>
+
+<div style="margin-left:40px;">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <kbd style="margin-right:10px">Example</kbd> A link to [link_category path="20" ssl="0" /] category.
+        </div>
+        <div class="panel-footer">A link to [[link_category path="20" ssl="0" /]] category.</div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <kbd style="margin-right:10px">Example</kbd> Upcoming amazing [link_category path="20_27" ssl="0"]macbook[/link_category] for geek!
+        </div>
+        <div class="panel-footer">Upcoming amazing [[link_category path="20_27" ssl="0"]macbook[/link_category]] for geek!</div>
+    </div>
+</div>
+
+<h4># Manufacturer Link</h4>
+
+<div style="margin-left:40px;">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <kbd style="margin-right:10px">Example</kbd> We provide products from famous [link_brand/].
+        </div>
+        <div class="panel-footer">We provide products from famous [[link_brand /]].</div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <kbd style="margin-right:10px">Example</kbd> We provide products from famous [link_brand title="World famous brand"]cool brand[/link_brand].
+        </div>
+        <div class="panel-footer">We provide products from famous [[link_brand title="World famous brand"]cool brand[/link_brand]].</div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <kbd style="margin-right:10px">Example</kbd> View all [link_brand brand="8"]apple[/link_brand] product at the store.
+        </div>
+        <div class="panel-footer">View all [[link_brand brand="8"]apple[/link_brand]] product at the store.</div>
+    </div>
+</div>
+
+<h4># Information Link</h4>
+
+<div style="margin-left:40px;">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <kbd style="margin-right:10px">Example</kbd> For further info check [link_info id="6" /].
+        </div>
+        <div class="panel-footer">For further info check [[link_info id="6" /]].</div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <kbd style="margin-right:10px">Example</kbd> Check world wide free [link_info id="6" title="Free shipping worldwide!"]shipping[/link_info].
+        </div>
+        <div class="panel-footer">Check world wide free [[link_info id="6" title="Free shipping worldwide!"]shipping[/link_info]].</div>
+    </div>
+</div>
+
+<h4># Custom Link</h4>
+
+<div style="margin-left:40px;">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <kbd style="margin-right:10px">Example</kbd> Back to [link_custom route="common_home"]homepage[/link_custom].
+        </div>
+        <div class="panel-footer">Back to [[link_custom route="common_home"]homepage[/link_custom]].</div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <kbd style="margin-right:10px">Example</kbd> Read our [link_custom route="information/information" args="information_id=3" title="Privacy policy"]privacy[/link_custom] policy.
+        </div>
+        <div class="panel-footer">Read our [[link_custom route="information/information" args="information_id=3" title="Privacy policy"]privacy[/link_custom]] policy.</div>
+    </div>
+</div>
+
+<h4># Store Link</h4>
+
+<p>Similiar to custom link shortcode with specific purpose to generate link to multistore.</p>
+
+<div style="margin-left:40px;">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <kbd style="margin-right:10px">Example</kbd> Discount up to 50% at [link_store store="1" route="common/home"]Blue Sky[/link_store] fashion store.
+        </div>
+        <div class="panel-footer">Discount up to 50% at [[link_store store="1" route="common/home"]Blue Sky[/link_store]] fashion store.</div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <kbd style="margin-right:10px">Example</kbd> Discount up to 50% at [link_store store="1" route="product/category" args="path=25_28"]Blue Sky[/link_store] fashion store.
+        </div>
+        <div class="panel-footer">Discount up to 50% at [[link_store store="1" route="product/category" args="path=25_28"]Blue Sky[/link_store]] fashion store.</div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <kbd style="margin-right:10px">Example</kbd> Link to unavailable [link_store store="2" route="common/home"]store[/link_store] return the shortcode text content to avoid incomplete sentence.
+        </div>
+        <div class="panel-footer">Link to unavailable [[link_store store="2" route="common/home"]store[/link_store]] return the shortcode text content to avoid incomplete sentence.</div>
+    </div>
+</div>
+
+<h2>Modules</h2>
+<p><b>Key Features</b></p>
+<ul>
+    <li>Use existing modules (controller, module, template).</li>
+    <li>Module setting configured through shortcode arguments.</li>
+</ul>
+
+<h4># Products Module</h4>
+
+<div style="margin-left:40px">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <kbd style="margin-right:10px">Example</kbd>
+            [module_product type="featured" product="30,42,43,40" /]
+        </div>
+        <div class="panel-footer">[[module_product type="featured" product="30,42,43,40" /]]</div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <kbd style="margin-right:10px">Example</kbd>
+            [module_product type="latest" limit="4" img_w="200" img_h="200" /]
+        </div>
+        <div class="panel-footer">[[module_product type="latest" limit="4" img_w="200" img_h="200" /]]</div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <kbd style="margin-right:10px">Example</kbd>
+            [module_product type="special" limit="4" /]
+        </div>
+        <div class="panel-footer">[[module_product type="special" limit="4" /]]</div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <kbd style="margin-right:10px">Example</kbd>
+            [module_product type="bestseller" limit="4" /]
+        </div>
+        <div class="panel-footer">[[module_product type="bestseller" limit="4" /]]</div>
+    </div>
+</div>
+
+<h4># Slideshow Module</h4>
+
+<div style="margin-left:40px;">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <p><kbd style="margin-right:10px">Example</kbd></p>
+            [module_slideshow id="7" img_w="1200" img_h="300" /]
+        </div>
+        <div class="panel-footer">[[module_slideshow id="7" img_w="1200" img_h="300" /]]</div>
+    </div>
+</div>
+
+<h2>Extra Shortcodes</h2>
+
+<h4># Login</h4>
+<p><b>Key Features</b></p>
+<ul>
+    <li>Hide content for guess, show when they logged in.</li>
+    <li>Show/ hide content for specific customer group.</li>
+</ul>
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <p><kbd style="margin-right:10px">Example</kbd></p>
+                <p>Lorem ipsum dolor sit amet, dona abstulit meis audi anim igitur cui Tharsia. Euro in deinde cepit roseo commendavit auri in lucem concitaverunt in lucem exempli paupers coniunx efficerer nuptiarum cui.</p>
+                [login]
+                <p>Archistratem solatium persequendum loco sed esse deprecor cum autem nobiscum ei sed haec vidit tam ubicumque generum dixit. Cyrenaeam plus damna nautis unum eam ad quia illum in rei finibus veteres hoc contra me in.</p>
+                [/login]
+            </div>
+            <div class="panel-footer">
+                &lt;p&gt;Lorem ipsum dolor sit amet, dona abstulit meis audi anim igitur cui Tharsia. Euro in deinde cepit roseo commendavit auri in lucem concitaverunt in lucem exempli paupers coniunx efficerer nuptiarum cui.&lt;/p&gt;<br>
+                <br>
+                [[login]<br>
+                &lt;p&gt;Archistratem solatium persequendum loco sed esse deprecor cum autem nobiscum ei sed haec vidit tam ubicumque generum dixit. Cyrenaeam plus damna nautis unum eam ad quia illum in rei finibus veteres hoc contra me in.&lt;/p&gt;<br>
+                [/login]]
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <p><kbd style="margin-right:10px">Example</kbd></p>
+                <p>Lorem ipsum dolor sit amet, dona abstulit meis audi anim igitur cui Tharsia. Euro in deinde cepit roseo commendavit auri in lucem concitaverunt in lucem exempli paupers coniunx efficerer nuptiarum cui.</p>
+                [login msg_login='Silahkan <a href="%s">login</a> untuk melihat halaman ini.' suffix="alert alert-warning"]
+                <p>Archistratem solatium persequendum loco sed esse deprecor cum autem nobiscum ei sed haec vidit tam ubicumque generum dixit. Cyrenaeam plus damna nautis unum eam ad quia illum in rei finibus veteres hoc contra me in.</p>
+                [/login]
+            </div>
+            <div class="panel-footer">
+                &lt;p&gt;Lorem ipsum dolor sit amet, dona abstulit meis audi anim igitur cui Tharsia. Euro in deinde cepit roseo commendavit auri in lucem concitaverunt in lucem exempli paupers coniunx efficerer nuptiarum cui.&lt;/p&gt;<br>
+                <br>
+                [[login msg_login='Silahkan &lt;a href="%s"&gt;login&lt;/a&gt; untuk melihat halaman ini.' suffix="alert alert-warning"]<br>
+                &lt;p&gt;Archistratem solatium persequendum loco sed esse deprecor cum autem nobiscum ei sed haec vidit tam ubicumque generum dixit. Cyrenaeam plus damna nautis unum eam ad quia illum in rei finibus veteres hoc contra me in.&lt;/p&gt;<br>
+                [/login]]
+            </div>
+        </div>
+    </div>
+</div>
+
+<h4># Video</h4>
+<p><b>Key Features</b></p>
+<ul>
+    <li>Show YouTube and Vimeo video.</li>
+    <li>Use Bootstrap responsive media by default</li>
+    <li>Default bootstrap responsive ratio is 16by9</li>
+</ul>
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <p><kbd style="margin-right:10px">Example</kbd></p>
+                [video type="vimeo" id="23754691" ratio="4by3" /]
+            </div>
+            <div class="panel-footer">[[video type="vimeo" id="23754691" ratio="4by3" /]]</div>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <p><kbd style="margin-right:10px">Example</kbd></p>
+                [video type="youtube" id="kPBzTxZQG5Q" /]
+            </div>
+            <div class="panel-footer">[[video type="youtube" id="kPBzTxZQG5Q" /]]</div>
+        </div>
+    </div>
+</div>
+
+<h4># Image</h4>
+
+<p><b>Key Features</b></p>
+<ul>
+    <li>Positioning (align) image.</li>
+    <li>Load image from cache or directly.</li>
+</ul>
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <p><kbd style="margin-right:10px">Example</kbd></p>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                <p>[image src="catalog/demo/compaq_presario.jpg" img_w="300" img_h="184" alt="compaq-presario-2014" align="center" /] It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+            </div>
+            <div class="panel-footer" style="background:#fdfdfd">
+                &lt;p&gt;Lorem Ipsum is simply dummy text of the printing and typesetting industry.&lt;/p&gt;<br>
+                <br>
+                &lt;p&gt;[[image src="catalog/demo/compaq_presario.jpg" img_w="300" img_h="184" alt="compaq-presario-2014" /]]It has survived not only five centuries.. ...&lt;/p&gt;
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <p><kbd style="margin-right:10px">Example</kbd></p>
+                <p>[image img_w="300" img_h="184" alt="compaq-presario-2014" align="right"]catalog/demo/compaq_presario.jpg[/image]Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                <p>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+            </div>
+            <div class="panel-footer" style="background:#fdfdfd">
+                &lt;p&gt;[[image img_w="300" img_h="184" alt="compaq-presario-2014" align="right"]catalog/demo/compaq_presario.jpg[/image]]Lorem Ipsum is simply dummy text of the printing.. ...&lt;/p&gt;<br>
+                <br>
+                &lt;p&gt;It has survived not only five centuries, but also the leap into electronic typesetting, ...&lt;/p&gt;
+            </div>
+        </div>
+    </div>
+</div>
+
+<h4># Image Modalbox</h4>
+
+<div style="margin-bottom:20px;">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <p><kbd style="margin-right:10px">Example</kbd></p>
+            <p>[image_modal src="catalog/demo/imac_1.jpg" img_h="135" load_script="1" /] Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+            <p>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+            <p>[image_modal src="catalog/demo/imac_2.jpg" img_h="135" align="right" /] Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+            <p>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+            <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+        </div>
+        <div class="panel-footer">&lt;p&gt;[[image_modal src="catalog/demo/imac_1.jpg" load_script="1" /]]It has survived not only five centuries.. ...&lt;/p&gt;</div>
+    </div>
+</div>

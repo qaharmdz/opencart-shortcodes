@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modification>
+    <name>OpenCart Shortcodes</name>
+    <version>2.1.1</version>
+    <code>shortcodes_2.1.1</code>
+    <author>EchoThemes</author>
+    <link>http://www.echothemes.com</link>
+
+   <file path="admin/controller/startup/startup.php">
+        <operation info="Register Shortcodes">
+            <search><![CDATA[$this->registry->set('encryption']]></search>
+            <add position="after"><![CDATA[
+            // OpenCart Shortcodes
+            $this->registry->set('shortcodes', new Shortcodes($this->registry));
+            ]]></add>
+        </operation>
+    </file>
+    <file path="catalog/controller/startup/startup.php">
+        <operation info="Register Rhythm and autoload active theme preset">
+            <search><![CDATA[$this->registry->set('encryption']]></search>
+            <add position="after"><![CDATA[
+            // OpenCart Shortcodes
+            $this->registry->set('shortcodes', new Shortcodes($this->registry));
+            ]]></add>
+        </operation>
+    </file>
+    <file path="catalog/controller/startup/maintenance.php">
+        <operation>
+            <search><![CDATA[function index()]]></search>
+            <add position="after"><![CDATA[
+            //========= OpenCart Shortcodes
+            //=== Default shortcodes
+            $this->load->helper('shortcodes_default');
+
+            $class      = new ShortcodesDefault($this->registry);
+
+            $scDefaults = get_class_methods($class);
+            foreach ($scDefaults as $shortcode) {
+                $this->shortcodes->add_shortcode($shortcode, $shortcode, $class);
+            }
+
+            //=== Extensions shortcodes : for extensions developer
+            $files = glob(DIR_APPLICATION . '/view/shortcodes/*.php');
+            if ($files) {
+                foreach ($files as $file) {
+                   require_once($file);
+                   
+                   $file     = basename($file, ".php");
+                   $extClass = 'Shortcodes' . preg_replace('/[^a-zA-Z0-9]/', '', $file);
+                   
+                   $class = new $extClass($this->registry);
+                   $scExtensions = get_class_methods($class);
+                   foreach ($scExtensions as $shortcode) {
+                      $this->shortcodes->add_shortcode($shortcode, $shortcode, $class);
+                   }
+                }
+            }
+
+            //=== Themes shortcodes : for theme developer
+            $file = DIR_TEMPLATE . $this->config->get('config_theme') . '/shortcodes_theme.php';
+            if (file_exists($file)) {
+                require_once($file);
+
+                $class      = new ShortcodesTheme($this->registry);
+                $scThemes   = get_class_methods($class);
+                foreach ($scThemes as $shortcode) {
+                   $this->shortcodes->add_shortcode($shortcode, $shortcode, $class);
+                }
+            }
+
+            $this->event->trigger('shortcodes/themes/after', array(&$data));
+
+            //=== Custom shortcodes : user power!
+            $file = DIR_TEMPLATE . $this->config->get('config_theme') . '/shortcodes_custom.php';
+            if (file_exists($file)) {
+                require_once($file);
+
+                $class      = new ShortcodesCustom($this->registry);
+                $scCustom   = get_class_methods($class);
+                foreach ($scCustom as $shortcode) {
+                   $this->shortcodes->add_shortcode($shortcode, $shortcode, $class);
+                }
+            }
+            //========= End:: OpenCart Shortcodes
+            ]]></add>
+        </operation>
+    </file>
+
+    <file path="catalog/controller/{information,product}/{information,product,category}.php">
+      <operation info="Parse shortcodes at information, product and category content">
+         <search><![CDATA[$data['description']]]></search>
+         <add position="after"><![CDATA[
+         $data['description'] = $this->shortcodes->do_shortcode($data['description']);
+         ]]></add>
+      </operation>
+   </file>
+   <file path="catalog/controller/product/{category,manufacturer,search}.php">
+      <operation info="Product teaser in category and manufacture">
+         <search><![CDATA[new Pagination()]]></search>
+         <add position="before"><![CDATA[
+         $x = count($data['products']);
+         if ($x) {
+            $sc_products = array();
+            for ($i=0; $i < $x; $i++) {
+               $sc_products[$i] = $data['products'][$i];
+               $sc_products[$i]['description'] = $this->shortcodes->do_shortcode($data['products'][$i]['description']);
+            }
+            $data['products'] = $sc_products;
+         }
+         ]]></add>
+      </operation>
+   </file>
+   <file path="catalog/controller/module/{bestseller,featured,latest,special}.php">
+      <operation info="Product teaser in module">
+         <search><![CDATA[$this->load->view('module]]></search>
+         <add position="before"><![CDATA[
+         $x = count($data['products']);
+         if ($x) {
+            $sc_products = array();
+            for ($i=0; $i < $x; $i++) {
+               $sc_products[$i] = $data['products'][$i];
+               $sc_products[$i]['description'] = $this->shortcodes->do_shortcode($data['products'][$i]['description']);
+            }
+            $data['products'] = $sc_products;
+         }
+         ]]></add>
+      </operation>
+   </file>
+</modification>
