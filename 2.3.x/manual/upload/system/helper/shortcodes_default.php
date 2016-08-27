@@ -25,7 +25,7 @@ class ShortcodesDefault extends Controller
         ), $atts));
         
         if ($id) {
-            $ssl = ($ssl) ? "'SSL'" : "";
+            $ssl = ($ssl) ? true : false;
 
             $this->load->model('catalog/product');
             $product = $this->model_catalog_product->getProduct($id);
@@ -71,7 +71,7 @@ class ShortcodesDefault extends Controller
         ), $atts));
         
         if ($path) {
-            $ssl      = ($ssl) ? "'SSL'" : "";
+            $ssl = ($ssl) ? true : false;
 
             $this->load->model('catalog/category');
             $category = $this->model_catalog_category->getCategory($path);
@@ -104,7 +104,7 @@ class ShortcodesDefault extends Controller
             'title' => ''
         ), $atts));
 
-        $ssl    = ($ssl) ? "'SSL'" : "";
+        $ssl    = ($ssl) ? true : false;
         $title  = ($title) ? 'title="' . $title . '"' : "";
 
         if ($brand) {
@@ -146,8 +146,8 @@ class ShortcodesDefault extends Controller
         ), $atts));
 
         if ($id) {
-            $ssl      = ($ssl) ? "'SSL'" : "";
-            $title    = ($title) ? 'title="' . $title . '"' : "";
+            $ssl    = ($ssl) ? true : false;
+            $title  = ($title) ? 'title="' . $title . '"' : "";
 
             $this->load->model('catalog/information');
             $information = $this->model_catalog_information->getInformation($id);
@@ -172,11 +172,13 @@ class ShortcodesDefault extends Controller
     public function link_custom($atts, $content='')
     {
         extract($this->shortcodes->shortcode_atts(array(
-            'route'  => '',
-            'args'    => '',
-            'ssl'     => 0,
-            'title'  => ''
+            'route' => '',
+            'args'  => '',
+            'ssl'   => 0,
+            'title' => ''
         ), $atts));
+
+        $ssl = ($ssl) ? true : false;
 
         if($route && $content) {
             return '<a href="' . $this->url->link($route, $args, $ssl) . '" ' . 'title="' . $title . '">' . $content . '</a>';
@@ -198,6 +200,8 @@ class ShortcodesDefault extends Controller
             'title' => ''
         ), $atts));
 
+        $ssl = ($ssl) ? true : false;
+
         if ($route && $content) {
             $current_store = $this->config->get('config_url');
 
@@ -211,12 +215,7 @@ class ShortcodesDefault extends Controller
                     return $content;
                 }
             } else {
-                // from multi-store to default store
-                $store_url  = HTTP_SERVER;
-
-                $url = str_replace($current_store, $store_url, $this->url->link($route, $args, $ssl));
-
-                return '<a href="' . $url . '" ' . 'title="' . $title . '">' . $content . '</a>';
+                return '<a href="' . str_replace($current_store, HTTP_SERVER, $this->url->link($route, $args, $ssl)) . '" ' . 'title="' . $title . '">' . $content . '</a>';
             }
         }
     }
@@ -237,9 +236,9 @@ class ShortcodesDefault extends Controller
         ), $atts));
 
         if ($type) {
-            $module = $this->load->controller('module/' . $type, array(
-                        'limit'    => $limit,
-                        'width'    => $img_w,
+            $module = $this->load->controller('extension/module/' . $type, array(
+                        'limit'   => $limit,
+                        'width'   => $img_w,
                         'height'  => $img_h,
                         'product' => explode(',', $product)
                     ));
@@ -258,13 +257,13 @@ class ShortcodesDefault extends Controller
     public function module_slideshow($atts)
     {
         extract($this->shortcodes->shortcode_atts(array(
-            'id'     => 0,
-            'img_w'  => 400,
-            'img_h'  => 300
+            'id'    => 0,
+            'img_w' => 400,
+            'img_h' => 300
         ), $atts));
 
         if ($id) {
-            $module = $this->load->controller('module/slideshow', array(
+            $module = $this->load->controller('extension/module/slideshow', array(
                 'banner_id' => $id,
                 'width'     => $img_w,
                 'height'    => $img_h
@@ -284,14 +283,14 @@ class ShortcodesDefault extends Controller
      */
     public function login($atts, $content='')
     {
-        $this->language->load('common/shortcodes_default');
-        
         extract($this->shortcodes->shortcode_atts(array(
             'msg_login' => $this->language->get('login_message'),
             'msg_group' => $this->language->get('login_group'),
             'suffix'    => '',
             'group'     => ''
         ), $atts));
+
+        $this->language->load('common/shortcodes_default');
 
         if ($content && $this->customer->isLogged()) {
             if($group) {
@@ -389,7 +388,7 @@ class ShortcodesDefault extends Controller
      */
     public function image_modal($atts, $content='')
     {
-        $this->language->load('common/shortcodes_default');
+        static $sc_image_modal_script = false;
 
         extract($this->shortcodes->shortcode_atts(array(
             'src'       => '',
@@ -401,6 +400,8 @@ class ShortcodesDefault extends Controller
             'caption'   => $this->language->get('imgModal_caption'),
             'cache'     => 1
         ), $atts));
+
+        $this->language->load('common/shortcodes_default');
 
         if (!$src && $content) { $src = $content; }
         if (!$alt & $title) { $alt = $title; }
@@ -416,7 +417,7 @@ class ShortcodesDefault extends Controller
         $this->document->addScript('catalog/view/javascript/jquery/magnific/jquery.magnific-popup.min.js');
         $script_load = '<script type="text/javascript">
             $(document).ready(function() {
-                $(".modalbox").magnificPopup({
+                $(".sc-image-modal").magnificPopup({
                     type:"image"
                 });
             });
@@ -431,12 +432,16 @@ class ShortcodesDefault extends Controller
             }
 
             $html  = '<div style="' . $align_style . '">';
-            $html .= '<a href="image/' . $src . '" title="' . $title . '" class="modalbox" style="text-decoration:none; outline:0;">';
+            $html .= '<a href="image/' . $src . '" title="' . $title . '" class="sc-image-modal" style="text-decoration:none; outline:0;">';
             $html .= '<img class="shortcode-image-modal" src="' . $src_thumb . '" width="' . $img_w.'px' . '" height="' . $img_h.'px' . '" alt="' . $alt . '" title="' . $title . '">';
             $html .= '<div style="font-style:italic;text-align:center;font-size:12px;">' . $caption . '</div>';
             $html .= '</a>';
-            $html .= $script_load;
+            if (!$sc_image_modal_script) {
+                $html .= $script_load;
+            }
             $html .= '</div>';
+
+            $sc_image_modal_script = true;
 
             return $html;
         }

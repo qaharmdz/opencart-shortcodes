@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <modification>
     <name>OpenCart Shortcodes</name>
-    <version>2.1.1</version>
-    <code>shortcodes_2.1.1</code>
+    <version>2.2.0</version>
+    <code>shortcodes_2.2.0</code>
     <author>EchoThemes</author>
     <link>http://www.echothemes.com</link>
 
    <file path="admin/controller/startup/startup.php">
-        <operation info="Register Shortcodes">
+        <operation info="Add Shortcodes to admin $registry">
             <search><![CDATA[$this->registry->set('encryption']]></search>
             <add position="after"><![CDATA[
             // OpenCart Shortcodes
@@ -16,7 +16,7 @@
         </operation>
     </file>
     <file path="catalog/controller/startup/startup.php">
-        <operation info="Register Rhythm and autoload active theme preset">
+        <operation info="Add Shortcodes to front $registry">
             <search><![CDATA[$this->registry->set('encryption']]></search>
             <add position="after"><![CDATA[
             // OpenCart Shortcodes
@@ -32,11 +32,10 @@
             //=== Default shortcodes
             $this->load->helper('shortcodes_default');
 
-            $class      = new ShortcodesDefault($this->registry);
-
+            $class = new ShortcodesDefault($this->registry);
             $scDefaults = get_class_methods($class);
             foreach ($scDefaults as $shortcode) {
-                $this->shortcodes->add_shortcode($shortcode, $shortcode, $class);
+                $this->shortcodes->add_shortcode($shortcode, $class);
             }
 
             //=== Extensions shortcodes : for extensions developer
@@ -51,7 +50,7 @@
                    $class = new $extClass($this->registry);
                    $scExtensions = get_class_methods($class);
                    foreach ($scExtensions as $shortcode) {
-                      $this->shortcodes->add_shortcode($shortcode, $shortcode, $class);
+                      $this->shortcodes->add_shortcode($shortcode, $class);
                    }
                 }
             }
@@ -64,7 +63,7 @@
                 $class      = new ShortcodesTheme($this->registry);
                 $scThemes   = get_class_methods($class);
                 foreach ($scThemes as $shortcode) {
-                   $this->shortcodes->add_shortcode($shortcode, $shortcode, $class);
+                   $this->shortcodes->add_shortcode($shortcode, $class);
                 }
             }
 
@@ -78,7 +77,7 @@
                 $class      = new ShortcodesCustom($this->registry);
                 $scCustom   = get_class_methods($class);
                 foreach ($scCustom as $shortcode) {
-                   $this->shortcodes->add_shortcode($shortcode, $shortcode, $class);
+                   $this->shortcodes->add_shortcode($shortcode, $class);
                 }
             }
             //========= End:: OpenCart Shortcodes
