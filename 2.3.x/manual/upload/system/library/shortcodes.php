@@ -1,13 +1,13 @@
 <?php
 /**
- * OpenCart Shortcodes v1.2.0
+ * @package     OpenCart Shortcodes
+ * @author      EchoThemes, http://www.echothemes.com
+ * @copyright   Copyright (c) EchoThemes
+ * @license     GPLv3 or later, http://www.gnu.org/licenses/gpl-3.0.html
  *
- *
- * OpenCart Shortcodes
- * Copyright (c) 2013-2016 qahar
- * http://www.echothemes.com
- * Licensed under the GPLv3 (or later)
- * All rights reserved
+ * @example [shortcode /]
+ * @example [shortcode foo="bar" baz="zinc" /]
+ * @example [shortcode foo="bar"]content[/shortcode]
  *
  * Based on Shortcode for OpenCart
  * Copyright (c) 2013 RempongSoft
@@ -19,12 +19,6 @@
  * Licensed under the GPLv2 (or later)
  * http://www.wordpress.org/
  * All rights reserved
- *
- *
- * Shortcodes format example:
- * @example [shortcode /]
- * @example [shortcode foo="bar" baz="zinc" /]
- * @example [shortcode foo="bar"]content[/shortcode]
  */
 
 class Shortcodes {
@@ -39,7 +33,7 @@ class Shortcodes {
    * @var array
    */
   private $shortcode_tags = array();
-  
+
   /**
    * Class refference of shortcode tags method.
    *
@@ -138,7 +132,7 @@ class Shortcodes {
         }
       }
     }
-    
+
     return false;
   }
 
@@ -243,7 +237,7 @@ class Shortcodes {
 
     $tag = $m[2];
     $attr = $this->shortcode_parse_atts( $m[3] );
-     
+
     if ( isset( $m[5] ) ) {
       // enclosing tag - extra parameter
       return $m[1] . call_user_func( array( $this->shortcode_class[$tag] ,$this->shortcode_tags[$tag]), $attr, $m[5], $tag ) . $m[6];
@@ -286,7 +280,7 @@ class Shortcodes {
     } else {
       $atts = ltrim($text);
     }
-    
+
     return $atts;
   }
 

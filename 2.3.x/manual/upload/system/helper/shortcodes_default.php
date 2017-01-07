@@ -2,7 +2,7 @@
 /**
  * @package     OpenCart Shortcodes
  * @author      EchoThemes, http://www.echothemes.com
- * @copyright   Copyright (c) 2016 EchoThemes
+ * @copyright   Copyright (c) EchoThemes
  * @license     GPLv3 or later, http://www.gnu.org/licenses/gpl-3.0.html
  */
 
@@ -10,7 +10,7 @@ class ShortcodesDefault extends Controller
 {
     /**
      * Generate product link with it variant of category and manufacture link.
-     * 
+     *
      * @example [link_product id="x" path="x_x" brand="x" ssl="0" title="xyz" /]
      * @example [link_product id="x" path="x_x" brand="x" ssl="0" title="xyz"]custom text[/link_product]
      */
@@ -23,13 +23,13 @@ class ShortcodesDefault extends Controller
             'ssl'   => 0,
             'title' => ''
         ), $atts));
-        
+
         if ($id) {
             $ssl = ($ssl) ? true : false;
 
             $this->load->model('catalog/product');
             $product = $this->model_catalog_product->getProduct($id);
-            
+
             if ($product) {
                 $title = ($title) ? 'title="' . $title . '"' : 'title="' . $product['name'] . '"';
 
@@ -58,7 +58,7 @@ class ShortcodesDefault extends Controller
 
     /**
      * Generate category link.
-     * 
+     *
      * @example [link_category path="x_y" ssl="0" title="xyz" /]
      * @example [link_category path="x_y" ssl="1" title="xyz"]custom text[/link_category]
      */
@@ -69,7 +69,7 @@ class ShortcodesDefault extends Controller
             'ssl'   => 0,
             'title' => ''
         ), $atts));
-        
+
         if ($path) {
             $ssl = ($ssl) ? true : false;
 
@@ -90,7 +90,7 @@ class ShortcodesDefault extends Controller
 
     /**
      * Generate brand/ manufacturer link.
-     * 
+     *
      * @example [link_brand ssl="0" title="xyz" /]
      * @example [link_brand ssl="1" title="xyz"]custom text[/link_brand]
      * @example [link_brand brand="x" ssl="0" title="xyz" /]
@@ -133,7 +133,7 @@ class ShortcodesDefault extends Controller
 
     /**
      * Generate information link.
-     * 
+     *
      * @example [link_info id="x" ssl="0" title="xyz" /]
      * @example [link_info id="x" ssl="0" title="xyz"]custom text[/link_info]
      */
@@ -163,10 +163,10 @@ class ShortcodesDefault extends Controller
             }
         }
     }
-    
+
     /**
      * Generate custom link based on OpenCart API Url format
-     * 
+     *
      * @example [link_custom route="foo" args="bar" ssl="0" title="xyz"]custom text[/link_custom]
      */
     public function link_custom($atts, $content='')
@@ -187,7 +187,7 @@ class ShortcodesDefault extends Controller
 
     /**
      * Generate custom link for multi-store site
-     * 
+     *
      * @example [link_store store="x" route="foo" args="bar=3" ssl="0" title="xyz"]custom text[/link_custom]
      */
     public function link_store($atts, $content='')
@@ -219,10 +219,10 @@ class ShortcodesDefault extends Controller
             }
         }
     }
-    
+
     /**
      * Load module type product (featured, latest, bestseller, special) anywhere!
-     * 
+     *
      * @example [module_product type="latest" limit="4" img_w="100" img_h="100" /]
      */
     public function module_product($atts)
@@ -251,7 +251,7 @@ class ShortcodesDefault extends Controller
 
     /**
      * Load module slideshow
-     * 
+     *
      * @example [module_slideshow id="7" img_w="1200" img_h="300" /]
      */
     public function module_slideshow($atts)
@@ -278,7 +278,7 @@ class ShortcodesDefault extends Controller
     /**
      * User required to login to read the rest of the content.
      * Able to restrict user to read based on their group.
-     * 
+     *
      * @example [login msg_login='Silahkan <a href="%s">login</a> untuk melihat halaman ini.']content[/login]
      */
     public function login($atts, $content='')
@@ -309,7 +309,7 @@ class ShortcodesDefault extends Controller
 
     /**
      * Embed video: youtube and vimeo
-     * 
+     *
      * @example [video type="vimeo" id="xxx" ratio="16by9" /]
      */
     public function video($atts)
@@ -330,7 +330,7 @@ class ShortcodesDefault extends Controller
                 $html = '<div class="shortcode-video sc-' . $type . '">' . $video . '</div>';
 
                 return $html;
-                
+
             } elseif ($type == 'vimeo') {
                 $video  = '<div class="embed-responsive embed-responsive-' . $ratio . '">';
                 $video .= '<iframe class="embed-responsive-item" src="//player.vimeo.com/video/' . $id . '?autoplay=' . $autoplay . '" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
@@ -345,7 +345,7 @@ class ShortcodesDefault extends Controller
 
     /**
      * Embed image directly or with cache
-     * 
+     *
      * @example [image src="" img_w="450" img_h="280" title="" alt="" align="" /]
      */
     public function image($atts, $content='')
@@ -382,7 +382,7 @@ class ShortcodesDefault extends Controller
 
     /**
      * Embed image with modalbox feature
-     * 
+     *
      * @example [image_modal src="catalog/your_image.jpg" /]
      * @example [image_modal src="catalog/your_image.jpg" img_w="450" img_h="280" title="" alt="" align="" caption="" /]
      */

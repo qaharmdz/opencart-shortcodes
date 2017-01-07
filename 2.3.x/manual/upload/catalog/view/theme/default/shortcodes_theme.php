@@ -2,7 +2,7 @@
 /**
  * @package     OpenCart Shortcodes
  * @author      EchoThemes, http://www.echothemes.com
- * @copyright   Copyright (c) 2016 EchoThemes
+ * @copyright   Copyright (c) EchoThemes
  * @license     GPLv3 or later, http://www.gnu.org/licenses/gpl-3.0.html
  */
 

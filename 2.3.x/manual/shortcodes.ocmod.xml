@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <modification>
     <name>OpenCart Shortcodes</name>
-    <version>2.2.0</version>
-    <code>shortcodes_2.2.0</code>
+    <version>2.2.1</version>
+    <code>shortcodes_2.2.1</code>
     <author>EchoThemes</author>
     <link>http://www.echothemes.com</link>
 
@@ -43,10 +43,10 @@
             if ($files) {
                 foreach ($files as $file) {
                    require_once($file);
-                   
+
                    $file     = basename($file, ".php");
                    $extClass = 'Shortcodes' . preg_replace('/[^a-zA-Z0-9]/', '', $file);
-                   
+
                    $class = new $extClass($this->registry);
                    $scExtensions = get_class_methods($class);
                    foreach ($scExtensions as $shortcode) {
@@ -55,8 +55,14 @@
                 }
             }
 
+            //--------------- OLD theme OpenCart 2 compatible
+            $theme = $this->config->get('config_theme');
+            if ($this->config->get('config_theme') == 'theme_default') {
+              $theme = $this->config->get('theme_default_directory');
+            }
+
             //=== Themes shortcodes : for theme developer
-            $file = DIR_TEMPLATE . $this->config->get('config_theme') . '/shortcodes_theme.php';
+            $file = DIR_TEMPLATE . $theme . '/shortcodes_theme.php';
             if (file_exists($file)) {
                 require_once($file);
 
@@ -70,7 +76,7 @@
             $this->event->trigger('shortcodes/themes/after', array(&$data));
 
             //=== Custom shortcodes : user power!
-            $file = DIR_TEMPLATE . $this->config->get('config_theme') . '/shortcodes_custom.php';
+            $file = DIR_TEMPLATE . $theme . '/shortcodes_custom.php';
             if (file_exists($file)) {
                 require_once($file);
 
@@ -89,7 +95,7 @@
       <operation info="Parse shortcodes at information, product and category content">
          <search><![CDATA[$data['description']]]></search>
          <add position="after"><![CDATA[
-         $data['description'] = $this->shortcodes->do_shortcode($data['description']);
+          $data['description'] = $this->shortcodes->do_shortcode($data['description']);
          ]]></add>
       </operation>
    </file>
@@ -109,9 +115,9 @@
          ]]></add>
       </operation>
    </file>
-   <file path="catalog/controller/module/{bestseller,featured,latest,special}.php">
+   <file path="catalog/controller/extension/module/{bestseller,featured,latest,special}.php">
       <operation info="Product teaser in module">
-         <search><![CDATA[$this->load->view('module]]></search>
+         <search><![CDATA[$this->load->view('extension/module]]></search>
          <add position="before"><![CDATA[
          $x = count($data['products']);
          if ($x) {

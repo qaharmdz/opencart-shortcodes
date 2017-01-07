@@ -7,10 +7,13 @@
 
 
 === ToDo
-- do_shortcodes on teaser modules then truncate
 - do_shortcodes on meta title and meta description
 
 #=== v2.x.x
+
+=== v2.2.1 -
+* Old Themes OpenCart 2.3.x compatibility
+* Module teaser shortcodes
 
 === v2.2.0 - August 29, 2016
 ^ OpenCart 2.3.0 compatibility
