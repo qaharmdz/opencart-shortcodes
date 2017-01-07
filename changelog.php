@@ -11,8 +11,8 @@
 
 #=== v2.x.x
 
-=== v2.2.1 -
-* Old Themes OpenCart 2.3.x compatibility
+=== v2.2.1 - January 07, 2017
+* Old Themes OpenCart 2.3.x compatible
 * Module teaser shortcodes
 
 === v2.2.0 - August 29, 2016
