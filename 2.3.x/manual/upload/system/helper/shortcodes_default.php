@@ -361,7 +361,7 @@ class ShortcodesDefault extends Controller
         ), $atts));
 
         if (!$src && $content) { $src = $content; }
-        if (!$alt & $title) { $alt = $title; }
+        if (!$alt && $title) { $alt = $title; }
         if ($align == 'right') {
             $align_style = 'float:right;margin:0 0 10px 10px;';
         } elseif ($align == 'center') {
