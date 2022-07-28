@@ -1,4 +1,4 @@
-<p class="lead">Shortcodes is away to replace simple code with advanced content. Increase your conversion rate by using shortcodes to enhance your <a href="http://www.echothemes.com/extensions/blog-manager-2.html" title="Profesional blog for OpenCart 2">blog</a> content.</p>
+<p class="lead">Shortcodes is away to replace simple code with advanced content.</p>
 
 <h2>Links</h2>
 <p><b>Key Features</b></p>
